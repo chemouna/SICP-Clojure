@@ -5,6 +5,24 @@
   (throw (RuntimeException. (clojure.string/join " " (cons message args)))))
 
 
+;; Ex 3.1
+(defn make-accumulator [x]
+  (let [acc (atom x)
+        acc-fn (fn[y] (do (swap! acc #(+ % y) @acc)))]))
+
+(def A (make-accumulator 5))
+(A 2)
+
+;; Ex 3.1 : a slightly different method 
+(defn make-accumulator2 [x]
+  (let [acc (atom x)]
+    (fn [y]
+      (swap! acc #(+ % y)))))
+
+(def A2 (make-accumulator 5))
+
+
+;;
 (defn make-queue [] (atom []))
 
 (defn delete-queue! [q] (swap! q pop))
