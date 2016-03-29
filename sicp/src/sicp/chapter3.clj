@@ -11,7 +11,6 @@
         acc-fn (fn[y] (do (swap! acc #(+ % y) @acc)))]))
 
 (def A (make-accumulator 5))
-(A 2)
 
 ;; Ex 3.1 : a slightly different method 
 (defn make-accumulator2 [x]
@@ -116,6 +115,36 @@
 (defn add-action! [wire action-procedure]
   ((wire 'add-action!) action-procedure))
 
+(defn call-each [procedures]
+  (if (empty? procedures)
+    'done ;; is there another way to represent done ?
+     ((first procedures)
+     (call-each (rest procedures)))))
+
+(defn make-wire []
+  (let [signal-value (atom 0)
+
+        action-procedures (atom [])
+
+        set-my-signal! (fn [new-value]
+                          (if (not= signal-value new-value)
+                            (do
+                              (swap! signal-value new-value)
+                              (call-each @action-procedures))
+                            'done))
+
+        accept-action-procedure! (fn [proc]
+                                   (swap! action-procedures #(cons proc %))
+                                   (proc))
+
+        dispatch (fn [m]
+                   (condp = m
+                     'get-signal @signal-value
+                     'set-signal! set-my-signal!
+                     'add-action! accept-action-procedure!
+                     (error "Unknown operation -- WIRE " m)))]
+     dispatch))
+
 (defn or-gate [a1 a2 output]
   (defn logical-or [s1 s2]
     (condp = [s1 s2]
@@ -135,3 +164,5 @@
   'ok)
 
 (logical-or 0 0)
+
+
