@@ -21,8 +21,10 @@
   (sqrt-iter 1.0 x))
 
 ;; Exercise 1.7
+(defn good-enough? [old-guess new-guess]
+  (< (/ (abs (- old-guess new-guess)) old-guess) 0.001))
 
+;; Exercice 1.8
 
-;; (sqrt 0.0001) yields 0.03230844833048122 instead of the expected 0.01 (an error of over 200%).
 
 
