@@ -63,6 +63,21 @@
 
 ;; (count-change 100)
 
+;;linear recursive
+
+(defn cc [amount kinds-of-coins acc]
+	(cond (= amount 0) (+ acc 1)
+        (or (< amount 0) (empty? kinds-of-coins)) acc
+        :else (cc (- amount (first kinds-of-coins))
+                  kinds-of-coins
+                  (cc amount (rest kinds-of-coins) acc))))
+
+(defn count-change2 [amount]
+	(cc amount '(50 25 10 5 1) 0))
+
+;; (count-change2 100)
+
+
 ;; an iterative process version
 
 (defn cc-nothing [amount acc]
@@ -100,4 +115,3 @@
 	(cc-fifties amount 0))
 
 ;; (count-change-iter 100)
-
