@@ -115,3 +115,20 @@
 	(cc-fifties amount 0))
 
 ;; (count-change-iter 100)
+
+;; exercice 1.11
+
+;; using a recursive process
+(defn f [n]
+  (cond (< n 3) n
+        :else (+ (* 3 (f (- n 3))) (* 2 (f (- n 2))) (f (- n 1)))))
+
+;; using an iterative process
+(defn f-iter [f1 f2 f3 cnt n]
+  (cond (= cnt n) f3
+        :else (f-iter f2 f3 (+ f3 (* 2 f2) (* 3 f1)) (+ cnt 1) n)))
+
+(defn f2 [n]
+  (cond (< n 3) n
+        :else (f-iter 0 1 2 2 n)))
+
