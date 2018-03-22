@@ -116,7 +116,7 @@
 
 ;; (count-change-iter 100)
 
-;; exercice 1.11
+;; ex 1.11
 
 ;; using a recursive process
 (defn f [n]
@@ -131,4 +131,12 @@
 (defn f2 [n]
   (cond (< n 3) n
         :else (f-iter 0 1 2 2 n)))
+
+;; ex 1.12
+(defn pascal-rec [r c]
+  (cond (or (= r 0) (= c 0)) 1
+        (= r c) 1
+        :else (+ (pascal-rec (- r 1) c) (pascal-rec (- r 1) (- c 1)))))
+
+
 
