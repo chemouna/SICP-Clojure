@@ -134,8 +134,8 @@
 
 ;; ex 1.12
 (defn pascal-rec [r c]
-  (cond (or (= r 0) (= c 0)) 1
-        (= r c) 1
+  (cond (< r c) #f
+        (or (= r 0) (= c 0) (= r c)) 1
         :else (+ (pascal-rec (- r 1) c) (pascal-rec (- r 1) (- c 1)))))
 
 
