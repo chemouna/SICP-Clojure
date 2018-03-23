@@ -187,9 +187,12 @@
 (defn ^:dynamic mult2 [a b]
   (mult-iter a b 0))
 
+(defn ^:dynamic fast-mult [a b]
+  (cond (= b 0) 0
+        (= b 1) a
+        (even? b) (double-int (fast-mult a (halve b)))
+        :else (+ a (fast-mult a (- b 1)))))
 
-;; (mult 12 43)
-;; (dotrace [mult] (mult 2 2))
-
-;; (mult2 12 43)
-;; (dotrace [mult-iter] (mult-iter 2 2))
+;(dotrace [mult] (mult 4 12))
+;(dotrace [mult-iter] (mult-iter 4 12 0))
+;(dotrace [fast-mult] (fast-mult 4 12)) 
