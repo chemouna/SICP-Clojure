@@ -1,6 +1,8 @@
 (ns sicp.chapter1
   (:use clojure.tools.trace))
 
+(clojure.tools.trace/trace-ns 'sicp.chapter1)
+
 (defn abs [n] (max n (- n)))
 
 (defn good-enough? [guess x]
@@ -44,14 +46,14 @@
 
 ;; recursive process version
 (defn first-denomination [kinds-of-coins]
-	(cond (= kinds-of-coins 1) 1
+  (cond (= kinds-of-coins 1) 1
         (= kinds-of-coins 2) 5
         (= kinds-of-coins 3) 10
         (= kinds-of-coins 4) 25
         (= kinds-of-coins 5) 50))
 
 (defn cc [amount kinds-of-coins]
-	(cond (= amount 0) 1
+  (cond (= amount 0) 1
         (or (< amount 0) (= kinds-of-coins 0)) 0
         :else (+ (cc (- amount
                         (first-denomination kinds-of-coins))
@@ -60,21 +62,21 @@
                      (- kinds-of-coins 1)))))
 
 (defn count-change [amount]
-	(cc amount 5))
+  (cc amount 5))
 
 ;; (count-change 100)
 
 ;;linear recursive
 
 (defn cc [amount kinds-of-coins acc]
-	(cond (= amount 0) (+ acc 1)
+  (cond (= amount 0) (+ acc 1)
         (or (< amount 0) (empty? kinds-of-coins)) acc
         :else (cc (- amount (first kinds-of-coins))
                   kinds-of-coins
                   (cc amount (rest kinds-of-coins) acc))))
 
 (defn count-change2 [amount]
-	(cc amount '(50 25 10 5 1) 0))
+  (cc amount '(50 25 10 5 1) 0))
 
 ;; (count-change2 100)
 
@@ -82,38 +84,38 @@
 ;; an iterative process version
 
 (defn cc-nothing [amount acc]
-	acc)
+  acc)
 
 (defn cc-pennies [amount acc]
-	(cond (= amount 0) (+ 1 acc)
+  (cond (= amount 0) (+ 1 acc)
         (< amount 0) acc
         :else (cc-pennies (- amount 1)
                           (cc-nothing amount acc))))
 (defn cc-nickels [amount acc]
-	(cond (= amount 0) (+ 1 acc)
+  (cond (= amount 0) (+ 1 acc)
         (< amount 0) acc
         :else (cc-nickels (- amount 5)
                           (cc-pennies amount acc))))
 (defn cc-dimes [amount acc]
-	(cond (= amount 0) (+ 1 acc)
+  (cond (= amount 0) (+ 1 acc)
         (< amount 0) acc
         :else (cc-dimes (- amount 10)
                         (cc-nickels amount acc))))
 
 (defn cc-quarters [amount acc]
-	(cond (= amount 0) (+ 1 acc)
+  (cond (= amount 0) (+ 1 acc)
         (< amount 0) acc
         :else (cc-quarters (- amount 25)
                            (cc-dimes amount acc))))
 
 (defn cc-fifties [amount acc]
-	(cond (= amount 0) (+ 1 acc)
+  (cond (= amount 0) (+ 1 acc)
         (< amount 0) acc
         :else (cc-fifties (- amount 50)
                           (cc-quarters amount acc))))
 
 (defn count-change-iter [amount]
-	(cc-fifties amount 0))
+  (cc-fifties amount 0))
 
 ;; (count-change-iter 100)
 
@@ -197,4 +199,23 @@
 
 ;(dotrace [mult] (mult 4 12))
 ;(dotrace [mult-iter] (mult-iter 4 12 0))
-;(dotrace [fast-mult] (fast-mult 4 12)) 
+;(dotrace [fast-mult] (fast-mult 4 12))
+
+;; ex 1.19
+
+;; getting used to fib functions
+(defn fib [n]
+  (cond (= n 0) 0
+        (= n 1) 1
+        :else (+ (fib (- n 1))
+                 (fib (- n 2)))))
+
+(defn fib2 [n]
+  (fib-iter 1 0 n))
+
+;; a = fib n - 1 , b = fub n - 2
+(defn fib-iter [a b count]
+  (cond (= count 0) b
+        :else (fib-iter (+ a b) a (- count 1))))
+
+
