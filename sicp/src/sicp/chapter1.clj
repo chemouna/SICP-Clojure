@@ -165,7 +165,7 @@
 ;(fast-expt2 2 4)
 ;(dotrace [fast-expt2] (fast-expt2 2 50))
 
-;; ex 1.17
+;; ex 1.17 and 1.18
 (defn double-int [x]
   (+ x x))
 
@@ -178,6 +178,13 @@
     0
     (+ a (mult a (- b 1)))))
 
+
+(defn ^:dynamic fast-mult [a b]
+  (cond (= b 0) 0
+        (= b 1) a
+        (even? b) (double-int (fast-mult a (halve b)))
+        :else (+ a (fast-mult a (- b 1)))))
+
 ;; iterative process version
 (defn ^:dynamic mult-iter [a b p]
   (cond (= b 0) p
@@ -187,11 +194,6 @@
 (defn ^:dynamic mult2 [a b]
   (mult-iter a b 0))
 
-(defn ^:dynamic fast-mult [a b]
-  (cond (= b 0) 0
-        (= b 1) a
-        (even? b) (double-int (fast-mult a (halve b)))
-        :else (+ a (fast-mult a (- b 1)))))
 
 ;(dotrace [mult] (mult 4 12))
 ;(dotrace [mult-iter] (mult-iter 4 12 0))
