@@ -164,3 +164,32 @@
 
 ;(fast-expt2 2 4)
 ;(dotrace [fast-expt2] (fast-expt2 2 50))
+
+;; ex 1.17
+(defn double-int [x]
+  (+ x x))
+
+(defn halve [x]
+  (/ x 2))
+
+;; recursive process version
+(defn ^:dynamic mult [a b]
+  (if (= b 0)
+    0
+    (+ a (mult a (- b 1)))))
+
+;; iterative process version
+(defn ^:dynamic mult-iter [a b p]
+  (cond (= b 0) p
+        (even? b) (mult-iter (double-int a) (halve b) p)
+        :else (mult-iter a (- b 1) (+ a p))))
+
+(defn ^:dynamic mult2 [a b]
+  (mult-iter a b 0))
+
+
+;; (mult 12 43)
+;; (dotrace [mult] (mult 2 2))
+
+;; (mult2 12 43)
+;; (dotrace [mult-iter] (mult-iter 2 2))
