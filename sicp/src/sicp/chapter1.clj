@@ -1,4 +1,5 @@
-(ns sicp.chapter1)
+(ns sicp.chapter1
+  (:use clojure.tools.trace))
 
 (defn abs [n] (max n (- n)))
 
@@ -133,10 +134,33 @@
         :else (f-iter 0 1 2 2 n)))
 
 ;; ex 1.12
-(defn pascal-rec [r c]
-  (cond (< r c) #f
-        (or (= r 0) (= c 0) (= r c)) 1
-        :else (+ (pascal-rec (- r 1) c) (pascal-rec (- r 1) (- c 1)))))
+;(defn pascal-rec [r c]
+;  (cond (< r c) #f
+;        (or (= r 0) (= c r)) 1
+;        :else (+ (pascal-rec (- r 1) c) (pascal-rec (- r 1) (- c 1)))))
 
+;; ex 1.16
 
+;; recursive process version
+(defn square [x]
+  (* x x))
 
+(defn fast-expt [b n]
+  (cond (= n 0) 1
+        (even? n) (square (fast-expt b (/ n 2)))
+        :else (* b (fast-expt b (- n 1)))))
+
+;; iterative process
+(defn fast-expt-iter [b counter product]
+  (cond (= counter 0) product
+        (even? counter) (fast-expt-iter (square b) (/ counter 2) product)
+        :else (fast-expt-iter b (- counter 1) (* b product))))
+
+(defn fast-expt2 [b n]
+  (fast-expt-iter b n 1))
+
+;(fast-expt 2 4)
+;(dotrace [fast-expt] (fast-expt 2 50))
+
+;(fast-expt2 2 4)
+;(dotrace [fast-expt2] (fast-expt2 2 50))
