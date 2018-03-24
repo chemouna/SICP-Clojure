@@ -1,5 +1,7 @@
 (ns sicp.chapter1
-  (:use clojure.tools.trace))
+  (:use clojure.tools.trace)
+  (:require [clj-time.core :as time]
+            [clj-time.coerce :as tc]))
 
 (clojure.tools.trace/trace-ns 'sicp.chapter1)
 
@@ -210,13 +212,13 @@
         :else (+ (fib (- n 1))
                  (fib (- n 2)))))
 
-(defn fib2 [n]
-  (fib-iter 1 0 n))
-
 ;; a = fib n - 1 , b = fub n - 2
 (defn fib-iter [a b count]
   (cond (= count 0) b
         :else (fib-iter (+ a b) a (- count 1))))
+
+(defn fib2 [n]
+  (fib-iter 1 0 n))
 
 ;; sol 1.19
 (defn fib-iter2 [a b p q count]
@@ -233,3 +235,44 @@
   (if (= b 0)
     a
     (gcd b (rem a b))))
+
+;; ex 1.22
+
+(defn square [x]
+  (* x x))
+
+(defn prime? [n]
+  (= n (smallest-divisor n)))
+
+(defn divides? [div n]
+   (= (mod n div) 0))
+
+(defn find-divisor [n test]
+  (cond (> (* test test) n) n
+        (divides? test n) test
+        :else (recur n (inc test))))
+
+(defn smallest-divisor [n]
+  (find-divisor n 2))
+
+(defn isPrime? [n]
+  (= n (smallest-divisor n)))
+
+(defn report-prime [elapsed-time]
+  (print " *** ")
+  (print elapsed-time))
+
+(defn start-prime-test [n start-time]
+  (cond (isPrime? n) (report-prime (- () start-time))))
+
+(defn timed-prime-test [n]
+  (println n)
+  (start-prime-test n (tc/to-long (time/now)) ))
+
+(defn search-for-primes [start end]
+  (cond (even? start) (search-for-primes (+ start 1) end)
+        (< start end) (timed-prime-test start)
+        :else (search-for-primes (+ start 2) end)))
+
+
+(search-for-primes 1000 100000)
