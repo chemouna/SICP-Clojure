@@ -276,3 +276,17 @@
 
 
 (search-for-primes 1000 100000)
+
+;; ex1.23
+
+(defn nextdiv [x]
+  (cond (= x 2) 3
+        :else (+ x 2)))
+
+(defn find-divisor2 [n test]
+  (cond (> (* test test) n) n
+        (divides? test n) test
+        :else (recur n (nextdiv test))))
+
+(defn smallest-divisor2 [n]
+  (find-divisor2 n 2))
