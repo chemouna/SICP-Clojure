@@ -237,6 +237,8 @@
     (gcd b (rem a b))))
 
 ;; ex 1.22
+(defn runtime []
+  (System/currentTimeMillis))
 
 (defn square [x]
   (* x x))
@@ -260,14 +262,14 @@
 
 (defn report-prime [elapsed-time]
   (print " *** ")
-  (print elapsed-time))
+  (println elapsed-time))
 
 (defn start-prime-test [n start-time]
-  (cond (isPrime? n) (report-prime (- () start-time))))
+  (cond (isPrime? n) (report-prime (- (runtime) start-time))))
 
 (defn timed-prime-test [n]
   (println n)
-  (start-prime-test n (tc/to-long (time/now)) ))
+  (start-prime-test n (runtime)))
 
 (defn search-for-primes [start end]
   (cond (even? start) (search-for-primes (+ start 1) end)
@@ -277,11 +279,10 @@
 
 (search-for-primes 1000 100000)
 
-;; ex1.23
+;; ex 1.23
 
 (defn nextdiv [x]
-  (cond (= x 2) 3
-        :else (+ x 2)))
+  (if (= x 2) 3 (+ x 2)))
 
 (defn find-divisor2 [n test]
   (cond (> (* test test) n) n
@@ -290,3 +291,30 @@
 
 (defn smallest-divisor2 [n]
   (find-divisor2 n 2))
+
+;; ex 1.24
+
+(defn fast-prime?
+  [n counter]
+  (let [a (+ 1 (rand (- n 1)))
+        remainder (expmod a n n)]
+    (cond (not= remainder a) false
+          (and (= remainder a) (= counter 5)) true
+          :else (fast-prime? n (+ counter 1)))))
+
+(defn expmod
+  [base exp m]
+  (cond (= exp 0) 1
+        (even? exp) (rem (square (expmod base (/ exp 2) m)) m)
+        :else (rem (* base (expmod base (- exp 1) m)) m)))
+
+(defn start-prime-test2
+  [n]
+  (if (fast-prime? n 0)
+    (str "***")))
+
+(defn timed-prime-test2 [n]
+  (do (println n)
+      (time (start-prime-test2 n))))
+
+(timed-prime-test2 10000)
