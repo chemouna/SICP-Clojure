@@ -30,7 +30,7 @@
 (define (search-primes-larger n k)
   (cond ((= k 0) (newline))
         ((prime? n)
-         (display n) (newline)
+         (timed-prime-test n) 
          (search-primes-larger (+ n 2) (- k 1))) 
         (else (search-primes-larger (+ n 1) k))))
 
