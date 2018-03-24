@@ -226,3 +226,10 @@
 
 (defn fib3 [n]
   (fib-iter2 1 0 0 1 n))
+
+;; section 1.2.5
+
+(defn gcd [a b]
+  (if (= b 0)
+    a
+    (gcd b (rem a b))))
