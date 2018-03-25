@@ -387,7 +387,7 @@
     (empty? coll) false
     (= (first coll) 1) false
     (= (first coll) (- n 1)) true
-    :else (iter (rest coll))))
+    :else (iter (rest coll) n)))
 
 ;;(iter (range 1 10) 3)
 
@@ -398,7 +398,7 @@
 
 (defn miller-rabin-pt [n a]
   (let [
-        [d s] (findds (- 1 n))
+        [d s] (findds (- n 1))
         b0 (expmod a s n)
         b (take d (iterate #(square-mod n %) b0))]
     (cond
@@ -409,7 +409,6 @@
       (empty? b) false
       :else (iter (rest b) n))))
 
-;; (miller-rabin-pt 20 2)
 
-;;(miller-rabin-pt 1212121 5432)
+(map #(miller-rabin-pt 1212121 %) [5432 1265 87532 8765 26])
 
