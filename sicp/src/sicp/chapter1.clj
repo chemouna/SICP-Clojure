@@ -344,7 +344,72 @@
   (do (println n)
       (time (start-prime-test3 n))))
 
-(timed-prime-test3 100) ;; slower than the previoys version which took 0.44781 ms
+;; (timed-prime-test3 100) ;; slower than the previoys version which took 0.44781 ms
 
+;; ex 1.27
+(defn fermat-test [n a]
+  (= (expmod a n n) a))
 
+(defn fermat-full [n]
+  (defn iter [a]
+    (cond (= a 1) true
+          (not (fermat-test n a)) false
+          :else (iter (- a 1))))
+  (iter (- n 1)))
+
+(fermat-full 561)
+(fermat-full 1105)
+(fermat-full 1729)
+(fermat-full 2465)
+(fermat-full 2821)
+(fermat-full 6601)
+
+;; ex 1.28
+(defn quot-rem [m n]
+  [(quot m n) (rem m n)])
+
+;; (quot-rem 1212121 2)
+
+(defn findds-iter [d m]
+  (let [s (quot m 2) r (rem m 2)]  ;; im not sure if quot and rem here are inversed ?
+    (if (= r 1) [d m]
+        (findds-iter (+ 1 d) s)))) 
+
+;; (findds-iter 2 4)
+
+(defn findds [n]
+  (findds-iter 0 n))
+
+;; (findds 4)
+
+(defn iter [coll n]
+  (cond
+    (empty? coll) false
+    (= (first coll) 1) false
+    (= (first coll) (- n 1)) true
+    :else (iter (rest coll))))
+
+;;(iter (range 1 10) 3)
+
+(defn square-mod [n a]
+  (rem (* a a) n))
+
+;; (square-mod 3 17)
+
+(defn miller-rabin-pt [n a]
+  (let [
+        [d s] (findds (- 1 n))
+        b0 (expmod a s n)
+        b (take d (iterate #(square-mod n %) b0))]
+    (cond
+      ;; (or (<= a 1) (>= a (- n 1))) ;; todo: handle returning an error
+      (< n 2) false
+      (even? n) false
+      (or (= b0 1) (= b0 (- n 1))) true
+      (empty? b) false
+      :else (iter (rest b) n))))
+
+;; (miller-rabin-pt 20 2)
+
+;;(miller-rabin-pt 1212121 5432)
 
