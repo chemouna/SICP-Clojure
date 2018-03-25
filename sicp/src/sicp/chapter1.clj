@@ -317,4 +317,34 @@
   (do (println n)
       (time (start-prime-test2 n))))
 
+(timed-prime-test2 100)
 (timed-prime-test2 10000)
+
+;; ex 1.25
+
+(defn expmod2
+  [base exp m]
+  (cond (= exp 0) 1
+        :else (rem (fast-expt base exp) m)))
+
+(defn fast-prime2?
+  [n counter]
+  (let [a (+ 1 (rand (- n 1)))
+      remainder (expmod2 a n n)]
+  (cond (not= remainder a) false
+        (and (= remainder a) (= counter 5)) true
+        :else (fast-prime2? n (+ counter 1)))))
+
+(defn start-prime-test3
+  [n]
+  (if (fast-prime2? n 0)
+    (str "***")))
+
+(defn timed-prime-test3 [n]
+  (do (println n)
+      (time (start-prime-test3 n))))
+
+(timed-prime-test3 100) ;; slower than the previoys version which took 0.44781 ms
+
+
+
