@@ -409,6 +409,39 @@
       (empty? b) false
       :else (iter (rest b) n))))
 
-
 (map #(miller-rabin-pt 1212121 %) [5432 1265 87532 8765 26])
 
+;; ex 1.29
+
+(defn sum [term a next b]
+  (if (> a b)
+    0
+    (+ (term a)
+       (sum term (next a) next b))))
+
+(defn identity [x] x)
+
+(defn sum-integers [a b]
+  (sum identity a inc b))
+
+;; integral
+(defn add-dx [x dx]
+  (+ x dx))
+
+(defn integral [f a b dx]
+  (* (sum f (+ a (/ dx 2.0)) (add-dx b dx)) dx))
+
+(defn cube [x] (* x x x))
+
+;; simpson rule
+(defn simpson [f a b n]
+  (letfn [(h [] (/ (- b a) n))
+          (inc [x] (+ x 1))
+          (y [k] (f (+ a (* k (h)))))
+          (term [k]
+              (* (y k) (cond (odd? k) 4
+                       (or (= k 0) (= k n)) 1
+                       (even? k) 2)))]
+  (/ (* (h) (sum term 0 inc n)) 3)))
+
+(simpson cube 0 1 1000.0)
