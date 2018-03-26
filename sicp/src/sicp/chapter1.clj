@@ -445,3 +445,16 @@
   (/ (* (h) (sum term 0 inc n)) 3)))
 
 (simpson cube 0 1 1000.0)
+
+;; ex 1.30
+
+(defn sum [term a next b]
+  (letfn [(iter [a result]
+          (if (> a b) result
+              (iter (next a) (+ result (term a)))))]
+  (iter a 0)))
+
+(defn sum-cubes [a b]
+  (sum cube a inc b))
+
+;; (sum-cubes 1 2)
