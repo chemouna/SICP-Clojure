@@ -27,4 +27,4 @@
   (define (coprime-n? x) (coprime? n x))
   (filtered-accumulate * 1 identity 2 inc (- n 1) coprime-n?))
 
-; (product-pos-coprime 7)
+;; (product-pos-coprime 7)

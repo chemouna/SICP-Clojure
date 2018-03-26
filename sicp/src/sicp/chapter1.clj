@@ -458,3 +458,32 @@
   (sum cube a inc b))
 
 ;; (sum-cubes 1 2)
+
+;; 1.33
+
+(defn square [x] (* x x))
+
+(defn filtered-accum [pred combiner null-value term a next b]
+  (if (> a b)
+    null-value
+    (if (pred a)
+      (combiner (term a)
+                (filtered-accum pred combiner null-value term (next a) next b))
+      (filtered-accum pred combiner null-value term (next a) next b))))
+
+(defn sum-squared-primes [a b]
+  (filtered-accum isPrime? + 0 square a inc b))
+
+;; (sum-squared-primes 2 10)
+
+(defn gcd [a b]
+  (if (= b 0)
+    a
+    (gcd b (rem a b))))
+
+(defn product-of-coprimes [n]
+  (letfn [(coprime? [i]
+            (= 1 (gcd i n)))]
+    (filtered-accum coprime? * 1 identity 1 inc (- n 1))))
+
+;; (product-of-coprimes 7)
