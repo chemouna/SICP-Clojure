@@ -1,5 +1,7 @@
 #lang racket
 
+(require racket/trace)
+
 (define (square x) (* x x))
 (define (cube x) (* x x x))
 
@@ -26,5 +28,20 @@
 (define (cube-root x)
   (fixed-point (average-damp (lambda (y) (/ x (square y)))) 1.0))
 
+(define (repeated f n)
+  (if (= n 1)
+      f
+      (compose f (repeated f (- n 1)))))
+
+  
+(define (log2 x) (/ (log x) (log 2)))
+
 (define (nth-root n x)
-  (fixed-point (average-damp (lambda (y) (/ x (expt y (- n 1))))) 1.0))
+  (fixed-point (repeated
+                (average-damp (lambda (y) (/ x (expt y (- n 1)))))
+                (floor (log2 n) ))
+               1.0))
+
+;(trace fixed-point)
+;(trace average-damp)
+;(trace nth-root)
