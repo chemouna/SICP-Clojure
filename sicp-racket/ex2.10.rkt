@@ -18,8 +18,8 @@
                    (max p1 p2 p3 p4))))
 
 (define (div-interval x y)
-  (cond ((or (= (upper-bound y) 0) (= (lower-bound y) 0)) error "interval has 0")
-        ((= (- (upper-bound y) (lower-bound y)) 0) "error: interval spans 0")
+  (cond ((or (= (upper-bound y) 0) (= (lower-bound y) 0)) error "interval has a value 0 tjay will lead to division by 0")
+        ((and (<= (lower-bound y) 0) (>= (upper-bound y) 0)) 0 "error: interval spans 0")
         ((mul-interval x
                 (make-interval (/ 1.0 (upper-bound y))
                                (/ 1.0 (lower-bound y)))))))
@@ -31,6 +31,6 @@
 (div-interval a b)
 (div-interval b a)
 
-(define c (make-interval 50 50))
+(define c (make-interval -50 50))
 (define d (make-interval 50 100))
 (div-interval d c)
