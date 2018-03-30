@@ -25,6 +25,9 @@
 ;(trace cc)
 
 (cc 100 us-coins)
+(cc 100  (list 1 10 5 50 25))
 
-
+;; The order of the coins does not affect the result, because we check
+;; all possible combinations but the efficiency can vary depending on
+;; the order of the input.
 
