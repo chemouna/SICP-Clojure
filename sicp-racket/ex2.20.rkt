@@ -12,14 +12,9 @@
       0
       (+ 1 (length (cdr items)))))
 
-(define (append list1 list2)
-  (if (null? list1)
-      list2
-      (cons (car list1) (append (cdr list1) list2))))
-
 (define (simple-filter pred lst res)
   (cond ((null? lst) res)
-        ((pred (car lst)) (simple-filter pred (cdr lst) (append (list (car lst)) res)))
+        ((pred (car lst)) (simple-filter pred (cdr lst) (append res (list (car lst)))))
         (else (simple-filter pred (cdr lst) res))))
 
 (define (only-even lst)
@@ -29,8 +24,8 @@
   (simple-filter odd? lst '()))
 
 (define (same-parity x . y)
-  (if (even? x) (reverse (append (only-even y) (cons x '())))
-      (reverse (append (only-odd y) (cons x '())))))
+  (if (even? x) (cons x (only-even y))
+      (cons x (only-odd y))))
 
 ;(trace even?)
 ;(trace odd?)
@@ -53,7 +48,5 @@
                    answer))))
    (iter z (list a)))
 
-;(same-parity 1 2 3 4 5 6 7)
-; (1 3 5 7)
-;(same-parity 2 3 4 5 6 7)
-; (2 4 6)
+(same-parity2 1 2 3 4 5 6 7)
+(same-parity2 2 3 4 5 6 7)
