@@ -83,3 +83,17 @@
 nch)
 ;(branch-length (left-branch (example-mobile)))
 
+;; d/
+(define (make-mobile2 left right)
+  (cons left right))
+
+(define (make-branch2 length structure)
+  (cons length structure))
+
+;; only the accessor will need to change (only right-branch and branch-structure) need to change
+(define (right-branch2 m)
+  (cdr m))
+
+(define (branch-structure2 b)
+  (cdr b))
+
