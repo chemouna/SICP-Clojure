@@ -1,6 +1,7 @@
 #lang racket
 
 (require rackunit)
+(require racket/trace)
 
 (define (make-mobile left right)
   (list left right))
@@ -43,12 +44,13 @@
   (make-branch 1 1)))
 
 ;; b/
+(define (branch-weight b)
+   (let ((structure (branch-structure b)))
+     (if (pair? structure)
+         (total-weight structure)
+         structure)))
+
 (define (total-weight tree)
-  (define (branch-weight b)
-    (let ((structure (branch-structure b)))
-      (if (pair? structure)
-          (total-weight structure)
-          structure)))
   (cond ((null? tree) 0)
         ((not (pair? tree)) tree)
         (else (+ (branch-weight (left-branch tree))
@@ -56,7 +58,28 @@
 
 (define m (make-mobile (make-branch 1 1) (make-branch 1 2)))
 
+;(trace total-weight)
 (check-equal? (total-weight (example-mobile)) 7)
 
-;; let's first try to get just the structure part
-;(define (all-structure m))
+;; c/
+(define (torque b)
+  (* (branch-weight b) (branch-length b)))
+
+(define (branch-balanced? b)
+  (if (pair? (branch-structure b))
+      (balanced? (branch-structure b))
+      true))
+
+(define (balanced? tree)
+  (and (= (torque (left-branch tree)) (torque (right-branch tree)))
+       (branch-balanced? (left-branch tree))
+       (branch-balanced? (right-branch tree))))
+
+(balanced? (example-mobile))
+
+(define a (make-mobile (make-branch 2 3) (make-branch 2 3)))
+(balanced? a)
+;(length example-left-bra
+nch)
+;(branch-length (left-branch (example-mobile)))
+
