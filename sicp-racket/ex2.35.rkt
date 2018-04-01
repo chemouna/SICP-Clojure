@@ -17,15 +17,16 @@
               0
               (map (lambda(x)
                      (cond ((null? x) 0)
-                            ((not (pair? x)) 1)
-                            (count-leaves x) ) )
-                   (enumerate-tree t))))
+                            ((pair? x) (count-leaves x))
+                            (else 1)))
+                    t)))
 
 (define (count-leaves-2 t)
   (accumulate +
               0
               (map (lambda (x) 1)
                    (enumerate-tree t))))
+
 
 (count-leaves (list))
 (count-leaves-2 (list))
@@ -38,3 +39,4 @@
 
 (count-leaves (list (list 1 2) (list 1 2 3) 1))
 (count-leaves-2 (list (list 1 2) (list 1 2 3) 1))
+
