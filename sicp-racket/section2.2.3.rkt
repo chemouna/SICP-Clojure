@@ -4,11 +4,17 @@
 
 (define (square x) (* x x))
 
-(define (fib n)
-  (cond ((= n 0) 0)
-        ((= n 1) 1)
-        ((+ (fib (- n 1))
-                 (fib (- n 2))))))
+(define (divides? a b) (= (remainder b a) 0))
+
+(define (find-divisor n test-divisor)
+  (cond ((> (square test-divisor) n) n)
+        ((divides? test-divisor n) test-divisor)
+        (else (find-divisor n (+ test-divisor 1)))))
+
+(define (smallest-divisor n)
+  (find-divisor n 2))
+
+(define (prime? n) (= n (smallest-divisor n)))
 
 (define (sum-odd-squares tree)
   (cond ((null? tree) 0)
@@ -19,19 +25,18 @@
 
 (define (even-fibs n)
   (define (next k)
-    (if (> k n) nil
+(if (> k n) nil
         (let ((f (fib k)))
           (if (even? f)
               (cons f (next (+ k 1)))
               (next (+ k 1))))))
-  (next 0))
+(next 0))
 
-(define (filter predicate sequence)
-  (cond ((null? sequence) nil)
-        ((predicate (car sequence))
-         (cons (car sequence)
-               (filter predicate (cdr sequence))))
-        (else (filter predicate (cdr sequence)))))
+(define (fib n)
+  (cond ((= n 0) 0)
+        ((= n 1) 1)
+        ((+ (fib (- n 1))
+                 (fib (- n 2))))))
 
 (define (accumulate op initial sequence)
   (if (null? sequence)
@@ -39,51 +44,46 @@
       (op (car sequence)
           (accumulate op initial (cdr sequence)))))
 
-(accumulate + 0 (list 1 2 3 4 5))
-
 (define (enumerate-interval low high)
   (if (> low high)
       nil
       (cons low (enumerate-interval (+ low 1) high))))
 
-(enumerate-interval 2 7)
+;(accumulate append
+;  nil
+;  (map (lambda (i)
+;       (map (lambda (j) (list i j))
+;                        (enumerate-interval 1 (- i 1))))
+;       (enumerate-interval 1 n)))
 
-(define (enumerate-tree tree)
-  (cond ((null? tree) nil)
-        ((not (pair? tree)) (list tree))
-        (else (append (enumerate-tree (car tree))
-                      (enumerate-tree (cdr tree))))))
+(define (flatmap proc seq)
+  (accumulate append nil (map proc seq)))
 
-(enumerate-tree (list 1 (list 2 (list 3 4)) 5))
+(define (prime-sum? pair)
+  (prime? (+ (car pair) (cadr pair))))
 
-(define (sum-odd-squares-2 tree)
-  (accumulate +
-              0
-              (map square
-                   (filter odd?
-                           (enumerate-tree tree)))))
+(define (make-pair-sum pair)
+  (list (car pair) (cadr pair) (+ (car pair) (cadr pair))))
 
-(define (even-fibs-2 n)
-  (accumulate cons
-              nil
-              (filter even?
-                      (map fib
-                           (enumerate-interval 0 n)))))
+(define (prime-sum-pairs n)
+  (map make-pair-sum
+       (filter prime-sum?
+               (flatmap
+                (lambda (i)
+                  (map (lambda (j) (list i j))
+                       (enumerate-interval 1 (- i 1))))
+                (enumerate-interval 1 n)))))
 
-(define (list-fib-squares n)
-  (accumulate cons
-              nil
-              (map square
-                   (map fib
-                        (enumerate-interval 0 n)))))
-(list-fib-squares 10)
+(define (remove item s)
+  (filter (lambda (x) (not (= x item)))
+          s))
 
-
-(define (product-of-squares-of-odd-elements sequence)
-  (accumulate *
-              1
-              (map square
-                   (filter odd? sequence))))
-
-(product-of-squares-of-odd-elements (list 1 2 3 4 5))
+(define (permutations s)
+  (if (null? s) ; empty set?
+      (list nil) ; sequence containing empty set (flatmap (lambda (x)
+      (flatmap
+        (lambda(x)
+          (map (lambda (p) (cons x p))
+           (permutations (remove x s))))
+        s)))
 

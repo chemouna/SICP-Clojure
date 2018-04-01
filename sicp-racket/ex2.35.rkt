@@ -17,7 +17,7 @@
               0
               (map (lambda(x)
                      (cond ((null? x) 0)
-                            ((pair? x) (count-leaves x))
+                           ((pair? x) (count-leaves x))
                             (else 1)))
                     t)))
 
