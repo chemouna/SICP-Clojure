@@ -28,15 +28,42 @@
   (filter (lambda (t) (and (= (+ (car t) (cadr t) (caddr t)) s)
                          (distinct (car t) (cadr t) (caddr t))))
         (flatmap
-         (lambda (k)
-           (map (lambda (x) (append k (list x))) 
-                (enumerate-interval 1 5)))
-         (flatmap
-          (lambda (i)
-            (map (lambda (j) (list i j))
-                 (enumerate-interval 1 n)))
-          (enumerate-interval 1 n)))))
+         (lambda (i)
+           (map (lambda (x) (cons i x))
+                (flatmap
+                 (lambda (j)
+                   (map (lambda (k) (list j k))
+                        (enumerate-interval 1 (- j 1))))
+                 (enumerate-interval 1 (- i 1)))))
+         (enumerate-interval 1 n))))
 
 
-(ordered-triples 5 11)
-  
+;; lesson: instead of using car, caddr, caddr and doing the sum manualy,
+;; just use accumulate its more readable
+(define (ordered-triples-2 n)
+   (flatmap (lambda (i)
+      (flatmap (lambda (j)
+         (map (lambda (k)
+                (list i j k))
+              (enumerate-interval 1 (- j 1))))
+       (enumerate-interval 1 (- i 1))))
+    (enumerate-interval 1 n)))
+
+(define (make-triple-sum triple)
+   (append triple (list (accumulate + 0 triple))))
+
+(define (ordered-triples-sum-2 n s)
+   (define (triple-sum? triple)
+     (= s (accumulate + 0 triple)))
+   (map make-triple-sum
+        (filter triple-sum?
+                (ordered-triples-2 n))))
+
+(ordered-triples 5 10)
+(ordered-triples-sum-2 5 10)
+
+(ordered-triples 6 10)
+(ordered-triples-sum-2 6 10)
+
+(ordered-triples 12 12)
+(ordered-triples-sum-2 12 12)
