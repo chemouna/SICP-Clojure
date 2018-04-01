@@ -37,8 +37,11 @@
                  (enumerate-interval 1 (- i 1)))))
          (enumerate-interval 1 n))))
 
+(define (ordered-triples-sum n s)
+  (map (lambda (x) (append x (list (accumulate + 0 x))))
+       (ordered-triples n s)))
 
-;; lesson: instead of using car, caddr, caddr and doing the sum manualy,
+;; lesson: instead of using car, cdr, caddr and doing the sum manualy,
 ;; just use accumulate its more readable
 (define (ordered-triples-2 n)
    (flatmap (lambda (i)
@@ -59,11 +62,11 @@
         (filter triple-sum?
                 (ordered-triples-2 n))))
 
-(ordered-triples 5 10)
+(ordered-triples-sum 5 10)
 (ordered-triples-sum-2 5 10)
 
-(ordered-triples 6 10)
+(ordered-triples-sum 6 10)
 (ordered-triples-sum-2 6 10)
 
-(ordered-triples 12 12)
+(ordered-triples-sum 12 12)
 (ordered-triples-sum-2 12 12)
