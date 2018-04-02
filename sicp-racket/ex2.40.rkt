@@ -44,6 +44,14 @@
 ;; (unique-pairs 5)
 ;; '((5 1) (5 2) (5 3) (5 4) (4 1) (4 2) (4 3) (3 1) (3 2) (2 1))
 
+;; or we can just use the code provided before
+(define (unique-pairs-2 n)
+   (flatmap
+    (lambda (i)
+      (map (lambda (j) (list i j))
+           (enumerate-interval 1 (- i 1))))
+    (enumerate-interval 1 n)))
+
 (define (prime-sum? pair)
   (prime? (+ (car pair) (cadr pair))))
 

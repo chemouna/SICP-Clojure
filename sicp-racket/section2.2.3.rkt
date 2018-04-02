@@ -87,3 +87,24 @@
            (permutations (remove x s))))
         s)))
 
+
+(define (uniq s)
+  (if (null? s) ; empty set?
+      (list nil) ; sequence containing empty set (flatmap (lambda (x)
+      (flatmap
+        (lambda(i)
+          (map (lambda (j)
+                 (if (and (not (null? j)) (< j i))
+                     (list i j)
+                     nil))
+           (uniq (remove i s))))
+        s)))
+
+; (uniq (enumerate-interval 1 5))
+
+(flatmap
+                (lambda (i)
+                  (map (lambda (j) (list i j))
+                       (enumerate-interval 1 (- i 1))))
+                (enumerate-interval 1 5))
+

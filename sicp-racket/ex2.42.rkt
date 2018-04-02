@@ -69,4 +69,5 @@
 ;(queens 5)
 ;(queens 6)
 ;(queens 7)
-(queens 8)
+;(queens 8)
+(queens 10)
