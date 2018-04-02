@@ -50,8 +50,14 @@
     (rotate90 (beside
                (rotate90 painter1)
                (rotate90 painter2))))))
-         
+
+(define (below-3 painter1 painter2)
+   (rotate90 (beside (rotate270 painter1) (rotate270 painter2))))
+
+(define (below-4 painter1 painter2) 
+   (rotate270 (beside (rotate90 painter2) (rotate90 painter1))))
+
 (paint (below einstein einstein))
-
 (paint (below-2 einstein einstein))
-
+(paint (below-3 einstein einstein))
+(paint (below-4 einstein einstein))
