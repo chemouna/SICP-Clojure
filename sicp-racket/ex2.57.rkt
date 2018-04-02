@@ -8,42 +8,18 @@
 (define (=number? exp num)
   (and (number? exp) (= exp num)))
 
-;; todo find a way to simplify this expression
-(define (make-sum a1 a2 . r)
-  (cond ((=number? a1 0)
-         (cond
-           ((pair? r) (make-sum a2 (car r) (cdr r)))
-           ((null? r) a2)
-           (else (make-sum a2 (car r)))))
-        ((=number? a2 0)
-          (cond
-           ((pair? r) (make-sum a1 (car r) (cdr r)))
-           ((null? r) a1)
-           (else (make-sum a1 (car r)))))
-        ((and (number? a1) (number? a2))
-          (cond ((pair? r) (make-sum (+ a1 a2) (car r) (cdr r)))
-                ((null? r) (+ a1 a2))
-                (else (+ a1 a2 r))))
-        (else
-         (cond ((pair? r) (list '+ a1 a2 (car r) (cdr r)))
-                ((null? r) (list '+ a1 a2))
-                (else (list '+ a1 a2 r))))))
+(define (make-sum a1 a2)
+  (cond ((=number? a1 0) a2)
+        ((=number? a2 0) a1)
+        ((and (number? a1) (number? a2)) (+ a1 a2))
+        (else (list '+ a1 a2))))
 
-(define (make-product m1 m2 . r)
-  (cond
-        ((null? m2) m1)
-        ((or (=number? m1 0) (=number? m2 0)
-             (and (not (null? r)) (=number? (car r) 0))) 0)
-        ((=number? m1 1) (make-product m2 r))
-        ((=number? m2 1) (make-product m1 r))
-        ((and (number? m1) (number? m2))
-         (cond ((pair? r) (make-product (* m1 m2) (car r) (cdr r)))
-               ((null? r) (* m1 m2))
-               (else (make-product (* m1 m2) (car r))) )) ;; im not the last cond is necessary
-        (else
-         (cond ((pair? r) (list '* m1 m2 (car r) (cdr r)))
-               ((null? r) (list '* m1 m2))
-               (else (list '* m1 m2 car r))))))
+(define (make-product m1 m2)
+  (cond ((or (=number? m1 0) (=number? m2 0)) 0)
+        ((=number? m1 1) m2)
+        ((=number? m2 1) m1)
+        ((and (number? m1) (number? m2)) (* m1 m2))
+        (else (list '* m1 m2))))
        
 
 (define (sum? x)
