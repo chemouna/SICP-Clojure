@@ -51,14 +51,21 @@
 
 (define (addend s) (cadr s))
 
-(define (augend s) (cddr s))
+(define (augend s)
+  (if (null? (cdddr s))
+      (caddr s)
+      (cons '+ (cddr s))))
+
 
 (define (product? x)
      (and (pair? x) (eq? (car x) '*)))
 
 (define (multiplier p) (cadr p))
 
-(define (multiplicand p) (cddr p))
+(define (multiplicand p)
+  (if (null? (cdddr p))
+      (caddr p)
+      (cons '* (cddr p))))
 
 (define (make-exponentiation b e)
   (cond ((=number? b 0) 0)
@@ -87,12 +94,14 @@
            (make-product (deriv (multiplier exp) var)
                          (multiplicand exp))))
         ((exponentiation? exp)
-         (make-product (make-product (exponent exp)
-                                      (make-exponentiation (base exp)
-                                                           (make-sum  (exponent exp) -1)))
-                       (deriv (base exp) var)))
-         (error "unknown expression type -- DERIV" exp)))
-
+         (make-product
+          (make-product (exponent exp)
+                        (make-exponentiation
+                         (base exp)
+                         (make-sum (exponent exp) -1)))
+          (deriv (base exp) var)))
+        (else
+         (error "unknown expression type -- DERIV" exp))))
 ;(deriv '(** x 6) 'x)
 
 (deriv '(+ (* x x) y 3) 'x)
