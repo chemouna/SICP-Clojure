@@ -44,13 +44,14 @@
         (paint-up frame)
         (paint-down frame)))))
 
-(define (shrink-to-upper-right painter)
-  (transform-painter painter
-                     (make-vect 0.5 0.5)
-                     (make-vect 1.0 0.5)
-                     (make-vect 0.5 1.0)))
-
-;(paint (beside einstein einstein))
+(define (below-2 painter1 painter2)
+  (flip-horiz
+   (flip-vert
+    (rotate90 (beside
+               (rotate90 painter1)
+               (rotate90 painter2))))))
+         
 (paint (below einstein einstein))
 
-(paint (flip-horiz (flip-vert (rotate90 (beside (rotate90 einstein) (rotate90 einstein))))))
+(paint (below-2 einstein einstein))
+
