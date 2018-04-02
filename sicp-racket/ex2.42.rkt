@@ -16,7 +16,7 @@
 (define (flatmap proc seq)
   (accumulate append nil (map proc seq)))
 
-(define (empty-board) '())
+(define empty-board nil)
 
 (define (make-position row col)
   (cons row col))
@@ -28,7 +28,7 @@
   (cdr p))
 
 (define (adjoin-position row col positions)
-  (cons (make-position row col) positions))
+  (append positions (list (make-position row col))))
 
 (define (safe? col positions)
   (let ((kth-queen (list-ref positions (- col 1)))
@@ -62,3 +62,11 @@
           (queen-cols (- k 1))))))
   (queen-cols board-size))
 
+;(queens 1)
+;(queens 2)
+;(queens 3)
+;(queens 4)
+;(queens 5)
+;(queens 6)
+;(queens 7)
+(queens 8)
