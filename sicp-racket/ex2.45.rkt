@@ -9,8 +9,11 @@
       (below bottom top))))
 
 (define (split d1 d2)
-  (lambda (painter)
-    (d1 painter (d2 painter painter))))
+  (lambda (painter n)
+    (if (= n 0)
+      painter
+      (let ((smaller ((split d1 d2) painter (- n 1))))
+        (d1 painter (d2 smaller smaller))))))
 
 (define right-split (split beside below))
 (define up-split (split below beside))
