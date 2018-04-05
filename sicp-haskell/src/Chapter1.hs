@@ -12,7 +12,7 @@ ex1_3 x y z
 this one fails for ex1_3 4 3 3 and return 18 instead of 25
 --}
 
--- this version works for all cases 
+-- this version works for all cases
 ex1_3 :: (Num a, Ord a) => a -> a -> a -> a
 ex1_3 x y z
   | x < y = if x < z
@@ -85,6 +85,16 @@ integral :: (Ord a, Fractional a) => (a -> a) -> a -> a -> a -> a
 integral f a b dx = (sumRec f (a + (dx / 2)) addDx b) * dx
   where
     addDx x = x + dx
+
+-- 1.29
+simpsonRule :: Fractional a => (a -> a) -> a -> a -> Int -> a
+simpsonRule f a b n = (sumRec term 0 (+1) n) * (h/3)
+  where
+    term k
+      | k == 0 || k == n = f a
+      | even k = f (a + ((fromIntegral k) * h)) * 2
+      | odd k = f (a + ((fromIntegral k) * h)) * 4
+    h = (b - a) / fromIntegral n
 
 -- 1.45
 
