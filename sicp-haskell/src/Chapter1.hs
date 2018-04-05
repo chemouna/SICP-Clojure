@@ -104,6 +104,25 @@ sumRec' term a next b = iter a 0
       | a > b = res
       | otherwise = a + iter (next a) (term a + res)
 
+-- 1.31
+productRec :: (Ord a, Num b) => (a -> b) -> a -> (a -> a) -> a -> b
+productRec term a next b
+  | a > b = 1
+  | otherwise = term a * productRec term (next a) next b
+
+fact :: (Ord a, Num a) => a -> a
+fact n = productRec id 2 (+1) n
+
+piApprox :: Fractional a => Int -> a
+piApprox n = (productRec term 1 (+1) n) * 4
+  where
+    term n = fromIntegral  (numer n) / fromIntegral (denom n)
+    numer n | odd n = n + 1
+            | even n = n + 2
+    denom n | odd n = n + 2
+            | even n = n + 1
+
+
 -- 1.45
 
 compose f g = \x -> f (g x)
