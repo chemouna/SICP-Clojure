@@ -35,7 +35,6 @@ sqrtRel x = sqrtIter 1.0 2.0 x
           else (sqrtIter (improve g1) g1 x)
         improve g1 = average g1 (x / g1)
 
--- Exercice 1.8
 
 cb :: (Ord a, Floating a) => a -> a
 cb x = cbIter 1.0 x
@@ -45,6 +44,7 @@ cb x = cbIter 1.0 x
             else cbIter (improve guess) x
         goodEnough guess = abs (guess * guess * guess / x - 1) < 1e-8
         improve guess = (2 * guess + x / (guess * guess)) / 3
+
 
 -- Ex 1.12
 -- Pascal Triangle
@@ -57,6 +57,19 @@ pascal row col
   | row < col = error "Error "
   | col == row = 1
   | otherwise = pascal (row - 1) col + pascal (row - 1) (col - 1)
+
+
+-- 1.3.1
+sumRec :: (Ord a, Num b) => (a -> b) -> a -> (a -> a) -> a -> b
+sumRec term a next b
+  | a > b = 0
+  | otherwise = term a + sumRec term (next a) next b
+
+cube :: (Ord a, Num a) => a -> a
+cube x = x * x * x
+
+sumCubes :: (Ord a, Num a) => a -> a -> a
+sumCubes a b = sumRec cube a (+1) b
 
 -- 1.45
 
