@@ -5,6 +5,27 @@
 
 (clojure.tools.trace/trace-ns 'sicp.chapter1)
 
+;; Ex 1.3
+(defn square [x] (* x x))
+
+(defn sum-of-squares-of-max-2-of-3
+  [x y z]
+  (cond
+    (and (< z x) (< z y)) (+ (square x) (square y))
+    (and (< x y) (< x z)) (+ (square y) (square z))
+    (and (<= y x) (<= y z)) (+ (square x) (square z))))
+
+(sum-of-squares-of-max-2-of-3 3 3 4)
+
+;(defn sum-squares
+;  [coll]
+;  )
+
+;(sum-squares 1 2 3)    ;; shld 4 + 9 = 13
+
+;; todo: can this be generalized to more than 3 arguments ? 
+
+;;
 (defn abs [n] (max n (- n)))
 
 (defn good-enough? [guess x]
@@ -373,7 +394,7 @@
 (defn findds-iter [d m]
   (let [s (quot m 2) r (rem m 2)]  ;; im not sure if quot and rem here are inversed ?
     (if (= r 1) [d m]
-        (findds-iter (+ 1 d) s)))) 
+        (findds-iter (+ 1 d) s))))
 
 ;; (findds-iter 2 4)
 
