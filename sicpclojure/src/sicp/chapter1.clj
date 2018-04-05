@@ -1,5 +1,6 @@
 (ns sicp.chapter1
-  (:use clojure.tools.trace)
+  (:use [clojure.tools.trace]
+        [clojure.test])
   (:require [clj-time.core :as time]
             [clj-time.coerce :as tc]))
 
@@ -8,20 +9,43 @@
 ;; Ex 1.3
 (defn square [x] (* x x))
 
-(defn sum-of-squares-of-max-2-of-3
+(comment "
+  ;; this one fails the test case (sum-of-squares-of-max-2-of-3 3 4 3) which should return 25 but it return 18
+ (defn sum-of-squares-of-max-2-of-3
   [x y z]
   (cond
     (and (< z x) (< z y)) (+ (square x) (square y))
     (and (< x y) (< x z)) (+ (square y) (square z))
-    (and (<= y x) (<= y z)) (+ (square x) (square z))))
+    :else (+ (square x) (square z))))
+")
 
-(sum-of-squares-of-max-2-of-3 3 3 4)
+(defn sum-of-squares-of-max-2-of-3
+  [x y z]
+  (if (< x y)
+    (if (< x z)
+      (+ (square y) (square z)) ;; x is the smaller one
+      (+ (square x) (square y))) ;; z is the smaller one
+    (if (< y z)
+      (+ (square x) (square z)) ;; y is the smaller one 
+      (+ (square x) (square y))))) ;; z is the smaller one
 
-;(defn sum-squares
-;  [coll]
-;  )
+(deftest sum-expressions
+  (are [expression expected] (= expression expected)
+    41 (sum-of-squares-of-max-2-of-3 3 4 5)
+    41 (sum-of-squares-of-max-2-of-3 3 5 4)
+    41 (sum-of-squares-of-max-2-of-3 4 3 5)
+    41 (sum-of-squares-of-max-2-of-3 4 5 3)
+    41 (sum-of-squares-of-max-2-of-3 5 3 4)
+    41 (sum-of-squares-of-max-2-of-3 5 4 3)
+    25 (sum-of-squares-of-max-2-of-3 3 3 4)
+    25 (sum-of-squares-of-max-2-of-3 3 4 3)
+    25 (sum-of-squares-of-max-2-of-3 4 3 3)
+    32 (sum-of-squares-of-max-2-of-3 3 4 4)
+    32 (sum-of-squares-of-max-2-of-3 4 3 4)
+    32 (sum-of-squares-of-max-2-of-3 4 4 3)
+    18 (sum-of-squares-of-max-2-of-3 3 3 3)))
 
-;(sum-squares 1 2 3)    ;; shld 4 + 9 = 13
+;; (run-tests 'sicp.chapter1)
 
 ;; todo: can this be generalized to more than 3 arguments ? 
 
