@@ -71,6 +71,15 @@ cube x = x * x * x
 sumCubes :: (Ord a, Num a) => a -> a -> a
 sumCubes a b = sumRec cube a (+1) b
 
+sumIntegers :: (Ord b, Num b) => b -> b -> b
+sumIntegers a b = sumRec id a (+1) b
+
+piSum a b = sumRec piTerm a piNext b
+  where
+    piTerm x = 1.0 / (x * (x + 2))
+    piNext x = x + 4
+
+
 -- 1.45
 
 compose f g = \x -> f (g x)
