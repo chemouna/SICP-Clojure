@@ -96,6 +96,14 @@ simpsonRule f a b n = (sumRec term 0 (+1) n) * (h/3)
       | odd k = f (a + ((fromIntegral k) * h)) * 4
     h = (b - a) / fromIntegral n
 
+-- 1.30
+sumRec' :: (Ord a, Num a) => (a -> a) -> a -> (a -> a) -> a -> a
+sumRec' term a next b = iter a 0
+  where
+    iter a res
+      | a > b = res
+      | otherwise = a + iter (next a) (term a + res)
+
 -- 1.45
 
 compose f g = \x -> f (g x)
