@@ -79,6 +79,12 @@ piSum a b = sumRec piTerm a piNext b
     piTerm x = 1.0 / (x * (x + 2))
     piNext x = x + 4
 
+-- what's cool here is that the functions passed can do really sophiscated things but the pattern
+-- is the same
+integral :: (Ord a, Fractional a) => (a -> a) -> a -> a -> a -> a
+integral f a b dx = (sumRec f (a + (dx / 2)) addDx b) * dx
+  where
+    addDx x = x + dx
 
 -- 1.45
 
