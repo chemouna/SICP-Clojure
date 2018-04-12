@@ -47,7 +47,7 @@
 
 ;; (run-tests 'sicp.chapter1)
 
-;; todo: can this be generalized to more than 3 arguments ? 
+;; todo: can this be generalized to more than 3 arguments ?
 
 ;;
 (defn abs [n] (max n (- n)))
