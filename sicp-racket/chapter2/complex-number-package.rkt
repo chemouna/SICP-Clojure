@@ -66,6 +66,4 @@
   ((get 'make-from-real-imag 'complex) x y))
 (define (make-complex-from-mag-ang r a)
   ((get 'make-from-mag-ang 'complex) r a))
-
-(define (test x)
-  (display x))
+(define (magnitude 
