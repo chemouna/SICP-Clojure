@@ -44,7 +44,6 @@
        (lambda (x y) (tag (div-rat x y))))
   (put 'make 'rational
        (lambda (n d) (tag (make-rat n d))))
-  (put 'super-type 'rational 'scheme-number)
   (put 'equal? '(rational rational) equal?)
   (put '=zero? '(rational) =zero?)
   'done)

@@ -55,7 +55,6 @@
   (put 'imag-part '(complex) imag-part)
   (put 'magnitude '(complex) magnitude)
   (put 'angle '(complex) angle)
-  (put 'super-type 'complex null)
   (put 'equal? '(complex complex) equal?)
   (put '=zero? '(complex) =zero?)
   'done)

@@ -15,11 +15,12 @@
   (put 'div '(scheme-number scheme-number)
        (lambda (x y) (/ x y)))
   (put 'make 'scheme-number (lambda (x) x))
-  (put 'super-type 'scheme-number 'complex)
   (put 'equal? '(scheme-number scheme-number)
        (lambda (x y) (= x y)))
   (put '=zero? '(scheme-number)
        (lambda (x) (= x 0)))
+  (put 'exp '(scheme-number scheme-number)
+       (lambda (x y) (expt x y)))
   'done)
 
 ; install
