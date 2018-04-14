@@ -30,6 +30,8 @@
   (define (equal? x y)
     (and (= (numer x) (numer y))
          (= (denom x) (denom y))))
+  (define (=zero? x)
+    (and (= (numer x) 0) (not (= (denom x) 0))))
   ; interface to rest of the system
   (define (tag x) (attach-tag 'rational x))
   (put 'add '(rational rational)
@@ -44,6 +46,7 @@
        (lambda (n d) (tag (make-rat n d))))
   (put 'super-type 'rational 'scheme-number)
   (put 'equal? '(rational rational) equal?)
+  (put '=zero? '(rational) =zero?)
   'done)
 
 ; install
@@ -51,3 +54,7 @@
 
 (define (make-rational-number n d)
   ((get 'make 'rational) n d))
+
+;(zero? (make-rational-number 0 3))
+;(zero? (make-rational-number 3 0))
+

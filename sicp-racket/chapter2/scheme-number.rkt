@@ -18,6 +18,8 @@
   (put 'super-type 'scheme-number 'complex)
   (put 'equal? '(scheme-number scheme-number)
        (lambda (x y) (= x y)))
+  (put '=zero? '(scheme-number)
+       (lambda (x) (= x 0)))
   'done)
 
 ; install
