@@ -27,4 +27,6 @@
 ;(equ? (make-scheme-number 2) (make-scheme-number 4))
 ;(equ? (make-complex-from-real-imag 2 3) (make-complex-from-real-imag 4 5))
 
-; b/ 
+; b/ what he means is that it tries to coerce them if they are the same time and the case where the operation
+; is just not available so its a waste and not needed 
+; yes Louis is right
