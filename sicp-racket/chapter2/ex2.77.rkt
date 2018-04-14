@@ -1,7 +1,7 @@
 #lang racket
 
 (require "apply-generic.rkt")
-(require "complex-number-package.rkt")
+(require "complex-number.rkt")
 
 ;; we had to add this because magnitude is not exported from complex-number-package
 (define (magnitude z) (apply-generic 'magnitude z))

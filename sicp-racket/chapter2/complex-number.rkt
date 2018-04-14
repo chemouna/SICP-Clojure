@@ -9,7 +9,7 @@
 (provide make-complex-from-real-imag make-complex-from-mag-ang)
 
 ; install procedure
-(define (install-complex-package)
+(define (install-complex-number)
   ; imported procedures from rectangular and polar packages
   (define (make-from-real-imag x y)
     ((get 'make-from-real-imag 'rectangular) x y))
@@ -32,6 +32,9 @@
   (define (div-complex z1 z2)
     (make-from-mag-ang (/ (magnitude z1) (magnitude z2))
                        (- (angle z1) (angle z2))))
+  (define (equal? z1 z2)
+    (and (= (real-part z1) (real-part z2))
+         (= (imag-part z1) (imag-part z2))))
   ; interface to rest of the system
   (define (tag z) (attach-tag 'complex z))
   (put 'add '(complex complex)
@@ -51,13 +54,13 @@
   (put 'magnitude '(complex) magnitude)
   (put 'angle '(complex) angle)
   (put 'super-type 'complex null)
+  (put 'equal? '(complex complex) equal?)
   'done)
 
 ; install
-(install-complex-package)
+(install-complex-number)
 
 (define (make-complex-from-real-imag x y)
   ((get 'make-from-real-imag 'complex) x y))
 (define (make-complex-from-mag-ang r a)
   ((get 'make-from-mag-ang 'complex) r a))
-(define (magnitude 

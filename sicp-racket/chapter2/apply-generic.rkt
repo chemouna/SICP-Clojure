@@ -2,6 +2,9 @@
 
 (require "table.rkt")
 (require "tag.rkt")
+(require "scheme-number.rkt")
+
+;(require racket/trace)
 
 (provide apply-generic)
 
@@ -13,3 +16,5 @@
           (error
            "No method for these types: APPLY-GENERIC"
            (list op type-tags))))))
+
+;(trace apply-generic)
