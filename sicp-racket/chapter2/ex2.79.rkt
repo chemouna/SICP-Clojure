@@ -29,3 +29,10 @@
 
 ;(equ? cn1 cn2)
 ;(equ? cn1 cn3)
+
+;Lessons from this ex:
+; - how adding an operation is done in such a modular system and how easy it is 
+; - tagging of multiple parameters needs to be done for each one (f.ex (complex complex) as a tag for equal? parameters in complex-number package)
+; - rasing the question of whether its a better abstraction to put the definition of equal? in rectangular and polar packages or its better to put 
+;   it in the complex number package (See here http://community.schemewiki.org/?sicp-ex-2.79 for an example) 
+
