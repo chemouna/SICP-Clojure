@@ -21,12 +21,9 @@
 ; expected a procedure that can be applied to arguments
 ;  given: '()
 ;  arguments...:
-
-;(define (equ? x y) (apply-generic 'equal? x y))
-
-;(equ? (make-scheme-number 2) (make-scheme-number 4))
-;(equ? (make-complex-from-real-imag 2 3) (make-complex-from-real-imag 4 5))
+; we can get into an infinite loop see details here http://jots-jottings.blogspot.co.uk/2012/02/sicp-exercise-281-coercing-to-same-type.html
 
 ; b/ what he means is that it tries to coerce them if they are the same time and the case where the operation
-; is just not available so its a waste and not needed 
-; yes Louis is right
+; is just not available so its a waste and not needed.
+; so it's not strictly needed since the error will be raised but it's a good thing to add to avoid wasting the extra work.
+
