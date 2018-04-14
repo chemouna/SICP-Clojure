@@ -28,3 +28,9 @@
   (apply-generic 'add x y))
 
 (define z (add x y))
+
+; What is the lesson from this exercice (ex 2.78) ? 
+; -> that a part of the program can be changed independently (as we did in tag.rkt to make this change)
+; -> another possibility is that the straightforward solution is not correct and instead we should think of making an additive change like 
+;    mentionned here http://jots-jottings.blogspot.co.uk/2012/02/sicp-exercise-278-using-primitive-types.html
+
