@@ -7,6 +7,7 @@
 (provide apply-generic)
 
 (define (apply-generic op . args)
+  (display "apply-generic args: ") (display args) (newline) 
   (let ((type-tags (map type-tag args)))
     (let ((proc (get op type-tags)))
       (if proc
@@ -32,3 +33,11 @@
                      (list op type-tags)))))))
 
 (trace apply-generic)
+
+
+(require "scheme-number.rkt")
+
+(define (equ? x y)
+  (apply-generic 'equal? x y))
+
+(equ? (make-scheme-number 2) (make-scheme-number 2))

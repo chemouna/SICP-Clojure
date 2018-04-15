@@ -1,5 +1,7 @@
 #lang racket
 
+(require racket/trace)
+
 (provide type-tag contents attach-tag)
 
 (define (type-tag datum)
@@ -17,5 +19,6 @@
         ((= (length args) 2) (cons (car args) (cadr args)))
         (else (error "Bad arguments: ATTACH-TAG" args))))
 
-
-
+(trace type-tag)
+(trace contents)
+(trace attach-tag)

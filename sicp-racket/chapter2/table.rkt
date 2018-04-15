@@ -1,5 +1,7 @@
 #lang racket
 
+(require racket/trace)
+
 (provide put get get-coercion put-coercion)
 
 (define *op-table* (make-hash))
@@ -13,3 +15,8 @@
   (hash-set! *coercion-table* (list type1 type2) proc))
 (define (get-coercion type1 type2)
   (hash-ref *coercion-table* (list type1 type2) null))
+
+(trace put)
+(trace get)
+(trace put-coercion)
+(trace get-coercion)
