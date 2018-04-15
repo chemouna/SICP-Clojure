@@ -1,22 +1,30 @@
 #lang racket
 
-(require "tag.rkt")
+;(require "tag.rkt")
+(require "tag-without-number-special-case.rkt")
 (require "table.rkt")
 
-(define tower-of-types '(integer real rational complex))
+(require racket/trace)
 
-(define (apply-raise v tower-types)
-  (if (null? tower-types)
-      (error "No types tower provided!")
-      (if (eq? (type-tag v) (car tower-types))
-          (if (null? (cdr tower-types))
-              v
-              (let ((raise-proc (get-coercion (type-tag v) (cadr tower-types))))
-                (if raise-proc
-                    (apply raise-proc (contents v))
-                    (error "No coercion procedure found for types "
-                            (list (type-tag v) (cadr tower-types)))))) ;; ?? comeback to this
-          (apply-raise v (cdr tower-types)))))
-               
+(provide raise)
+
+(define tower-of-types '(integer rational real complex))
+
+(define (apply-raise v types)
+  (cond ((null? types)
+         (error "Type not found in the tower-of-types"
+                  (list v tower-of-types)))
+        ((eq? (type-tag v) (car types))
+         (if (null? (cdr types))
+             v
+             (let ((raise-proc (get-coercion (type-tag v) (cadr types))))
+               (if raise-proc
+                     (raise-proc (contents v))
+                     (error "No coercion procedure found for types"
+                            (list (type-tag v) (cadr types)))))))
+        (else (apply-raise v (cdr types)))))
+
 (define (raise v)
   (apply-raise v tower-of-types))
+
+(trace raise)

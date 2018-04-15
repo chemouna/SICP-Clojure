@@ -27,7 +27,5 @@
                        (error "non-integer value" x))))
   'done)
 
-(install-integer-package)
-
 (define (make-integer n)
   ((get 'make 'integer) n))

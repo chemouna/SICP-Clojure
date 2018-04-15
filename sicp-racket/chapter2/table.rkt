@@ -18,5 +18,5 @@
 
 ;(trace put)
 ;(trace get)
-;(trace put-coercion)
-;(trace get-coercion)
+(trace put-coercion)
+(trace get-coercion)
