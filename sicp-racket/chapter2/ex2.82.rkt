@@ -78,4 +78,10 @@
 (apply-generic op1 args3)
 |#
 
+;; with this implementation if there isnt a procedure in the table for the types of the arguments nor for coercing one of them
+;; into the type of the other but there's a procedure in another type not available in the arguments but all arguments can coerce
+;; to it the implementation will still fail
+
+;; the other case where this implementation will fail is with types where some of them are coerced to one type and the others to another
+;; type and there's coercion only between these two remaining type and for that there's a procedure.
             
