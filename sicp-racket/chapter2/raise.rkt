@@ -28,3 +28,6 @@
   (apply-raise v tower-of-types))
 
 (trace raise)
+
+;(raise (make-real 3/4))
+;(complex rectangular 3/4 . 0)
