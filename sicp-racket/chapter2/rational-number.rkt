@@ -2,6 +2,11 @@
 
 (require "table.rkt")
 (require "tag.rkt")
+(require "real.rkt")
+
+;(require "tag-without-number-special-case.rkt")
+
+(require racket/trace)
 
 (provide make-rational-number)
 
@@ -9,7 +14,7 @@
 (define (install-rational-number)
   ; internal procedures
   (define (numer x) (car x))
-  (define (denom x) (cadr x))
+  (define (denom x) (cdr x))
   (define (make-rat n d)
     (let ((g (gcd n d)))
       (cons (/ n g) (/ d g))))
@@ -32,6 +37,8 @@
          (= (denom x) (denom y))))
   (define (=zero? x)
     (and (= (numer x) 0) (not (= (denom x) 0))))
+  (define (rational->real r)
+    (make-real (/ (numer r) (denom r))))
   ; interface to rest of the system
   (define (tag x) (attach-tag 'rational x))
   (put 'add '(rational rational)
@@ -46,8 +53,7 @@
        (lambda (n d) (tag (make-rat n d))))
   (put 'equal? '(rational rational) equal?)
   (put '=zero? '(rational) =zero?)
-  (put 'numer '(rational) numer)
-  (put 'denom '(rational) denom)
+  (put-coercion 'rational 'real rational->real)
   'done)
 
 ; install
@@ -56,6 +62,4 @@
 (define (make-rational-number n d)
   ((get 'make 'rational) n d))
 
-;(zero? (make-rational-number 0 3))
-;(zero? (make-rational-number 3 0))
-
+(trace make-rational-number)

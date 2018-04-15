@@ -1,7 +1,7 @@
 #lang racket
 
-;(require "tag.rkt")
-(require "tag-without-number-special-case.rkt")
+(require "tag.rkt")
+;(require "tag-without-number-special-case.rkt")
 (require "table.rkt")
 
 (require racket/trace)

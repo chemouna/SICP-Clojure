@@ -8,10 +8,11 @@
 (provide apply-generic)
 
 (define (apply-generic op . args)
-  (display "apply-generic args: ") (display args) (newline) 
   (let ((type-tags (map type-tag args)))
+    (display "op: ") (display op) (newline)
+    (display "type-tags: ") (display type-tags) (newline)
     (let ((proc (get op type-tags)))
-      ;(if (and proc (not (null? proc)))
+      (display "proc: ") (display proc) (newline)
       (if proc
           (apply proc (map contents args))
           (if (= (length args) 2) 

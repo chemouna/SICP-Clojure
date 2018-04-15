@@ -46,6 +46,8 @@
                             (imag-part z3))))
   ; interface to rest of the system
   (define (tag z) (attach-tag 'complex z))
+  (define (real->complex r)
+    (make-complex-from-real-imag r 0))
   (put 'add '(complex complex)
        (lambda (z1 z2) (tag (add-complex z1 z2))))
   (put 'sub '(complex complex)
@@ -66,6 +68,7 @@
   (put '=zero? '(complex) =zero?)
   (put 'multi-add '(complex complex complex)
        (lambda (z1 z2 z3) (tag (multi-add z1 z2 z3))))
+  (put-coercion 'real 'complex real->complex)
   'done)
 
 ; install
