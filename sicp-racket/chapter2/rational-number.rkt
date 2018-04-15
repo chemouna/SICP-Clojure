@@ -46,6 +46,8 @@
        (lambda (n d) (tag (make-rat n d))))
   (put 'equal? '(rational rational) equal?)
   (put '=zero? '(rational) =zero?)
+  (put 'numer '(rational) numer)
+  (put 'denom '(rational) denom)
   'done)
 
 ; install

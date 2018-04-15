@@ -32,12 +32,4 @@
                (error "No method for these types"
                      (list op type-tags)))))))
 
-(trace apply-generic)
-
-
-(require "scheme-number.rkt")
-
-(define (equ? x y)
-  (apply-generic 'equal? x y))
-
-(equ? (make-scheme-number 2) (make-scheme-number 2))
+;(trace apply-generic)

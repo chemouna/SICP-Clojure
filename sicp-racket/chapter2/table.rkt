@@ -16,7 +16,7 @@
 (define (get-coercion type1 type2)
   (hash-ref *coercion-table* (list type1 type2) null))
 
-(trace put)
-(trace get)
-(trace put-coercion)
-(trace get-coercion)
+;(trace put)
+;(trace get)
+;(trace put-coercion)
+;(trace get-coercion)

@@ -32,4 +32,4 @@
 (define (make-scheme-number n)
   ((get 'make 'scheme-number) n))
 
-(trace make-scheme-number)
+;(trace make-scheme-number)

@@ -37,6 +37,13 @@
          (= (imag-part z1) (imag-part z2))))
   (define (=zero? z)
     (and (= (real-part z) 0) (= (imag-part z) 0)))
+  (define (multi-add z1 z2 z3)
+    (make-from-real-imag (+ (real-part z1)
+                            (real-part z2)
+                            (real-part z3))
+                         (+ (imag-part z1)
+                            (imag-part z2)
+                            (imag-part z3))))
   ; interface to rest of the system
   (define (tag z) (attach-tag 'complex z))
   (put 'add '(complex complex)
@@ -57,6 +64,8 @@
   (put 'angle '(complex) angle)
   (put 'equal? '(complex complex) equal?)
   (put '=zero? '(complex) =zero?)
+  (put 'multi-add '(complex complex complex)
+       (lambda (z1 z2 z3) (tag (multi-add z1 z2 z3))))
   'done)
 
 ; install
@@ -66,5 +75,3 @@
   ((get 'make-from-real-imag 'complex) x y))
 (define (make-complex-from-mag-ang r a)
   ((get 'make-from-mag-ang 'complex) r a))
-
-;(zero? (make-complex-from-mag-ang 0 0))
