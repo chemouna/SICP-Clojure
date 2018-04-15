@@ -9,8 +9,13 @@
 (require "raise.rkt")
 (require "tag-without-number-special-case.rkt")
 
+(require racket/trace)
+
 (define (numer r) (apply-generic 'numer r))
 (define (denom r) (apply-generic 'denom r))
+
+(trace numer)
+(trace denom)
 
 (define (integer->rational n)
   (make-rational-number n 1))
@@ -27,3 +32,6 @@
 
 ;(raise (make-integer 2))
 (raise (make-rational-number 3 4))
+
+;(raise (make-real 1.234))
+;(raise (make-real 3/4))

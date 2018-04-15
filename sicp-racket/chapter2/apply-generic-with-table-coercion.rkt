@@ -1,6 +1,7 @@
 #lang racket
 
 (require "tag.rkt")
+;(require "tag-without-number-special-case.rkt")
 (require "table.rkt")
 (require racket/trace)
 
@@ -10,6 +11,7 @@
   (display "apply-generic args: ") (display args) (newline) 
   (let ((type-tags (map type-tag args)))
     (let ((proc (get op type-tags)))
+      ;(if (and proc (not (null? proc)))
       (if proc
           (apply proc (map contents args))
           (if (= (length args) 2) 
@@ -32,4 +34,4 @@
                (error "No method for these types"
                      (list op type-tags)))))))
 
-;(trace apply-generic)
+(trace apply-generic)

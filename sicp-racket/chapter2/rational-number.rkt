@@ -9,7 +9,7 @@
 (define (install-rational-number)
   ; internal procedures
   (define (numer x) (car x))
-  (define (denom x) (cdr x))
+  (define (denom x) (cadr x))
   (define (make-rat n d)
     (let ((g (gcd n d)))
       (cons (/ n g) (/ d g))))

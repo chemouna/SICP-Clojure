@@ -26,6 +26,8 @@
                        (error "non-real value" x))))
   'done)
 
+(install-real-package)
+
 (define (make-real n)
   ((get 'make 'real) n))
 
