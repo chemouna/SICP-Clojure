@@ -8,7 +8,6 @@
 ; install procedure 
 (define (install-scheme-number)
   (define (equal? x y) (= x y))
-  (trace equal?)
   ; interface to the rest of the system
   (put 'add '(scheme-number scheme-number)
        (lambda (x y) (+ x y)))
