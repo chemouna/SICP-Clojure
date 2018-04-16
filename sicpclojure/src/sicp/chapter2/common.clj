@@ -11,3 +11,12 @@
     false
     (empty? (rest (rest coll)))))
 
+(defn square
+  [x]
+  (* x x))
+
+(defn atan
+  ([x] (Math/atan (double x)))
+  ([x y] (Math/atan2 (double x) (double y))))
+
+

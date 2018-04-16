@@ -11,7 +11,7 @@
   (swap! op-table assoc (list op type) proc)) ;; where did it get table from?
 
 (defn gett
-  "Gets a procedure from the cell in operation table under the row op and the column type"
+  "Gets a procedure from the cell in operation table under the row op and the column type(s)"
   [op type]
   (get @op-table (list op type)))
 
