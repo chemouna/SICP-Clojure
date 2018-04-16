@@ -39,22 +39,8 @@
          (l (lower h type-tags args))
          (lower->higher (get-coercion (car l) (car h))))  
          (if (not (null? lower->higher))
-             (block
-              (display "h: ") (display h) (newline)
-              (display "l: ") (display l) (newline) 
-              (display "cadr h: ") (display (cadr h)) (newline)
-              (display "cadr l: ") (display (cadr l)) (newline)
-              (apply-generic op (cadr h) (lower->higher (contents (cadr l)))))
+              (apply-generic op (cadr h) (lower->higher (contents (cadr l))))
              (no-method op type-tags))))
-
-#|
-(define (apply-with-coercion op type-tags type1 type2 a1 a2)
-  (let ((t1->t2 (get-coercion type1 type2))
-        (t2->t1 (get-coercion type2 type1)))
-        (cond (t1->t2 (apply-generic op (t1->t2 a1) a2))
-              (t2->t1 (apply-generic op a1 (t2->t1 a2)))
-              (else (no-method op type-tags)))))
-|#
 
 (define (apply-generic op . args)
   (let ((type-tags (map type-tag args)))
@@ -69,7 +55,6 @@
 (trace apply-with-successive-raising)
 (trace lower)
 (trace higher)
-
 
 (define (add x y) (apply-generic 'add x y))
 
