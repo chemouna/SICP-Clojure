@@ -6,6 +6,8 @@
 (require "table.rkt")
 (require "tag.rkt")
 
+(require racket/trace)
+
 (provide make-complex-from-real-imag make-complex-from-mag-ang)
 
 ; install procedure
@@ -78,3 +80,5 @@
   ((get 'make-from-real-imag 'complex) x y))
 (define (make-complex-from-mag-ang r a)
   ((get 'make-from-mag-ang 'complex) r a))
+
+(trace make-complex-from-real-imag)
