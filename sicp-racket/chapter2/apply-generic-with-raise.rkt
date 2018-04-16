@@ -63,3 +63,7 @@
 ;(add (make-rational-number 1 2) (make-rational-number 1 4))
 
 ;(add (make-integer 42) (make-rational-number 1 4))
+
+(define (multi-add x y z) (apply-generic 'multi-add x y z))
+
+(multi-add (make-real 3.14159) (make-rational-number 3 4) (make-complex-from-real-imag 1 7))
