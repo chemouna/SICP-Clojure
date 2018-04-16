@@ -9,26 +9,26 @@
 
 ; interface to the rest of the system
 (table/put 'add '(scheme-number scheme-number)
-     (lambda (x y) (+ x y)))
+     #(+ %1 %2))
 
 (table/put 'sub '(scheme-number scheme-number)
-     (lambda (x y) (- x y)))
+     #(- %1 %2))
 
 (table/put 'mul '(scheme-number scheme-number)
-     (lambda (x y) (* x y)))
+     #(* %1 %2))
 
 (table/put 'div '(scheme-number scheme-number)
-     (lambda (x y) (/ x y)))
+     #(/ %1 %2))
 
-(table/put 'make 'scheme-number (lambda (x) x))
+(table/put 'make 'scheme-number  #(%1))
 
 (table/put 'equal? '(scheme-number scheme-number) equal?)
 
 (table/put '=zero? '(scheme-number)
-     (lambda (x) (= x 0)))
+      #(= %1 0))
 
 (table/put 'exp '(scheme-number scheme-number)
-     (lambda (x y) (expt x y)))
+     #(expt %1 %2))
 
 (defn make-scheme-number
   "Creates a number"
