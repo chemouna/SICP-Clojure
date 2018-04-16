@@ -39,7 +39,7 @@
          (l (lower h type-tags args))
          (lower->higher (get-coercion (car l) (car h))))  
          (if (not (null? lower->higher))
-              (apply-generic op (cadr h) (lower->higher (contents (cadr l))))
+              (apply-generic op (cadr h) (lower->higher (cadr l)))
              (no-method op type-tags))))
 
 (define (apply-generic op . args)
@@ -58,12 +58,8 @@
 
 (define (add x y) (apply-generic 'add x y))
 
-;(add (make-real 3.14159) (make-complex-from-real-imag 1 7))
+(add (make-real 3.14159) (make-complex-from-real-imag 1 7))
 
-;(add (make-rational-number 1 2) (make-rational-number 1 4))
+(add (make-rational-number 1 2) (make-rational-number 1 4))
 
-;(add (make-integer 42) (make-rational-number 1 4))
-
-(define (multi-add x y z) (apply-generic 'multi-add x y z))
-
-(multi-add (make-real 3.14159) (make-rational-number 3 4) (make-complex-from-real-imag 1 7))
+(add (make-integer 42) (make-rational-number 1 4))

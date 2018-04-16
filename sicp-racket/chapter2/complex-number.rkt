@@ -49,7 +49,7 @@
   ; interface to rest of the system
   (define (tag z) (attach-tag 'complex z))
   (define (real->complex r)
-    (make-complex-from-real-imag r 0))
+    (make-complex-from-real-imag (contents r) 0))
   (put 'add '(complex complex)
        (lambda (z1 z2) (tag (add-complex z1 z2))))
   (put 'sub '(complex complex)
