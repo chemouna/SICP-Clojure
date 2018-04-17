@@ -1,27 +1,20 @@
 
 (ns sicp.chapter2.rational-test
-  (:require [clojure.test]
-            [sicp.chapter2.tag]
-            [sicp.chapter2.rational :as rat]))
+  (:use clojure.test)
+  (:use sicp.chapter2.tag)
+  (:use sicp.chapter2.rational))
 
 (deftest test-numer
-  (is (= (rat/numer (contents (rat/make-rational-number 2 3))) 2)))
+  (is (= (numer (make-rational-number 2 3)) 2)))
 
-(test-numer)
-;(test-vars [#'the-ns/the-test])
-
-(comment "
 (deftest test-denom
-  )
-")
+  (is (= (denom (make-rational-number 2 3)) 3)))
 
-(comment "
 (deftest test-add-rational-number
-  (is (rat/equal?
-       (rat/add-rat
-        (rat/make-rational-number 2 4)
-        (rat/make-rational-number 1 4))
-       (rat/make-rational-number 3 4))))
-")
+  (is (=
+       (add-rat
+        (make-rational-number 2 4)
+        (make-rational-number 1 4))
+       '(3 4))))
 
-;(run-tests)
+(run-tests)

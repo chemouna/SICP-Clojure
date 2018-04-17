@@ -9,7 +9,7 @@
 
 (deftest test-contents
   (is (= (contents 2) 2))
-  (is (= (contents '('real 2.13)) '(2.13))))
+  (is (= (contents '(real 2.13)) 2.13)))
 
 (deftest test-attach-tag
   (is (= (attach-tag 2) 2))

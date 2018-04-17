@@ -3,8 +3,6 @@
   (:use clojure.test)
   (:use sicp.chapter2.table))
 
-;; how do you test a put for an atom , its only after doing the operation that the test makes sense
-
 (deftest test-putt-gett
   (putt 'add '(real real) #(+ %1 %2))
   (putt 'multi '(real real) #(* %1 %2))

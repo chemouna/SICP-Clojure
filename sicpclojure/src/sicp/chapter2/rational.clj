@@ -13,11 +13,11 @@
 ; internal procedures
 (defn numer
   [x]
-  (first x))
+  (first (tag/contents x)))
 
 (defn denom
   [x]
-  (second x))
+  (second (tag/contents x)))
 
 (defn make-rat
   [n d]

@@ -13,7 +13,7 @@
   [datum]
   (cond
     (number? datum) datum
-    (pair? datum) (rest datum)
+    (pair? datum) (second datum)
     :else (println "Bad tagged datum: CONTENTS" datum)))
 
 (defn attach-tag
