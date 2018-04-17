@@ -3,23 +3,28 @@
   (:require [sicp.chapter2.table :as table]
             [sicp.chapter2.tag :as tag]
             [sicp.chapter2.common :as cm]
-            [sicp.chapter2.real :as real]))
+            [sicp.chapter2.real :as real]
+            [clojure.tools.trace :as trace]))
+
+;(trace/trace-ns 'sicp.chapter2.tag)
+;(trace/trace-ns 'sicp.chapter2.table)
+;(trace/trace-ns 'sicp.chapter2.rational)
 
 ; internal procedures
-(defn- numer
+(defn numer
   [x]
   (first x))
 
-(defn- denom
+(defn denom
   [x]
-  (rest x))
+  (second x))
 
-(defn- make-rat
+(defn make-rat
   [n d]
   (let [g (cm/gcd n d)]
-    (conj (/ d g) (/ n g))))
+    (list (/ n g) (/ d g))))
 
-(defn- add-rat
+(defn add-rat
   [x y]
   (make-rat (+ (* (numer x) (denom y))
                (* (numer y) (denom x)))
@@ -41,7 +46,7 @@
   (make-rat (* (numer x) (denom y))
             (* (denom x) (numer y))))
 
-(defn- equal?
+(defn equal?
   [x y]
   (and (= (numer x) (numer y))
        (= (denom x) (denom y))))
@@ -82,5 +87,5 @@
 
 (defn make-rational-number
   [n d]
-  ((get 'make 'rational) n d))
+  ((table/gett 'make 'rational) n d))
 

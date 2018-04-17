@@ -5,8 +5,8 @@
             [clojure.tools.trace :as trace]
             [sicp.chapter2.rational :as rat]))
 
-(trace/trace-ns 'sicp.chapter2.raise)
-(trace/trace-ns 'sicp.chapter2.tag)
+;(trace/trace-ns 'sicp.chapter2.raise)
+;(trace/trace-ns 'sicp.chapter2.rational)
 
 (def tower-of-types '('integer 'rational 'real 'complex))
 
@@ -27,6 +27,8 @@
 (defn raise
   [v]
   (apply-raise v tower-of-types))
+
+;(rat/make-rational-number 2 3)
 
 ;(raise (rat/make-rational-number 2 3))
 

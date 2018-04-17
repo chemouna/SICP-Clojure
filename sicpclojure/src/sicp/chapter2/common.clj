@@ -18,7 +18,8 @@
   ([x] (Math/atan (double x)))
   ([x y] (Math/atan2 (double x) (double y))))
 
-(defn gcd [a b]
+(defn gcd
+  [a b]
   (if (= b 0)
     a
     (gcd b (mod a b))))
