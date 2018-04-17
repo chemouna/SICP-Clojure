@@ -4,7 +4,6 @@
             [sicp.chapter2.tag]
             [sicp.chapter2.rational :as rat]))
 
-;; todo : fix this 
 (deftest test-numer
   (is (= (rat/numer (contents (rat/make-rational-number 2 3))) 2)))
 

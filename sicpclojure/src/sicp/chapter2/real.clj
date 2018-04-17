@@ -31,4 +31,5 @@
 
 (defn make-real
   [n]
-  ((get 'make 'real) n))
+  ((table/gett 'make 'real) n))
+

@@ -34,4 +34,4 @@
 (defn make-scheme-number
   "Creates a number"
   [n]
-  ((get 'make 'scheme-number) n))
+  ((table/gett 'make 'scheme-number) n))

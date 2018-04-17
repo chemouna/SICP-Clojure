@@ -110,11 +110,11 @@
 
 (defn make-complex-from-real-imag
   [x y]
-  ((get 'make-from-real-imag 'complex) x y))
+  ((table/gett 'make-from-real-imag 'complex) x y))
 
 (defn make-complex-from-mag-ang
   [r a]
-  ((get 'make-from-mag-ang 'complex) r a))
+  ((table/gett 'make-from-mag-ang 'complex) r a))
 
 (defn real->complex
   [r]

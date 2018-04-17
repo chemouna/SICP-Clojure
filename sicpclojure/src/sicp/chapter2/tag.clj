@@ -20,9 +20,5 @@
   [& args]
   (cond
     (= (count args) 1) (first args)
-    (= (count args) 2) (conj (second args) (first args))
+    (= (count args) 2) args
     :else (println "Bad arguments: ATTACH-TAG" args)))
-
-
-
-
