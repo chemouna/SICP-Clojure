@@ -5,11 +5,11 @@
             [sicp.chapter2.tag :as tag]))
 
 ; imported procedures from rectangular and polar packages
-(defn- make-from-real-imag
+(defn make-from-real-imag
   [x y]
   ((table/gett 'make-from-real-imag 'rectangular) x y))
 
-(defn- make-from-mag-ang
+(defn make-from-mag-ang
   [r a]
   ((table/gett 'make-from-mag-ang 'polar) r a))
 
@@ -30,7 +30,7 @@
   (ag/apply-generic 'angle z))
 
 ; internal procedures
-(defn- add-complex
+(defn add-complex
   [z1 z2]
   (make-from-real-imag (+ (real-part z1) (real-part z2))
                        (+ (real-part z1) (real-part z2))))

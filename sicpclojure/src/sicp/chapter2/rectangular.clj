@@ -5,30 +5,30 @@
             [sicp.chapter2.table :as table]))
 
 ; internal procedures
-(defn- real-part
+(defn real-part
   [z]
   (first z))
 
-(defn- imag-part
+(defn imag-part
   [z]
-  (rest z))
+  (second z))
 
-(defn- make-from-real-imag
+(defn make-from-real-imag
   [x y]
-  (conj y x))
+  (list x y))
 
-(defn- magnitude
+(defn magnitude
   [z]
   (Math/sqrt (+ (cm/square (real-part z))
                 (cm/square (imag-part z)))))
 
-(defn- angle
+(defn angle
   [z]
   (cm/atan (imag-part z) (real-part z)))
 
-(defn- make-from-mag-ang
+(defn make-from-mag-ang
   [r a]
-  (conj (* r (Math/sin a)) (* r (Math/cos a))))
+  (list (* r (Math/cos a)) (* r (Math/sin a))))
 
 ; interface to the rest of the system
 (defn tag
