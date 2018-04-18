@@ -13,7 +13,7 @@
 
 ;; contains part of a solution of ex 2.84
 
-(provide apply-generic)
+;(provide apply-generic)
 
 (define (no-method op type-tags)
   (error "No method for these types"
@@ -21,45 +21,47 @@
 
 (define tower-of-types '(integer rational real complex))
 
-(define (higher type-tags args)
-  (define (higher-helper type-tags args types)
-    (cond ((eq? (car type-tags) (car types)) (list (cadr type-tags) (cadr args)))
-          ((eq? (cadr type-tags) (car types)) (list (car type-tags) (car args)))
-          (else (higher-helper type-tags args (cdr types)))))
-  ;(trace higher-helper)
-  (higher-helper type-tags args tower-of-types))
+(define (find-highest-type l)
+  (define (filter-type t f)
+    (cond ((null? f) '())
+          ((eq? (car f) t) (filter-type t (cdr f)))
+          (else (cons (car f) (filter-type t (cdr f))))))
+  (define (find-highest highest remaining-tower remaining-list)
+    (cond ((null? remaining-list) highest)
+          ((null? remaining-tower)
+           (error "Cannot find highest type from non-tower types -- FIND-HIGHEST-TYPE"
+                  remaining-list))
+          (else (find-highest (car remaining-tower)
+                              (cdr remaining-tower)
+                              (filter-type (car remaining-tower) remaining-list)))))
+  (find-highest #f tower-of-types l))
 
-(define (lower higher type-tags args)
-  (if (eq? (car higher) (car type-tags))
-      (list (cadr type-tags) (cadr args))
-      (list (car type-tags) (car args))))
+(define (raise-to type value)
+  (cond ((eq? type (type-tag value)) value)
+        ((memq type tower-of-types) (raise-to type (raise value)))
+        (else (error "Cannot raise to non-tower type -- RAISE-TO"
+                     (list type tower-of-types)))))
 
-(define (apply-with-successive-raising op type-tags args)
-  (let* ((h (higher type-tags args))
-         (l (lower h type-tags args))
-         (lower->higher (get-coercion (car l) (car h))))  
-         (if (not (null? lower->higher))
-              (apply-generic op (cadr h) (lower->higher (cadr l)))
-             (no-method op type-tags))))
+(define (raise-all-to type values)
+  (if (null? values)
+      '()
+      (cons (raise-to type (car values)) (raise-all-to type (cdr values)))))
 
 (define (apply-generic op . args)
-  (let ((type-tags (map type-tag args)))
-    (let ((proc (get op type-tags)))
-      (if (not (null? proc))
-          (apply proc (map contents args))
-          (if (= (length args) 2) 
-              (apply-with-successive-raising op type-tags args)
-              (no-method op type-tags))))))
+  (let* ((type-tags (map type-tag args))
+         (proc (get op type-tags)))
+    (if (and proc (not (null? proc)))
+        (apply proc (map contents args))
+        (if (> (length args) 1)
+            (let* ((highest-type (find-highest-type type-tags))
+                   (mapped-args (raise-all-to highest-type args))
+                   (mapped-types (map type-tag mapped-args))
+                   (mapped-proc (get op mapped-types)))
+              (if mapped-proc
+                  (apply mapped-proc (map contents mapped-args))
+                  (error
+                   "No method for these types -- APPLY-GENERIC"
+                   (list op type-tags))))
+            (no-method op type-tags)))))
 
-(trace apply-generic)
-(trace apply-with-successive-raising)
-(trace lower)
-(trace higher)
-
-(define (add x y) (apply-generic 'add x y))
-
-(add (make-real 3.14159) (make-complex-from-real-imag 1 7))
-
-(add (make-rational-number 1 2) (make-rational-number 1 4))
-
-(add (make-integer 42) (make-rational-number 1 4))
+(apply-generic 'addd (make-real 3.14159) (make-rational-number 3 4) (make-complex-from-real-imag 1 7))

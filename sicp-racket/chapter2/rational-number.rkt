@@ -63,3 +63,5 @@
   ((get 'make 'rational) n d))
 
 (trace make-rational-number)
+
+(make-rational-number 2 3)
