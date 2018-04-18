@@ -94,6 +94,7 @@
 (table/put-coercion 'rational 'real rational->real)
 
 (table/putt 'project '(rational) project)
+
 (defn make-rational-number
   [n d]
   ((table/gett 'make 'rational) n d))

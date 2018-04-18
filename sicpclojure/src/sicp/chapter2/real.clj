@@ -30,6 +30,8 @@
 (table/putt 'addd '(real real real)
            #(tag (+ %1 %2 %3)))
 
+(table/putt 'project '(real) identity)
+
 (defn make-real
   [n]
   ((table/gett 'make 'real) n))

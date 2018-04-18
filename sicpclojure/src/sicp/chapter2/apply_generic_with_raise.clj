@@ -18,9 +18,6 @@
   (println "find-highest-type: " types)
   (last (sort-by #(index-of % tower-of-types) types)))
 
-;(find-highest-type '(rational real integer))
-;(map #(index-of % tower-of-types) '('rational))
-
 (defn raise-to
   [target type v]
   (if (or (nil? type) (nil? v))
@@ -29,11 +26,6 @@
       v
       (let [r (r/raise v)]
         (raise-to target (tag/type-tag r) r)))))
-
-;(r/raise (int/make-integer 2))
-;(r/raise (rat/make-rational-number 2 1))
-;(raise-to 'complex 'integer (int/make-integer 2))
-;(raise-to 'integer 'integer (int/make-integer 2))
 
 (defn raise-values
   [target type-tags args result]

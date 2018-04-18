@@ -35,6 +35,8 @@
 
 (table/put-coercion 'integer 'rational integer->rational)
 
+(table/putt 'project '(integer) identity)
+
 (defn make-integer
   [n]
   ((table/gett 'make 'integer) n))
