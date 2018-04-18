@@ -52,18 +52,10 @@
   (let [type-tags (map tag/type-tag args)]
     (let [proc (table/gett op type-tags)]
       (if proc
-        (do
-          (println "proc was found for the types without raising")
-          (apply proc (map tag/contents args)))
-        (do
-          (println "proc was not found")
+          (apply proc (map tag/contents args))
           (let [highest-type (find-highest-type type-tags)
               raised-values (raise-values highest-type type-tags args '())]
           (if (empty? raised-values)
-            (do
-              (println "error ")
-              (println "raised-values was empty"))
-            (do
-              (println "raised-values was not empty: " raised-values)
-              (apply apply-generic-with-raise op raised-values)))))))))
+              (println "raised-values was empty")
+              (apply apply-generic-with-raise op raised-values)))))))
 
