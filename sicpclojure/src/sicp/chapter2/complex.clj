@@ -1,8 +1,10 @@
 
 (ns sicp.chapter2.complex
   (:require [sicp.chapter2.table :as table]
-            [sicp.chapter2.apply-generic-with-coercion :as ag]
-            [sicp.chapter2.tag :as tag]))
+            ;[sicp.chapter2.apply-generic-with-coercion :as ag]
+            [sicp.chapter2.apply-generic-with-raise :as agr]
+            [sicp.chapter2.tag :as tag]
+            [sicp.chapter2.real :as real]))
 
 ; imported procedures from rectangular and polar packages
 (defn make-from-real-imag
@@ -15,19 +17,19 @@
 
 (defn- real-part
   [z]
-  (ag/apply-generic 'real-part z))
+  (agr/apply-generic-with-raise 'real-part z))
 
 (defn- imag-part
   [z]
-  (ag/apply-generic 'imag-part z))
+  (agr/apply-generic-with-raise 'imag-part z))
 
 (defn- magnitude
   [z]
-  (ag/apply-generic 'magnitude z))
+  (agr/apply-generic-with-raise 'magnitude z))
 
 (defn- angle
   [z]
-  (ag/apply-generic 'angle z))
+  (agr/apply-generic-with-raise 'angle z))
 
 ; internal procedures
 (defn add-complex
@@ -59,8 +61,9 @@
   [z]
   (and (= (real-part z) 0) (= (imag-part z) 0)))
 
-(defn- multi-add
+(defn addd
   [z1 z2 z3]
+  (println " ** addd called with : " (list z1 z2 z3))
   (make-from-real-imag (+ (real-part z1)
                           (real-part z2)
                           (real-part z3))
@@ -103,15 +106,14 @@
 
 (table/putt '=zero? '(complex) =zero?)
 
-(table/putt 'multi-add '(complex complex complex)
-            #(tag (multi-add %1 %2 %3)))
+(table/putt 'addd '(complex complex complex)
+            #(tag (addd %1 %2 %3)))
 
 (table/put-coercion 'real 'complex real->complex)
 
 (defn make-complex-from-real-imag
   [x y]
   ((table/gett 'make-from-real-imag 'complex) x y))
-
 (defn make-complex-from-mag-ang
   [r a]
   ((table/gett 'make-from-mag-ang 'complex) r a))
@@ -119,4 +121,11 @@
 (defn real->complex
   [r]
   (make-complex-from-real-imag (tag/contents r) 0))
+
+;(addd (make-from-real-imag 2 3) (make-from-real-imag 1 4) (make-from-real-imag 1 2)))))
+
+;(make-from-real-imag (+ (real-part (make-complex-from-real-imag 3 5)) (real-part (make-complex-from-real-imag 2 3)) (real-part (make-complex-from-real-imag 1 4)))
+;                     (+ (imag-part (make-complex-from-real-imag 3 5)) (imag-part (make-complex-from-real-imag 2 3)) (imag-part (make-complex-from-real-imag 1 4))))
+
+;(addd (make-complex-from-real-imag 3 5) (make-complex-from-real-imag 2 3) (make-complex-from-real-imag 1 4))
 

@@ -6,6 +6,7 @@
             [sicp.chapter2.integer :as int]
             [sicp.chapter2.rational :as rat]
             [sicp.chapter2.real :as real]
+            [sicp.chapter2.complex :as c]
             [clojure.tools.trace :as trace]))
 
 (trace/trace-ns 'sicp.chapter2.apply-generic-with-raise)
@@ -67,5 +68,9 @@
               (println "raised-values was not empty: " raised-values)
               (apply apply-generic-with-raise op raised-values)))))))))
 
-(apply-generic-with-raise 'addd (rat/make-rational-number 2 3) (real/make-real 2.12) (int/make-integer 2))
+; todo: put these in a unit test file 
+;(apply-generic-with-raise 'addd (rat/make-rational-number 2 3) (real/make-real 2.12) (int/make-integer 2))
 
+;(apply-generic-with-raise 'addd (c/make-complex-from-real-imag 3 5) (c/make-complex-from-real-imag 2 3) (c/make-complex-from-real-imag 1 4))
+
+;(apply-generic-with-raise 'addd (c/make-complex-from-real-imag 2 3) (real/make-real 2.15) (rat/make-rational-number 3 6))

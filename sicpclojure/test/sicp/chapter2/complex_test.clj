@@ -22,4 +22,7 @@
           (make-from-real-imag 3 4))
          '(rectangular (5 5)))))
 
+(deftest test-addd
+  (is (= (addd (make-from-real-imag 2 3) (make-from-real-imag 1 4) (make-from-real-imag 1 2)))))
+
 (run-tests)
