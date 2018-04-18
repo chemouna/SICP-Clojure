@@ -4,6 +4,7 @@
             [sicp.chapter2.tag :as tag]
             [sicp.chapter2.common :as cm]
             [sicp.chapter2.real :as real]
+            [sicp.chapter2.integer :as int]
             [clojure.tools.trace :as trace]))
 
 ;(trace/trace-ns 'sicp.chapter2.tag)
@@ -59,11 +60,18 @@
   [r]
   (real/make-real (/ (numer (tag/contents r)) (denom (tag/contents r)))))
 
-; interface to rest of the system
 (defn tag
   [x]
   (tag/attach-tag 'rational x))
 
+(defn project
+  [r]
+  (let [v (tag/contents r)]
+    (cond
+      (= (denom v) 1) (int/make-integer (numer v))
+      :else r)))
+
+; interface to rest of the system
 (table/putt 'add '(rational rational)
             #(tag (add-rat %1 %2)))
 
@@ -85,6 +93,7 @@
 
 (table/put-coercion 'rational 'real rational->real)
 
+(table/putt 'project '(rational) project)
 (defn make-rational-number
   [n d]
   ((table/gett 'make 'rational) n d))

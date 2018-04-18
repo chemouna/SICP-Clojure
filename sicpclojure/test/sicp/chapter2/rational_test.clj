@@ -17,5 +17,8 @@
         '(1 4))
        '(3 4))))
 
+(deftest test-project
+  (is (= (project (make-rational-number 2 1)) '(integer 2)))
+  (is (= (project (make-rational-number 2 3)) '(rational (2 3)))))
 
 (run-tests)
