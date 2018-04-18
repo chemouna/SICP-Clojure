@@ -36,4 +36,3 @@
               (no-method op type-tags)))
           (no-method op type-tags))))))
 
-;(apply-generic 'add (rat/make-rational-number 2 3) (real/make-real 2.12))

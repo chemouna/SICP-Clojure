@@ -21,7 +21,7 @@
 (table/putt 'div '(scheme-number scheme-number)
      #(/ %1 %2))
 
-(table/putt 'make 'scheme-number  #(%1))
+(table/putt 'make 'scheme-number identity)
 
 (table/putt 'equal? '(scheme-number scheme-number) equal?)
 
