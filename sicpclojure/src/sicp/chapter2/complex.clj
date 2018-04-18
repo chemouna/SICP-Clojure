@@ -4,7 +4,10 @@
             ;[sicp.chapter2.apply-generic-with-coercion :as ag]
             [sicp.chapter2.apply-generic-with-raise :as agr]
             [sicp.chapter2.tag :as tag]
-            [sicp.chapter2.real :as real]))
+            [sicp.chapter2.real :as real]
+            [sicp.chapter2.common :as cm]
+            [sicp.chapter2.integer :as int])
+  (:use sicp.chapter2.tower))
 
 ; imported procedures from rectangular and polar packages
 (defn make-from-real-imag
@@ -76,6 +79,15 @@
   [z]
   (tag/attach-tag 'complex z))
 
+(defn project
+  [z]
+  (let [r (real-part z)]
+    (cond
+      (not (= (imag-part z) 0)) z
+      :else (if (cm/real? r)
+        (real/make-real r)
+        (int/make-integer r)))))
+
 (table/putt 'add '(complex complex)
             #(tag (add-complex %1 %2)))
 
@@ -111,9 +123,12 @@
 
 (table/put-coercion 'real 'complex real->complex)
 
+(table/putt 'project '(complex) project)
+
 (defn make-complex-from-real-imag
   [x y]
   ((table/gett 'make-from-real-imag 'complex) x y))
+
 (defn make-complex-from-mag-ang
   [r a]
   ((table/gett 'make-from-mag-ang 'complex) r a))
@@ -121,11 +136,4 @@
 (defn real->complex
   [r]
   (make-complex-from-real-imag (tag/contents r) 0))
-
-;(addd (make-from-real-imag 2 3) (make-from-real-imag 1 4) (make-from-real-imag 1 2)))))
-
-;(make-from-real-imag (+ (real-part (make-complex-from-real-imag 3 5)) (real-part (make-complex-from-real-imag 2 3)) (real-part (make-complex-from-real-imag 1 4)))
-;                     (+ (imag-part (make-complex-from-real-imag 3 5)) (imag-part (make-complex-from-real-imag 2 3)) (imag-part (make-complex-from-real-imag 1 4))))
-
-;(addd (make-complex-from-real-imag 3 5) (make-complex-from-real-imag 2 3) (make-complex-from-real-imag 1 4))
 

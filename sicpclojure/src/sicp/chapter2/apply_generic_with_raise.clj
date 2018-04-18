@@ -6,11 +6,10 @@
             [sicp.chapter2.rational :as rat]
             [sicp.chapter2.real :as real]
             [sicp.chapter2.complex :as c]
-            [clojure.tools.trace :as trace]))
+            [clojure.tools.trace :as trace])
+  (:use [sicp.chapter2.tower]))
 
 (trace/trace-ns 'sicp.chapter2.apply-generic-with-raise)
-
-(def tower-of-types '(integer rational real complex))
 
 (defn index-of [e coll] (first (keep-indexed #(if (= e %2) %1) coll)))
 
