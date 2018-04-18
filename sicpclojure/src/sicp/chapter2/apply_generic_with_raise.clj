@@ -1,4 +1,3 @@
-
 (ns sicp.chapter2.apply-generic-with-raise
   (:require [sicp.chapter2.tag :as tag]
             [sicp.chapter2.table :as table]
@@ -68,9 +67,3 @@
               (println "raised-values was not empty: " raised-values)
               (apply apply-generic-with-raise op raised-values)))))))))
 
-; todo: put these in a unit test file 
-;(apply-generic-with-raise 'addd (rat/make-rational-number 2 3) (real/make-real 2.12) (int/make-integer 2))
-
-;(apply-generic-with-raise 'addd (c/make-complex-from-real-imag 3 5) (c/make-complex-from-real-imag 2 3) (c/make-complex-from-real-imag 1 4))
-
-;(apply-generic-with-raise 'addd (c/make-complex-from-real-imag 2 3) (real/make-real 2.15) (rat/make-rational-number 3 6))
