@@ -5,20 +5,22 @@
             [sicp.chapter2.raise :as r]
             [sicp.chapter2.integer :as int]
             [sicp.chapter2.rational :as rat]
-            [sicp.chapter2.real :as real]))
+            [sicp.chapter2.real :as real]
+            [clojure.tools.trace :as trace]))
 
-(def tower-of-types '('integer 'rational 'real 'complex))
+(trace/trace-ns 'sicp.chapter2.apply-generic-with-raise)
 
-(defn find-highest-type-helper
-  [types tower]
-  (cond
-    (empty? (rest types)) (first types)
-    (= (first types) (first tower)) (find-highest-type-helper (rest types) (rest tower))
-    :else (find-highest-type-helper types (rest tower))))
+(def tower-of-types '(integer rational real complex))
+
+(defn index-of [e coll] (first (keep-indexed #(if (= e %2) %1) coll)))
 
 (defn find-highest-type
   [types]
-  (find-highest-type-helper types tower-of-types))
+  (println "find-highest-type: " types)
+  (last (sort-by #(index-of % tower-of-types) types)))
+
+;(find-highest-type '(rational real integer))
+;(map #(index-of % tower-of-types) '('rational))
 
 (defn raise-to
   [target type v]
@@ -36,27 +38,38 @@
 
 (defn raise-values
   [target type-tags args result]
+  (println "raise-values: "(list target type-tags args result))
   (if (empty? type-tags)
     result
     (raise-values target
                   (rest type-tags)
                   (rest args)
-                  (conj result (raise-to target (first type-tags) (tag/contents (first args)))))))
+                  (conj result (raise-to target (first type-tags) (first args))))))
 
 (defn apply-generic-with-raise
   [op & args]
+  (println "apply-generic-with-raise: " (list op args))
   (let [type-tags (map tag/type-tag args)]
     (let [proc (table/gett op type-tags)]
       (if proc
-        (apply proc (map tag/contents args))
-        (let [highest-type (find-highest-type type-tags)
+        (do
+          (println "proc was found for the types without raising")
+          (apply proc (map tag/contents args)))
+        (do
+          (println "proc was not found")
+          (let [highest-type (find-highest-type type-tags)
               raised-values (raise-values highest-type type-tags args '())]
           (if (empty? raised-values)
-            (println "error ")
-            (apply op raised-values)))))))
+            (do
+              (println "error ")
+              (println "raised-values was empty"))
+            (do
+              (println "raised-values was not empty: " raised-values)
+              (apply op raised-values)))))))))
 
-(apply-generic-with-raise 'add (rat/make-rational-number 2 3) (real/make-real 2.12) (int/make-integer 2))
+(apply-generic-with-raise 'addd (rat/make-rational-number 2 3) (real/make-real 2.12) (int/make-integer 2))
 
+;(real/)
 
 ;; todo: solve the issue of passing highest-type here with type-tags too
 
