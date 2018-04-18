@@ -10,6 +10,7 @@
 (deftest test-raise
   (is (= (raise (real/make-real 2.12)) '(complex (rectangular (2.12 0)))))
   (is (= (raise (rat/make-rational-number 2 3)) '(real 2/3)))
+  (is (= (raise (rat/make-rational-number 2 1))))
   (is (= (raise (complex/make-complex-from-real-imag 2 3)) '(complex (rectangular (2 3)))))
   (is (= (raise (int/make-integer 2)))))
 

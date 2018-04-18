@@ -1,4 +1,3 @@
-
 (ns sicp.chapter2.raise
   (:require [sicp.chapter2.tag :as tag]
             [sicp.chapter2.table :as table]
@@ -32,3 +31,4 @@
   [v]
   (apply-raise v tower-of-types))
 
+;(raise (rat/make-rational-number 2 1))

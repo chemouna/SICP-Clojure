@@ -25,11 +25,8 @@
             #(= 0 %1))
 
 (table/putt 'make 'real
-            #(if (cm/real? %1)
-                     (tag %1)
-                     (println "non-real value" %1)))
+            #(tag %1))
 
 (defn make-real
   [n]
   ((table/gett 'make 'real) n))
-

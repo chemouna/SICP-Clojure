@@ -57,7 +57,11 @@
 
 (defn rational->real
   [r]
-  (real/make-real (/ (numer r) (denom r))))
+  (real/make-real (/ (numer (tag/contents r)) (denom (tag/contents r)))))
+
+;(defn rational->real
+;  [r]
+;  (real/make-real (/ (numer r) (denom r))))
 
 ; interface to rest of the system
 (defn tag
@@ -89,3 +93,4 @@
   [n d]
   ((table/gett 'make 'rational) n d))
 
+;(rational->real (make-rational-number 2 1))
