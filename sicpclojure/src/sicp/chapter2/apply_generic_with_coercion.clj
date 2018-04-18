@@ -1,6 +1,14 @@
 (ns sicp.chapter2.apply-generic-with-coercion
   (:require [sicp.chapter2.tag :as tag]
-            [sicp.chapter2.table :as table]))
+            [sicp.chapter2.table :as table]
+            [clojure.tools.trace :as trace]))
+
+(trace/trace-ns 'sicp.chapter2.apply-generic-with-coercion)
+(trace/trace-ns 'sicp.chapter2.table)
+
+(defn not-nil?
+  [x]
+  (not (nil? x)))
 
 (defn no-method
   [op types]
@@ -22,8 +30,10 @@
               (let [t1->t2 (table/get-coercion type1 type2)
                     t2->t1 (table/get-coercion type2 type1)]
                 (cond
-                  (t1->t2) (apply-generic op (t1->t2 a1) a2)
-                  (t2->t1) (apply-generic op a1 (t2->t1 a2))
+                  (not-nil? t1->t2) (apply-generic op (t1->t2 a1) a2)
+                  (not-nil? t2->t1) (apply-generic op a1 (t2->t1 a2))
                   :else (no-method op type-tags)))
               (no-method op type-tags)))
           (no-method op type-tags))))))
+
+;(apply-generic 'add (rat/make-rational-number 2 3) (real/make-real 2.12))

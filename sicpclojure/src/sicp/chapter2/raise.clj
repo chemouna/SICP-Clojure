@@ -28,7 +28,4 @@
   [v]
   (apply-raise v tower-of-types))
 
-;(rat/make-rational-number 2 3)
-
-;(raise (rat/make-rational-number 2 3))
 

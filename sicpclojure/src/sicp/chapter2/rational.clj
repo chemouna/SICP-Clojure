@@ -55,7 +55,7 @@
   [x]
   (and (= (numer x) 0) (not (= (denom x) 0))))
 
-(defn- rational->real
+(defn rational->real
   [r]
   (real/make-real (/ (numer r) (denom r))))
 
