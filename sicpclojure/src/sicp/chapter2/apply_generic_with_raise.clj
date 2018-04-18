@@ -65,11 +65,7 @@
               (println "raised-values was empty"))
             (do
               (println "raised-values was not empty: " raised-values)
-              (apply op raised-values)))))))))
+              (apply apply-generic-with-raise op raised-values)))))))))
 
 (apply-generic-with-raise 'addd (rat/make-rational-number 2 3) (real/make-real 2.12) (int/make-integer 2))
-
-;(real/)
-
-;; todo: solve the issue of passing highest-type here with type-tags too
 
