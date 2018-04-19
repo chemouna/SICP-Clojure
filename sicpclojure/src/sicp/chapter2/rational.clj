@@ -66,10 +66,10 @@
 
 (defn project
   [r]
-  (let [v (tag/contents r)]
+  (println "project called 2 - N")
     (cond
-      (= (denom v) 1) (int/make-integer (numer v))
-      :else r)))
+      (= (denom r) 1) (int/make-integer (numer r))
+      :else r))
 
 ; interface to rest of the system
 (table/putt 'add '(rational rational)

@@ -9,7 +9,7 @@
             [clojure.tools.trace :as trace])
   (:use [sicp.chapter2.tower]))
 
-(trace/trace-ns 'sicp.chapter2.apply-generic-with-raise)
+;(trace/trace-ns 'sicp.chapter2.apply-generic-with-raise)
 
 (defn index-of [e coll] (first (keep-indexed #(if (= e %2) %1) coll)))
 
@@ -39,14 +39,17 @@
 
 (defn apply-generic-with-raise
   [op & args]
-  (println "apply-generic-with-raise: " (list op args))
   (let [type-tags (map tag/type-tag args)]
     (let [proc (table/gett op type-tags)]
       (if proc
-          (apply proc (map tag/contents args))
+        (do
+          (println "here args: " args)
+          (apply proc (map tag/contents args)))
           (let [highest-type (find-highest-type type-tags)
               raised-values (raise-values highest-type type-tags args '())]
           (if (empty? raised-values)
               (println "raised-values was empty")
               (apply apply-generic-with-raise op raised-values)))))))
+
+;(apply-generic-with-raise 'project (rat/make-rational-number 2 1))
 

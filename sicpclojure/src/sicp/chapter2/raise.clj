@@ -6,15 +6,14 @@
             [sicp.chapter2.real :as real]
             [sicp.chapter2.complex :as complex]))
 
-(trace/trace-ns 'sicp.chapter2.raise)
-(trace/trace-ns 'sicp.chapter2.table)
-(trace/trace-ns 'sicp.chapter2.tag)
+;(trace/trace-ns 'sicp.chapter2.raise)
+;(trace/trace-ns 'sicp.chapter2.table)
+;(trace/trace-ns 'sicp.chapter2.tag)
 
 (def tower-of-types '(integer rational real complex))
 
 (defn apply-raise
   [v types]
-  (println "apply-raise with " v types)
   (cond
     (empty? types) (println "Type not found in the tower-of-types")
     (= (tag/type-tag v) (first types))
