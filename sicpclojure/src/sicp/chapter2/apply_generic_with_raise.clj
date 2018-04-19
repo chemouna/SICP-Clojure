@@ -9,7 +9,7 @@
             [clojure.tools.trace :as trace])
   (:use [sicp.chapter2.tower]))
 
-;(trace/trace-ns 'sicp.chapter2.apply-generic-with-raise)
+(trace/trace-ns 'sicp.chapter2.apply-generic-with-raise)
 
 (defn index-of [e coll] (first (keep-indexed #(if (= e %2) %1) coll)))
 
@@ -26,7 +26,7 @@
       (let [r (r/raise v)]
         (raise-to target (tag/type-tag r) r)))))
 
-;(raise-to 'real 'rational (rat/make-rational-number 2 5))
+(raise-to 'real 'rational (rat/make-rational-number 2 5))
 
 (defn raise-values
   [target type-tags args result]

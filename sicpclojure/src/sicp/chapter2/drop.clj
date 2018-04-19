@@ -13,10 +13,6 @@
   [x y]
   (agr/apply-generic-with-raise 'equal? x y))
 
-(defn project
-  [x]
-  (agr/apply-generic-with-raise 'project x))
-
 (defn drop
   [x]
   (let [project-proc (table/gett 'project (list (tag/type-tag x)))]
@@ -28,6 +24,9 @@
           x))
       x)))
 
+(drop (c/make-complex-from-real-imag 42 0))
+
+;(drop (real/make-real 1/2))
 ;(drop (int/make-integer 2))
 
 ;; todo: handle the case where project is not found for that type
