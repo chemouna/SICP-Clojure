@@ -7,10 +7,6 @@
             [sicp.chapter2.integer :as int]
             [clojure.tools.trace :as trace]))
 
-;(trace/trace-ns 'sicp.chapter2.tag)
-;(trace/trace-ns 'sicp.chapter2.table)
-;(trace/trace-ns 'sicp.chapter2.rational)
-
 ; internal procedures
 (defn numer
   [x]
@@ -62,7 +58,7 @@
 
 (defn rational->real
   [r]
-  (real/make-real (/ (numer (tag/contents r)) (denom (tag/contents r)))))
+  (real/make-real (/ (numer r) (denom r))))
 
 (defn tag
   [x]
@@ -99,4 +95,5 @@
 (defn make-rational-number
   [n d]
   ((table/gett 'make 'rational) n d))
+
 

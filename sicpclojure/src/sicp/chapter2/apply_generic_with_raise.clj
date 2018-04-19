@@ -15,7 +15,6 @@
 
 (defn find-highest-type
   [types]
-  (println "find-highest-type: " types)
   (last (sort-by #(index-of % tower-of-types) types)))
 
 (defn raise-to
@@ -27,9 +26,10 @@
       (let [r (r/raise v)]
         (raise-to target (tag/type-tag r) r)))))
 
+;(raise-to 'real 'rational (rat/make-rational-number 2 5))
+
 (defn raise-values
   [target type-tags args result]
-  (println "raise-values: "(list target type-tags args result))
   (if (empty? type-tags)
     result
     (raise-values target
@@ -42,14 +42,18 @@
   (let [type-tags (map tag/type-tag args)]
     (let [proc (table/gett op type-tags)]
       (if proc
-        (do
-          (println "here args: " args)
           (apply proc (map tag/contents args)))
           (let [highest-type (find-highest-type type-tags)
               raised-values (raise-values highest-type type-tags args '())]
           (if (empty? raised-values)
               (println "raised-values was empty")
-              (apply apply-generic-with-raise op raised-values)))))))
+              (apply apply-generic-with-raise op raised-values))))))
 
-;(apply-generic-with-raise 'project (rat/make-rational-number 2 1))
 
+(comment "
+(apply-generic-with-raise
+ 'addd
+ (rat/make-rational-number 2 5)
+ (real/make-real 2.5)
+ (int/make-integer 5))
+")

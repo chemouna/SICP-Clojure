@@ -4,13 +4,14 @@
             [clojure.tools.trace :as trace]
             [sicp.chapter2.rational :as rat]
             [sicp.chapter2.real :as real]
-            [sicp.chapter2.complex :as complex]))
+            [sicp.chapter2.complex :as complex]
+            [clojure.tools.trace])
+  (:use sicp.chapter2.raise))
 
-;(trace/trace-ns 'sicp.chapter2.raise)
-;(trace/trace-ns 'sicp.chapter2.table)
-;(trace/trace-ns 'sicp.chapter2.tag)
-
-(def tower-of-types '(integer rational real complex))
+(trace/trace-ns 'sicp.chapter2.raise)
+(trace/trace-ns 'sicp.chapter2.table)
+(trace/trace-ns 'sicp.chapter2.tag)
+(trace/trace-ns 'sicp.chapter2.rational)
 
 (defn apply-raise
   [v types]
@@ -30,4 +31,5 @@
   [v]
   (apply-raise v tower-of-types))
 
-;(raise (rat/make-rational-number 2 1))
+;; todo: add this to the tests 
+; (raise (rat/make-rational-number 2 3))

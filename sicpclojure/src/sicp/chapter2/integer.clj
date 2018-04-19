@@ -40,3 +40,4 @@
 (defn make-integer
   [n]
   ((table/gett 'make 'integer) n))
+

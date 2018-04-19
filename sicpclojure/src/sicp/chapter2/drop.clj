@@ -28,6 +28,8 @@
           x))
       x)))
 
+;(drop (int/make-integer 2))
+
 ;; todo: handle the case where project is not found for that type
 
 (defn new-apply-generic

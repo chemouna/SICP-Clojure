@@ -6,8 +6,11 @@
             [sicp.chapter2.tag :as tag]
             [sicp.chapter2.real :as real]
             [sicp.chapter2.common :as cm]
-            [sicp.chapter2.integer :as int])
+            [sicp.chapter2.integer :as int]
+            [clojure.tools.trace :as trace])
   (:use sicp.chapter2.tower))
+
+(trace/trace-ns 'sicp.chapter2.complex)
 
 ; imported procedures from rectangular and polar packages
 (defn make-from-real-imag
