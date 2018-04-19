@@ -26,9 +26,4 @@
 (deftest test-addd
   (is (= (addd (make-from-real-imag 2 3) (make-from-real-imag 1 4) (make-from-real-imag 1 2)))))
 
-(deftest test-project
-  (is (= (project (make-complex-from-real-imag 2 0)) '(integer 2)))
-  (is (= (project (make-complex-from-real-imag 2.12 0)) '(real 2.12)))
-  (is (= (project (make-complex-from-real-imag 2 3)) '(complex (rectangular (2 3))))))
-
 (run-tests)

@@ -1,16 +1,14 @@
 
 (ns sicp.chapter2.complex
   (:require [sicp.chapter2.table :as table]
-            ;[sicp.chapter2.apply-generic-with-coercion :as ag]
             [sicp.chapter2.apply-generic-with-raise :as agr]
             [sicp.chapter2.tag :as tag]
             [sicp.chapter2.real :as real]
             [sicp.chapter2.common :as cm]
-            [sicp.chapter2.integer :as int]
             [clojure.tools.trace :as trace])
   (:use sicp.chapter2.tower))
 
-(trace/trace-ns 'sicp.chapter2.complex)
+;(trace/trace-ns 'sicp.chapter2.complex)
 
 ; imported procedures from rectangular and polar packages
 (defn make-from-real-imag
@@ -21,11 +19,11 @@
   [r a]
   ((table/gett 'make-from-mag-ang 'polar) r a))
 
-(defn- real-part
+(defn real-part
   [z]
   (agr/apply-generic-with-raise 'real-part z))
 
-(defn- imag-part
+(defn imag-part
   [z]
   (agr/apply-generic-with-raise 'imag-part z))
 
@@ -82,15 +80,6 @@
   [z]
   (tag/attach-tag 'complex z))
 
-(defn project
-  [z]
-  (let [r (real-part z)]
-    (cond
-      (not (= (imag-part z) 0)) z
-      :else (if (cm/real? r)
-        (real/make-real r)
-        (int/make-integer r)))))
-
 (table/putt 'add '(complex complex)
             #(tag (add-complex %1 %2)))
 
@@ -124,9 +113,6 @@
 (table/putt 'addd '(complex complex complex)
             #(tag (addd %1 %2 %3)))
 
-(table/put-coercion 'real 'complex real->complex)
-
-(table/putt 'project '(complex) project)
 
 (defn make-complex-from-real-imag
   [x y]

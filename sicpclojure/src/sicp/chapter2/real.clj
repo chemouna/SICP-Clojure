@@ -8,11 +8,6 @@
   [x]
   (tag/attach-tag 'real x))
 
-(defn project
-  [x]
-  (let [r (rationalize (tag/contents x))]
-    (rat/make-rational-number (numerator r) (denominator r))))
-
 (table/putt 'add '(real real)
             #(tag (+ %1 %2)))
 
@@ -35,8 +30,6 @@
 
 (table/putt 'addd '(real real real)
            #(tag (+ %1 %2 %3)))
-
-(table/putt 'project '(real) project)
 
 (defn make-real
   [n]

@@ -2,14 +2,8 @@
   (:require [sicp.chapter2.tag :as tag]
             [sicp.chapter2.table :as table]
             [sicp.chapter2.raise :as r]
-            [sicp.chapter2.integer :as int]
-            [sicp.chapter2.rational :as rat]
-            [sicp.chapter2.real :as real]
-            [sicp.chapter2.complex :as c]
             [clojure.tools.trace :as trace])
   (:use [sicp.chapter2.tower]))
-
-(trace/trace-ns 'sicp.chapter2.apply-generic-with-raise)
 
 (defn index-of [e coll] (first (keep-indexed #(if (= e %2) %1) coll)))
 
@@ -19,14 +13,15 @@
 
 (defn raise-to
   [target type v]
+  ;(println "raise to called with: " (list target type v))
   (if (or (nil? type) (nil? v))
     v
     (if (= type target)
       v
       (let [r (r/raise v)]
+        ;r))))
         (raise-to target (tag/type-tag r) r)))))
 
-(raise-to 'real 'rational (rat/make-rational-number 2 5))
 
 (defn raise-values
   [target type-tags args result]
@@ -49,11 +44,3 @@
               (println "raised-values was empty")
               (apply apply-generic-with-raise op raised-values))))))
 
-
-(comment "
-(apply-generic-with-raise
- 'addd
- (rat/make-rational-number 2 5)
- (real/make-real 2.5)
- (int/make-integer 5))
-")

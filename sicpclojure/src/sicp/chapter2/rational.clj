@@ -3,8 +3,6 @@
   (:require [sicp.chapter2.table :as table]
             [sicp.chapter2.tag :as tag]
             [sicp.chapter2.common :as cm]
-            [sicp.chapter2.real :as real]
-            [sicp.chapter2.integer :as int]
             [clojure.tools.trace :as trace]))
 
 ; internal procedures
@@ -56,17 +54,9 @@
   [x]
   (and (= (numer x) 0) (not (= (denom x) 0))))
 
-(defn rational->real
-  [r]
-  (real/make-real (/ (numer r) (denom r))))
-
 (defn tag
   [x]
   (tag/attach-tag 'rational x))
-
-(defn project
-  [r]
-  (int/make-integer (int (Math/floor (/ (numer r) (denom r))))))
 
 ; interface to rest of the system
 (table/putt 'add '(rational rational)
@@ -87,10 +77,6 @@
 (table/putt 'equal? '(rational rational) equal?)
 
 (table/putt '=zero? '(rational) =zero?)
-
-(table/put-coercion 'rational 'real rational->real)
-
-(table/putt 'project '(rational) project)
 
 (defn make-rational-number
   [n d]

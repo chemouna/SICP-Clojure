@@ -24,7 +24,7 @@
           x))
       x)))
 
-(drop (c/make-complex-from-real-imag 42 0))
+;(drop (c/make-complex-from-real-imag 42 0))
 
 ;(drop (real/make-real 1/2))
 ;(drop (int/make-integer 2))

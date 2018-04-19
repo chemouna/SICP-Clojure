@@ -2,11 +2,9 @@
   (:require [sicp.chapter2.tag :as tag]
             [sicp.chapter2.table :as table]
             [clojure.tools.trace :as trace]
-            [sicp.chapter2.rational :as rat]
-            [sicp.chapter2.real :as real]
-            [sicp.chapter2.complex :as complex]
             [clojure.tools.trace])
-  (:use sicp.chapter2.raise))
+  (:use sicp.chapter2.raise)
+  (:use sicp.chapter2.tower))
 
 (defn apply-raise
   [v types]
