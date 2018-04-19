@@ -14,11 +14,15 @@
 ; internal procedures
 (defn numer
   [x]
-  (first x))
+  (if (number? (first x))
+    (first x)
+    (first (tag/contents x)))) ;; todo: this if is uncessary and hides bugs -> fix it
 
 (defn denom
   [x]
-  (second x))
+  (if (number? (second x))
+    (second x)
+    (second (tag/contents x)))) ;; todo: this if is uncessary and hides bugs -> fix it
 
 (defn make-rat
   [n d]
@@ -66,10 +70,7 @@
 
 (defn project
   [r]
-  (println "project called 2 - N")
-    (cond
-      (= (denom r) 1) (int/make-integer (numer r))
-      :else r))
+  (int/make-integer (int (Math/floor (/ (numer r) (denom r))))))
 
 ; interface to rest of the system
 (table/putt 'add '(rational rational)

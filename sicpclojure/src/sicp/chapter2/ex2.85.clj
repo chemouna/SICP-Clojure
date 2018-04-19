@@ -1,4 +1,3 @@
-
 (ns sicp.chapter2.ex2.85
   (:require [sicp.chapter2.apply-generic-with-raise :as agr]
             [sicp.chapter2.raise :as r]
@@ -21,6 +20,10 @@
     (equ? (r/raise (project x)) x) (project x)
     :else x))
 
-;; todo: put it in a test 
+;; todo: put it in a test
 ;(drop (rat/make-rational-number 2 1))
+
+(defn new-apply-generic
+  [op & args]
+  (drop (apply agr/apply-generic-with-raise op args)))
 

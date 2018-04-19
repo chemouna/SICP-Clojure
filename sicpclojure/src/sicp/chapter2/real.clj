@@ -1,11 +1,17 @@
 (ns sicp.chapter2.real
   (:require [sicp.chapter2.tag :as tag]
             [sicp.chapter2.table :as table]
-            [sicp.chapter2.common :as cm]))
+            [sicp.chapter2.common :as cm]
+            [sicp.chapter2.rational :as rat]))
 
 (defn tag
   [x]
   (tag/attach-tag 'real x))
+
+(defn project
+  [x]
+  (let [r (rationalize (tag/contents x))]
+    (rat/make-rational-number (numerator r) (denominator r))))
 
 (table/putt 'add '(real real)
             #(tag (+ %1 %2)))
@@ -30,7 +36,7 @@
 (table/putt 'addd '(real real real)
            #(tag (+ %1 %2 %3)))
 
-(table/putt 'project '(real) identity)
+(table/putt 'project '(real) project)
 
 (defn make-real
   [n]
