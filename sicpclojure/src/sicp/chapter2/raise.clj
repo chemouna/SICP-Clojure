@@ -8,11 +8,6 @@
             [clojure.tools.trace])
   (:use sicp.chapter2.raise))
 
-(trace/trace-ns 'sicp.chapter2.raise)
-(trace/trace-ns 'sicp.chapter2.table)
-(trace/trace-ns 'sicp.chapter2.tag)
-(trace/trace-ns 'sicp.chapter2.rational)
-
 (defn apply-raise
   [v types]
   (cond
@@ -30,6 +25,3 @@
 (defn raise
   [v]
   (apply-raise v tower-of-types))
-
-;; todo: add this to the tests 
-; (raise (rat/make-rational-number 2 3))
