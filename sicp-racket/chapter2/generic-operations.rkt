@@ -2,6 +2,7 @@
 
 (require "apply-generic-with-table-coercion.rkt")
 (require "types-packages-import.rkt")
+(require racket/trace)
 
 (provide add mul =zero?)
 
@@ -12,6 +13,7 @@
 (define (mul x y)
   (apply-generic 'mul x y))
 
-(define (=zero? x y)
-  (apply-generic '=zero? x y))
+(define (=zero? x)
+  (apply-generic '=zero? x))
 
+(trace =zero?)

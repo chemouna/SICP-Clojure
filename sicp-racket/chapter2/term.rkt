@@ -3,6 +3,7 @@
 (require "types-packages-import.rkt")
 (require "apply-generic-with-table-coercion.rkt")
 (require "generic-operations.rkt")
+(require racket/trace)
 
 (provide =zero-terms?)
 
@@ -61,8 +62,9 @@
 (define (=zero-terms? termlist)
   (cond
     ((empty-termlist? termlist) #t)
-    ((=zero? (first-term termlist)) (=zero-terms? (rest-terms termlist)))
-    (else #f)))
+    ((not (=zero? (coeff (first-term termlist)))) #f)
+    (else (=zero-terms? (rest-terms termlist)))))
 
+(trace =zero-terms?)
 
     

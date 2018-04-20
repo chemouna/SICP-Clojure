@@ -3,8 +3,8 @@
 (require "tag.rkt")
 ;(require "tag-without-number-special-case.rkt")
 (require "table.rkt")
-(require racket/trace)
 (require "types-packages-import.rkt")
+(require racket/trace)
 
 (provide apply-generic)
 
@@ -30,4 +30,4 @@
               (error "No method for these types" 
                      (list op type-tags)))))))
 
-
+(trace apply-generic)
