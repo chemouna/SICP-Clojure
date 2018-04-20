@@ -19,8 +19,8 @@
   (is (= (add-terms '() '((5 7))) '((5 7)))))
 
 (deftest test-mul-term-by-all-terms
-  (is (= (mul-term-by-all-terms '(2 3) '((3 5) (1 3))) '((6 15) (2 6)))))
+  (is (= (mul-term-by-all-terms '(2 3) '((3 5) (1 3))) '((5 15) (3 9)))))
 
-;(deftest test-mul-terms
-;  (is (= (mul-terms '((2 3)) '((3 7))))))
-
+(deftest test-mul-terms
+  (is (= (mul-terms '((2 3)) '((3 7))) '((5 21))))
+  (is (= (mul-terms '() '())))) 
