@@ -5,7 +5,7 @@
 (require "generic-operations.rkt")
 (require racket/trace)
 
-(provide =zero-terms?)
+(provide =zero-terms? add-terms mul-terms)
 
 (define (add-terms L1 L2)
   (cond ((empty-termlist? L1) L2)
