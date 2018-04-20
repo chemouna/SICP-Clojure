@@ -3,8 +3,9 @@
 (require "apply-generic-with-table-coercion.rkt")
 (require "types-packages-import.rkt")
 
-;; some generic operations
- 
+(provide add mul =zero?)
+
+;; some generic operations 
 (define (add x y)
   (apply-generic 'add x y))
 

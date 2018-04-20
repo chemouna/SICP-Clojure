@@ -2,15 +2,9 @@
 
 (require "types-packages-import.rkt")
 (require "apply-generic-with-table-coercion.rkt")
+(require "generic-operations.rkt")
 
-(define (add x y)
-  (apply-generic 'add x y))
-
-(define (mul x y)
-  (apply-generic 'mul x y))
-
-(define (=zero? x y)
-  (apply-generic '=zero? x y))
+(provide =zero-terms?)
 
 (define (add-terms L1 L2)
   (cond ((empty-termlist? L1) L2)
@@ -63,3 +57,12 @@
 (define (order term) (car term))
 
 (define (coeff term) (cadr term))
+
+(define (=zero-terms? termlist)
+  (cond
+    ((empty-termlist? termlist) #t)
+    ((=zero? (first-term termlist)) (=zero-terms? (rest-terms termlist)))
+    (else #f)))
+
+
+    
