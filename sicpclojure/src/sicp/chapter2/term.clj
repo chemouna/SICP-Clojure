@@ -1,6 +1,9 @@
 
 (ns sicp.chapter2.term
-  (:use [sicp.chapter2.generic-operations]))
+  (:use [sicp.chapter2.generic-operations])
+  (:require [clojure.tools.trace :as trace]))
+
+(trace/trace-ns 'sicp.chapter2.term)
 
 (defn coeff
   [term]

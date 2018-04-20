@@ -14,11 +14,7 @@
 
   (is (= (add (rat/make-rational-number 2 3)
               (rat/make-rational-number 11 3))
-         (rat/make-rational-number 13 3)))
-
-  (is (= (add (real/make-real 2/3)
-              (real/make-real 3/5))
-         (real/make-real 19/15))))
+         (rat/make-rational-number 13 3))))
 
 (deftest test-mul
   (is (= (mul (real/make-real 2/3)
