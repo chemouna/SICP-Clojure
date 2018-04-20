@@ -1,12 +1,15 @@
 
 (ns sicp.chapter2.complex
   (:require [sicp.chapter2.table :as table]
-            [sicp.chapter2.apply-generic-with-raise :as agr]
+            ;[sicp.chapter2.apply-generic-with-raise :as agr]
+            [sicp.chapter2.apply-generic-with-coercion :as agc]
             [sicp.chapter2.tag :as tag]
             [sicp.chapter2.real :as real]
             [sicp.chapter2.common :as cm]
             [clojure.tools.trace :as trace])
-  (:use sicp.chapter2.tower))
+  (:use sicp.chapter2.tower)
+  (:use sicp.chapter2.rectangular)
+  (:use sicp.chapter2.polar))
 
 ;(trace/trace-ns 'sicp.chapter2.complex)
 
@@ -21,19 +24,19 @@
 
 (defn real-part
   [z]
-  (agr/apply-generic-with-raise 'real-part z))
+  (agc/apply-generic 'real-part z))
 
 (defn imag-part
   [z]
-  (agr/apply-generic-with-raise 'imag-part z))
+  (agc/apply-generic 'imag-part z))
 
-(defn- magnitude
+(defn magnitude
   [z]
-  (agr/apply-generic-with-raise 'magnitude z))
+  (agc/apply-generic 'magnitude z))
 
-(defn- angle
+(defn angle
   [z]
-  (agr/apply-generic-with-raise 'angle z))
+  (agc/apply-generic 'angle z))
 
 ; internal procedures
 (defn add-complex
@@ -41,27 +44,27 @@
   (make-from-real-imag (+ (real-part z1) (real-part z2))
                        (+ (real-part z1) (real-part z2))))
 
-(defn- sub-complex
+(defn sub-complex
   [z1 z2]
   (make-from-real-imag (- (real-part z1) (real-part z2))
                        (- (imag-part z1) (imag-part z2))))
 
-(defn- mul-complex
+(defn mul-complex
   [z1 z2]
   (make-from-mag-ang (* (magnitude z1) (magnitude z2))
                      (+ (angle z1) (angle z2))))
 
-(defn- div-complex
+(defn div-complex
   [z1 z2]
   (make-from-mag-ang (/ (magnitude z1) (magnitude z2))
                      (- (angle z1) (angle z2))))
 
-(defn- equal?
+(defn equal?
   [z1 z2]
   (and (= (real-part z1) (real-part z2))
        (= (imag-part z1) (imag-part z2))))
 
-(defn- =zero?
+(defn =zero?
   [z]
   (and (= (real-part z) 0) (= (imag-part z) 0)))
 
@@ -113,7 +116,6 @@
 (table/putt 'addd '(complex complex complex)
             #(tag (addd %1 %2 %3)))
 
-
 (defn make-complex-from-real-imag
   [x y]
   ((table/gett 'make-from-real-imag 'complex) x y))
@@ -125,4 +127,3 @@
 (defn real->complex
   [r]
   (make-complex-from-real-imag (tag/contents r) 0))
-

@@ -23,20 +23,20 @@
 
 (table/put-coercion 'real 'complex real->complex)
 
-(defn project
+(defn project-rational
   [r]
   (int/make-integer (int (Math/floor (/ (rat/numer r) (rat/denom r))))))
 
-(table/putt 'project '(rational) project)
+(table/putt 'project '(rational) project-rational)
 
-(defn project
+(defn project-real
   [x]
   (let [r (rationalize (tag/contents x))]
     (rat/make-rational-number (numerator r) (denominator r))))
 
-(table/putt 'project '(real) project)
+(table/putt 'project '(real) project-real)
 
-(defn project
+(defn project-complex
   [z]
   (let [r (c/real-part z)]
     (cond
@@ -45,4 +45,5 @@
               (real/make-real r)
               (int/make-integer r)))))
 
-(table/putt 'project '(complex) project)
+(table/putt 'project '(complex) project-complex)
+

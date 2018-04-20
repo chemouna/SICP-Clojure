@@ -4,7 +4,8 @@
             [clojure.tools.trace :as trace]
             [clojure.tools.trace])
   (:use sicp.chapter2.raise)
-  (:use sicp.chapter2.tower))
+  (:use sicp.chapter2.tower)
+  (:use sicp.chapter2.shared-types))
 
 (defn apply-raise
   [v types]

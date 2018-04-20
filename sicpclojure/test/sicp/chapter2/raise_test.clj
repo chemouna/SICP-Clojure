@@ -14,6 +14,6 @@
   (is (= (raise (c/make-complex-from-real-imag 2 3)) (c/make-complex-from-real-imag 2 3)))
   (is (= (raise (int/make-integer 2)))))
 
-;(run-tests)
+(run-tests)
 
-(test-vars [#'sicp.chapter2.raise-test/test-raise])
+;(test-vars [#'sicp.chapter2.raise-test/test-raise])

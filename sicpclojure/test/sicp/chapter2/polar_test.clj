@@ -1,15 +1,12 @@
 
 (ns sicp.chapter2.polar-test
   (:use sicp.chapter2.polar)
-  (:use clojure.test))
-
-(deftest test-make-from-real-imag
-  (is (= (real-part (make-from-real-imag 2 3)) 2.0))
-  (is (= (imag-part (make-from-real-imag 2 30)) 30.0)))
+  (:use clojure.test)
+  (:require [sicp.chapter2.table :as table]))
 
 (deftest test-make-from-mag-ang
-  (is (= (magnitude (make-from-mag-ang 2 30)) 2))
-  (is (= (angle (make-from-mag-ang 2 3)) 3)))
+  (is (= ((table/gett 'magnitude '(polar)) '(2 30)) 2))
+  (is (= ((table/gett 'angle '(polar)) '(2 3)) 3)))
 
 (run-tests)
 
