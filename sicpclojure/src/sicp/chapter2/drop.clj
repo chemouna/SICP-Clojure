@@ -17,7 +17,7 @@
   [x]
   (let [project-proc (table/gett 'project (list (tag/type-tag x)))]
     (if project-proc
-      (let [projected (project x)
+      (let [projected (project-proc x)
             raised (r/raise projected)]
         (if (and (not (= (tag/type-tag x) (tag/type-tag projected))) (equ? raised x))
           (drop projected)
@@ -25,7 +25,7 @@
       x)))
 
 ;(drop (c/make-complex-from-real-imag 42 0))
-
+;(drop (rat/make-rational-number 1 2))
 ;(drop (real/make-real 1/2))
 ;(drop (int/make-integer 2))
 
