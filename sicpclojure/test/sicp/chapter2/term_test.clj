@@ -24,3 +24,7 @@
 (deftest test-mul-terms
   (is (= (mul-terms '((2 3)) '((3 7))) '((5 21))))
   (is (= (mul-terms '() '())))) 
+
+(deftest test-=zero-terms?
+  (is (=zero-terms? '()))
+  (is (not (=zero-terms? '((make-term (2 3)))))))

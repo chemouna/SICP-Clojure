@@ -10,19 +10,19 @@
   [v1 v2]
   (and (variable? v1) (variable? v2) (= v1 v2)))
 
-(defn- make-poly
+(defn make-poly
   [var term-list]
   (conj term-list var))
 
-(defn- variable
+(defn variable
   [p]
   (first p))
 
-(defn- term-list
+(defn term-list
   [p]
   (rest p))
 
-(defn- =zero?
+(defn =zero?
   [p]
   (t/=zero-terms? (term-list p)))
 
