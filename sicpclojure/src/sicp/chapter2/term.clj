@@ -92,10 +92,17 @@
   [t1 t2]
   (and (= (order t1) (order t2)) (= (coeff t1) (coeff t2))))
 
+(defn eq-terms?
+  [l1 l2]
+  (cond
+    (and (empty-termlist? l1) (empty-termlist? l2)) true
+    (or (empty-termlist? l1) (empty-termlist? l2)) false
+    (not (eq-term? (first-term l1) (first-term l2))) false
+    :else (eq-terms? (rest-terms l1) (rest-terms l2))))
+
 (defn negate-terms
   [terms]
   (cond
     (empty-termlist? terms) the-empty-termlist
-    :else (adjoin-term (negate-term (first-term terms)) (negate-terms (rest-terms terms)))))
-
-
+    :else (adjoin-term (negate-term (first-term terms))
+                       (negate-terms (rest-terms terms)))))

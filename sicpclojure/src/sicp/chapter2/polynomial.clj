@@ -49,6 +49,14 @@
     (println "Polys not in same var -- MUL-POLY"
            (list p1 p2))))
 
+(defn negate-poly
+  [p]
+  (make-poly (variable p) (t/negate-terms (term-list p))))
+
+(defn sub-poly
+  [p1 p2]
+  (add-poly p1 (negate-poly p2)))
+
 (defn tag
   [p]
   (tag/attach-tag 'polynomial p))
@@ -56,6 +64,12 @@
 (defn make-polynomial
   [var terms]
   (tag (make-poly var terms)))
+
+(defn eq-poly?
+  [p1 p2]
+  (cond
+    (not (same-variable? (variable p1) (variable p2))) false
+    :else (t/eq-terms? (term-list p1) (term-list p2))))
 
 (table/putt 'add '(polynomial polynomial)
             #(tag (add-poly %1 %2)))

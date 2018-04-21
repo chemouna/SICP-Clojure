@@ -1,4 +1,3 @@
-
 (ns sicp.chapter2.polynomial-test
   (:use [sicp.chapter2.polynomial]
         [clojure.test])
@@ -29,7 +28,24 @@
                    (make-poly 'y (list (t/make-term 5 7))))
          nil))
 
-  ;; todo: once we have eq? for polynomials use it here  
+  ;; todo: once we have eq? for polynomials use it here
   (is (not (nil? (add-poly (make-poly 'x (list (t/make-term 2 3)))
                    (make-poly 'x (list (t/make-term 2 7))))))))
 
+(deftest test-eq-poly?
+  (is (eq-poly? (make-poly 'x '()) (make-poly 'x '())))
+  (is (not (eq-poly? (make-poly 'x '()) (make-poly 'y '()))))
+  (is (eq-poly? (make-poly 'x (list (t/make-term 2 3))) (make-poly 'x (list (t/make-term 2 3)))))
+
+  (is (not (eq-poly? (make-poly 'x (list (t/make-term 2 3))) (make-poly 'x (list (t/make-term 5 3))))))
+
+  (is (eq-poly? (make-poly 'x (list (t/make-term 2 3) (t/make-term 5 7)))
+                (make-poly 'x (list (t/make-term 2 3) (t/make-term 5 7)))))
+
+  (is (eq-poly? (make-poly 'x (list (t/make-term 2 -3)))
+                (make-poly 'x (list (t/make-term 2 -3))))))
+
+(deftest test-negate-poly
+  (is (eq-poly? (negate-poly
+                 (make-poly 'x (list (t/make-term 2 3) (t/make-term 5 7))))
+                (make-poly 'x (list (t/make-term 2 -3) (t/make-term 5 -7))))))

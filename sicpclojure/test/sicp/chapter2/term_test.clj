@@ -42,3 +42,13 @@
   (is (eq-term? (negate-terms (list (make-term 2 3))) (list (make-term 2 -3))))
   (is (eq-term? (negate-terms (list (make-term 2 3) (make-term 3 5))) (list (make-term 2 -3) (make-term 3 -5)))))
 
+(deftest test-eq-terms
+  (is (eq-terms?
+       (list (make-term 2 3) (make-term 5 7))
+       (list (make-term 2 3) (make-term 5 7))))
+
+  (is (not (eq-terms?
+            (list (make-term 2 3) (make-term 5 7))
+            (list (make-term 5 3) (make-term 9 2)))))
+
+  (is (eq-terms? '() '())))
