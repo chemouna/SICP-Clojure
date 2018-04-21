@@ -84,3 +84,18 @@
     :else (=zero-terms? (rest-terms termlist))))
 
 
+(defn negate-term
+  [term]
+  (make-term (order term) (- (coeff term))))
+
+(defn eq-term?
+  [t1 t2]
+  (and (= (order t1) (order t2)) (= (coeff t1) (coeff t2))))
+
+(defn negate-terms
+  [terms]
+  (cond
+    (empty-termlist? terms) the-empty-termlist
+    :else (adjoin-term (negate-term (first-term terms)) (negate-terms (rest-terms terms)))))
+
+

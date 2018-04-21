@@ -1,7 +1,9 @@
-
 (ns sicp.chapter2.term-test
   (:use clojure.test)
-  (:use sicp.chapter2.term))
+  (:use sicp.chapter2.term)
+  (:require [sicp.chapter2.integer :as int]
+            [sicp.chapter2.real :as real]
+            [sicp.chapter2.rational :as rat]))
 
 (deftest test-make-term-order
   (is (= (order (make-term 2 3)) 2)))
@@ -23,8 +25,20 @@
 
 (deftest test-mul-terms
   (is (= (mul-terms '((2 3)) '((3 7))) '((5 21))))
-  (is (= (mul-terms '() '())))) 
+  (is (= (mul-terms '() '()))))
 
 (deftest test-=zero-terms?
   (is (=zero-terms? '()))
-  (is (not (=zero-terms? '((make-term (2 3)))))))
+  (is (not (=zero-terms? '((make-term (2 3))))))
+  (is (=zero-terms? (list (list 3 (real/make-real 0))
+                          (list 2 (rat/make-rational-number 0 4))
+                          (list 1 (int/make-integer 0))))))
+
+(deftest test-negate-term
+  (is (eq-term? (negate-term (make-term 2 3)) (make-term 2 -3))))
+
+(deftest test-negate-terms
+  (is (= (negate-terms '()) '()))
+  (is (eq-term? (negate-terms (list (make-term 2 3))) (list (make-term 2 -3))))
+  (is (eq-term? (negate-terms (list (make-term 2 3) (make-term 3 5))) (list (make-term 2 -3) (make-term 3 -5)))))
+
