@@ -8,6 +8,10 @@
   [x y]
   (= x y))
 
+(defn negate
+  [x]
+  (- x))
+
 ; interface to the rest of the system
 (table/putt 'add '(scheme-number scheme-number)
      #(+ %1 %2))
@@ -31,8 +35,7 @@
 (table/putt 'exp '(scheme-number scheme-number)
      #(cm/expt %1 %2))
 
-(table/putt 'negate '(scheme-number) #(- %1))
-
+(table/putt 'negate '(scheme-number) negate)
 (defn make-scheme-number
   "Creates a number"
   [n]

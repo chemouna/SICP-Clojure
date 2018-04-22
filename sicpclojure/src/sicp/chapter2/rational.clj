@@ -3,7 +3,8 @@
   (:require [sicp.chapter2.table :as table]
             [sicp.chapter2.tag :as tag]
             [sicp.chapter2.common :as cm]
-            [clojure.tools.trace :as trace]))
+            [clojure.tools.trace :as trace]
+            [sicp.chapter2.generic-operations :as g]))
 
 ; internal procedures
 (defn numer
@@ -60,7 +61,7 @@
 
 (defn negate
   [x]
-  (make-rat (- (numer x)) (denom x)))
+  (tag (make-rat (g/negate (numer x)) (denom x))))
 
 ; interface to rest of the system
 (table/putt 'add '(rational rational)

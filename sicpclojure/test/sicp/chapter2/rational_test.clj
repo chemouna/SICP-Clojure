@@ -18,4 +18,5 @@
         '(1 4))
        '(3 4))))
 
-(run-tests)
+(deftest test-negate
+  (is (equal? (negate (make-rational-number 2 3)) (make-rational-number -2 3))))

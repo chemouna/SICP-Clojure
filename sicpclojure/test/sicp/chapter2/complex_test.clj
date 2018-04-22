@@ -23,4 +23,6 @@
           (make-complex-from-real-imag 3 4))
          '(rectangular (5 5)))))
 
-(run-tests)
+;(deftest test-negate-complex
+;  (is (= (negate (make-complex-from-real-imag 2 3))
+;         )))

@@ -4,7 +4,8 @@
   (:require [sicp.chapter2.term :as t]
             [sicp.chapter2.integer :as int]
             [sicp.chapter2.real :as real]
-            [sicp.chapter2.rational :as rat]))
+            [sicp.chapter2.rational :as rat]
+            [sicp.chapter2.complex :as c]))
 
 (deftest test-make-poly
   (is (= (make-poly 'x (list (t/make-term 2 3))) '(x (2 3)))))
@@ -49,12 +50,23 @@
   (is (eq-poly? (negate-poly
                  (make-poly 'x (list (t/make-term 2 3) (t/make-term 5 7))))
                 (make-poly 'x (list (t/make-term 2 -3) (t/make-term 5 -7)))))
+
   (is (eq-poly? (negate-poly
-                 (make-poly 'x (list (t/make-term (real/make-real 2.12) (rat/make-rational-number 2 5)))))
+                 (make-poly 'x (list (t/make-term (int/make-integer 3) (rat/make-rational-number 2 5)))))
                 (make-poly 'x (list (t/make-term (real/make-real (- 2.12)) (rat/make-rational-number (- 2) 5)))))))
+
+
+;  (is (eq-poly? (negate-poly
+;                 (make-poly 'x (list (t/make-term (c/make-complex-from-real-imag 3 2) (rat/make-rational-number 2 5)))))
+;                (make-poly 'x (list (t/make-term (real/make-real (- 2.12)) (rat/make-rational-number (- 2) 5)))))))
+
+;(is (eq-poly? (negate-poly
+;               (make-poly 'x (list (t/make-term (real/make-real 2.12) (rat/make-rational-number 2 5)))))
+;              (make-poly 'x (list (t/make-term (real/make-real (- 2.12)) (rat/make-rational-number (- 2) 5)))))))
 
 
 (deftest test-sub-poly
   (is (= (sub-poly
           (make-poly 'x (list (t/make-term 3 5) (t/make-term 7 6)))
           (make-poly 'x (list (t/make-term 3 2) (t/make-term 7 4)))))))
+

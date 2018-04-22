@@ -1,6 +1,7 @@
 (ns sicp.chapter2.term-test
-  (:use clojure.test)
-  (:use sicp.chapter2.term)
+  (:use [clojure.test]
+        [sicp.chapter2.term]
+        [sicp.chapter2.generic-operations])
   (:require [sicp.chapter2.integer :as int]
             [sicp.chapter2.real :as real]
             [sicp.chapter2.rational :as rat]))
@@ -35,7 +36,13 @@
                           (list 1 (int/make-integer 0))))))
 
 (deftest test-negate-term
-  (is (eq-term? (negate-term (make-term 2 3)) (make-term 2 -3))))
+  (is (eq-term? (negate-term
+                 (make-term 2 3))
+                (make-term 2 -3)))
+
+  (is (eq-term? (negate-term
+                 (make-term 2 (rat/make-rational-number 3 5)))
+                (make-term 2 (rat/make-rational-number -3 5)))))
 
 (deftest test-negate-terms
   (is (= (negate-terms '()) '()))
