@@ -6,10 +6,11 @@
             [sicp.chapter2.tag :as tag]
             [sicp.chapter2.real :as real]
             [sicp.chapter2.common :as cm]
+            [sicp.chapter2.generic-operations :as g]
             [clojure.tools.trace :as trace])
-  (:use sicp.chapter2.tower)
-  (:use sicp.chapter2.rectangular)
-  (:use sicp.chapter2.polar))
+  (:use [sicp.chapter2.tower]
+        [sicp.chapter2.rectangular]
+        [sicp.chapter2.polar]))
 
 ;(trace/trace-ns 'sicp.chapter2.complex)
 
@@ -82,9 +83,9 @@
   [z]
   (tag/attach-tag 'complex z))
 
-(defn negate
+(defn negate-complex
   [z]
-  (tag (make-from-real-imag (negate (real-part z)) (imag-part z))))
+  (tag (make-from-real-imag (g/negate (real-part z)) (imag-part z))))
 
 (table/putt 'add '(complex complex)
             #(tag (add-complex %1 %2)))
@@ -119,7 +120,7 @@
 (table/putt 'addd '(complex complex complex)
             #(tag (addd %1 %2 %3)))
 
-(table/putt 'negate '(complex) negate)
+(table/putt 'negate '(complex) negate-complex)
 
 (defn make-complex-from-real-imag
   [x y]

@@ -53,12 +53,21 @@
 
   (is (eq-poly? (negate-poly
                  (make-poly 'x (list (t/make-term (int/make-integer 3) (rat/make-rational-number 2 5)))))
-                (make-poly 'x (list (t/make-term (real/make-real (- 2.12)) (rat/make-rational-number (- 2) 5)))))))
+                (make-poly 'x (list (t/make-term (int/make-integer 3) (rat/make-rational-number (- 2) 5))))))
 
 
-;  (is (eq-poly? (negate-poly
-;                 (make-poly 'x (list (t/make-term (c/make-complex-from-real-imag 3 2) (rat/make-rational-number 2 5)))))
-;                (make-poly 'x (list (t/make-term (real/make-real (- 2.12)) (rat/make-rational-number (- 2) 5)))))))
+  (is (eq-poly? (negate-poly
+                 (make-poly 'x (list
+                                (t/make-term (real/make-real 2.13)
+                                             (c/make-complex-from-real-imag 3 2))
+                                (t/make-term (c/make-complex-from-real-imag 5 7)
+                                             (rat/make-rational-number 2 5)))))
+                (make-poly 'x (list
+                               (t/make-term (real/make-real 2.13)
+                                            (c/make-complex-from-real-imag -3 2))
+                               (t/make-term (c/make-complex-from-real-imag 5 7)
+                                            (rat/make-rational-number -2 5)))))))
+
 
 ;(is (eq-poly? (negate-poly
 ;               (make-poly 'x (list (t/make-term (real/make-real 2.12) (rat/make-rational-number 2 5)))))
@@ -69,4 +78,5 @@
   (is (= (sub-poly
           (make-poly 'x (list (t/make-term 3 5) (t/make-term 7 6)))
           (make-poly 'x (list (t/make-term 3 2) (t/make-term 7 4)))))))
+
 

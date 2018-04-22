@@ -4,7 +4,8 @@
         [sicp.chapter2.generic-operations])
   (:require [sicp.chapter2.integer :as int]
             [sicp.chapter2.real :as real]
-            [sicp.chapter2.rational :as rat]))
+            [sicp.chapter2.rational :as rat]
+            [sicp.chapter2.complex :as c]))
 
 (deftest test-make-term-order
   (is (= (order (make-term 2 3)) 2)))
@@ -46,8 +47,22 @@
 
 (deftest test-negate-terms
   (is (= (negate-terms '()) '()))
-  (is (eq-term? (negate-terms (list (make-term 2 3))) (list (make-term 2 -3))))
-  (is (eq-term? (negate-terms (list (make-term 2 3) (make-term 3 5))) (list (make-term 2 -3) (make-term 3 -5)))))
+  (is (eq-terms? (negate-terms (list
+                               (make-term 2 3)))
+                (list (make-term 2 -3))))
+  (is (eq-terms? (negate-terms (list
+                               (make-term 2 3)
+                               (make-term 3 5)))
+                (list (make-term 2 -3)
+                      (make-term 3 -5))))
+
+  (is (eq-terms? (negate-terms
+                  (list
+                   (make-term 2 (c/make-complex-from-real-imag 3 2))
+                   (make-term 4 (rat/make-rational-number 2 5))))
+                 (list
+                  (make-term 2 (c/make-complex-from-real-imag -3 2))
+                  (make-term 4 (rat/make-rational-number -2 5))))))
 
 (deftest test-eq-terms
   (is (eq-terms?

@@ -1,8 +1,8 @@
 
 (ns sicp.chapter2.complex-test
-  (:use clojure.test)
-  (:use sicp.chapter2.complex)
-  (:use sicp.chapter2.tag)
+  (:use [clojure.test]
+        [sicp.chapter2.complex]
+        [sicp.chapter2.tag])
   (:require [sicp.chapter2.table :as table]))
 
 ;(type-tag (contents (make-complex-from-real-imag 2 3)))
@@ -23,6 +23,7 @@
           (make-complex-from-real-imag 3 4))
          '(rectangular (5 5)))))
 
-;(deftest test-negate-complex
-;  (is (= (negate (make-complex-from-real-imag 2 3))
-;         )))
+(deftest test-negate-complex
+  (is (= (negate-complex (make-complex-from-real-imag 2 3))
+         (make-complex-from-real-imag -2 3))))
+
