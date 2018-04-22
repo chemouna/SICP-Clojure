@@ -31,6 +31,9 @@
 (table/putt 'addd '(real real real)
            #(tag (+ %1 %2 %3)))
 
+(table/putt 'negate '(real)
+            #(tag (- %1)))
+
 (defn make-real
   [n]
   ((table/gett 'make 'real) n))

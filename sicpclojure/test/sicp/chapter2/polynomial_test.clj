@@ -48,4 +48,13 @@
 (deftest test-negate-poly
   (is (eq-poly? (negate-poly
                  (make-poly 'x (list (t/make-term 2 3) (t/make-term 5 7))))
-                (make-poly 'x (list (t/make-term 2 -3) (t/make-term 5 -7))))))
+                (make-poly 'x (list (t/make-term 2 -3) (t/make-term 5 -7)))))
+  (is (eq-poly? (negate-poly
+                 (make-poly 'x (list (t/make-term (real/make-real 2.12) (rat/make-rational-number 2 5)))))
+                (make-poly 'x (list (t/make-term (real/make-real (- 2.12)) (rat/make-rational-number (- 2) 5)))))))
+
+
+(deftest test-sub-poly
+  (is (= (sub-poly
+          (make-poly 'x (list (t/make-term 3 5) (t/make-term 7 6)))
+          (make-poly 'x (list (t/make-term 3 2) (t/make-term 7 4)))))))

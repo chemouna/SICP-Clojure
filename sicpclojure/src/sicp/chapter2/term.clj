@@ -83,10 +83,9 @@
     (not (=zero? (coeff (first-term termlist)))) false
     :else (=zero-terms? (rest-terms termlist))))
 
-
 (defn negate-term
   [term]
-  (make-term (order term) (- (coeff term))))
+  (make-term (order term) (negate (coeff term))))
 
 (defn eq-term?
   [t1 t2]

@@ -58,6 +58,10 @@
   [x]
   (tag/attach-tag 'rational x))
 
+(defn negate
+  [x]
+  (make-rat (- (numer x)) (denom x)))
+
 ; interface to rest of the system
 (table/putt 'add '(rational rational)
             #(tag (add-rat %1 %2)))
@@ -77,6 +81,8 @@
 (table/putt 'equal? '(rational rational) equal?)
 
 (table/putt '=zero? '(rational) =zero?)
+
+(table/putt 'negate '(rational) negate)
 
 (defn make-rational-number
   [n d]

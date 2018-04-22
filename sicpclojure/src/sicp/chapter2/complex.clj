@@ -78,10 +78,13 @@
                           (imag-part z2)
                           (imag-part z3))))
 
-; interface to rest of the system
 (defn tag
   [z]
   (tag/attach-tag 'complex z))
+
+(defn negate
+  [z]
+  (tag (make-from-real-imag (negate (real-part z)) (imag-part z))))
 
 (table/putt 'add '(complex complex)
             #(tag (add-complex %1 %2)))
@@ -115,6 +118,8 @@
 
 (table/putt 'addd '(complex complex complex)
             #(tag (addd %1 %2 %3)))
+
+(table/putt 'negate '(complex) negate)
 
 (defn make-complex-from-real-imag
   [x y]

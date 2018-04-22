@@ -13,3 +13,11 @@
 (defn =zero?
   [x]
   (ap/apply-generic '=zero? x))
+
+(defn equal?
+  [x y]
+  (ap/apply-generic 'equ? x y))
+
+(defn negate
+  [x]
+  (ap/apply-generic 'negate x))

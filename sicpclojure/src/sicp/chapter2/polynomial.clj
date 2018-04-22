@@ -81,6 +81,10 @@
 
 (table/putt '=zero? '(polynomial) =zero?)
 
+(table/putt 'sub '(polynomial polynomial) sub-poly)
+
+(table/putt 'equ? '(polynomial polynomial) eq-poly?)
+
 (defn make-polynomial
   [var terms]
   ((table/gett 'make 'polynomial) var terms))

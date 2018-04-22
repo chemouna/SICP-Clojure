@@ -31,6 +31,8 @@
 (table/putt 'exp '(scheme-number scheme-number)
      #(cm/expt %1 %2))
 
+(table/putt 'negate '(scheme-number) #(- %1))
+
 (defn make-scheme-number
   "Creates a number"
   [n]

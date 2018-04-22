@@ -25,6 +25,8 @@
   (is (=zero? (int/make-integer 0)))
   (is (=zero? (c/make-complex-from-real-imag 0 0))))
 
+(deftest test-negate
+  (is (= (negate (real/make-real 2.12)) (real/make-real))))
 
 ;; todo: we will probably need to test with different types
 ;;        also i need to do the apply generic that works with multiple arg
