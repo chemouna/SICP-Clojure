@@ -3,8 +3,8 @@
   (:require [sicp.chapter2.table :as table]
             [sicp.chapter2.tag :as tag]
             [sicp.chapter2.common :as cm]
-            [clojure.tools.trace :as trace]
-            [sicp.chapter2.generic-operations :as g]))
+            [sicp.chapter2.generic-operations :as g]
+            [clojure.tools.trace :as trace]))
 
 ; internal procedures
 (defn numer

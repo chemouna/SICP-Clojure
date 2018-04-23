@@ -106,3 +106,5 @@
     :else (adjoin-term (negate-term (first-term terms))
                        (negate-terms (rest-terms terms)))))
 
+
+

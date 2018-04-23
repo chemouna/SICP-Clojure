@@ -21,4 +21,3 @@
 (defn negate
   [x]
   (ap/apply-generic 'negate x))
-
