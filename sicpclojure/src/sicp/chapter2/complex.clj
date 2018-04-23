@@ -1,7 +1,6 @@
 
 (ns sicp.chapter2.complex
   (:require [sicp.chapter2.table :as table]
-            ;[sicp.chapter2.apply-generic-with-raise :as agr]
             [sicp.chapter2.apply-generic-with-coercion :as agc]
             [sicp.chapter2.tag :as tag]
             [sicp.chapter2.real :as real]
@@ -11,8 +10,6 @@
   (:use [sicp.chapter2.tower]
         [sicp.chapter2.rectangular]
         [sicp.chapter2.polar]))
-
-;(trace/trace-ns 'sicp.chapter2.complex)
 
 ; imported procedures from rectangular and polar packages
 (defn make-from-real-imag

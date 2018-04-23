@@ -1,14 +1,9 @@
 
-(ns sicp.chapter2.polynomial
+(ns sicp.chapter2.sparse-polynomial
   (:require [sicp.chapter2.term :as t]
             [sicp.chapter2.tag :as tag]
             [sicp.chapter2.table :as table]
-            [clojure.tools.trace :as trace]
-            [sicp.chapter2.dense-term]
-            [sicp.chapter2.term] ;; sparse term ;; todo: maybe rename it 
-            ))
-
-(trace/trace-ns 'sicp.chapter2.polynomial)
+            [clojure.tools.trace :as trace]))
 
 (defn- variable?
   [v]
@@ -92,4 +87,5 @@
 (defn make-polynomial
   [var terms]
   ((table/gett 'make 'polynomial) var terms))
+
 
