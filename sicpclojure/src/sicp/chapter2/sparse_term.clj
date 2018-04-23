@@ -95,13 +95,13 @@
     :else (adjoin-term (negate-term (first-term terms))
                        (negate-terms (rest-terms terms)))))
 
-(defn ensure-valid-term-list
+(defn- ensure-valid-term-list
   [terms]
   (if (empty-termlist? terms)
     (list (gt/make-term 0 (int/make-integer 0)))
     terms))
 
-(defn insert-term
+(defn- insert-term
   [term terms]
   (if (empty-termlist? terms)
     (adjoin-term term (the-empty-termlist))
@@ -114,29 +114,29 @@
                           (rest-terms terms)))
       :else (adjoin-term head (insert-term term (rest-terms terms))))))
 
-(defn build-terms
+(defn- build-terms
   [terms result]
   (if (empty? terms)
     result
     (build-terms (rest terms) (insert-term (first terms) result))))
 
-(defn make-from-terms
+(defn- make-from-terms
   [terms]
   (build-terms terms (the-empty-termlist)))
 
-(defn convert-to-term-list
+(defn- convert-to-term-list
   [coeffs]
   (if (empty? coeffs)
     (the-empty-termlist)
     (adjoin-term (make-term (- (count coeffs) 1) (first coeffs))
                  (convert-to-term-list (rest coeffs)))))
 
-(defn make-from-coeffs
+(defn- make-from-coeffs
   [coeffs]
   (convert-to-term-list coeffs))
 
 ;; Coercion
-(defn calculate-zero-terms
+(defn- calculate-zero-terms
   [first rest]
   (if (empty-termlist? rest)
     (order first)
@@ -144,13 +144,13 @@
       (+ (- (order first) (order next) 1)
          (calculate-zero-terms next (rest-terms rest)))))) 
 
-(defn store-as-sparse?
+(defn- store-as-sparse?
   [highest-order zero-terms]
   (if (>= highest-order 10)
     (> (/ zero-terms highest-order) 0.1)
     (> zero-terms (/ highest-order 5))))
 
-(defn keep-as-sparse?
+(defn- keep-as-sparse?
   [L]
   (if (empty-termlist? L)
     false
@@ -158,14 +158,14 @@
           zero-terms (calculate-zero-terms (first-term L) (rest-terms L))]
       (store-as-sparse? highest-order zero-terms))))
 
-(defn sparse-terms->dense-terms
+(defn- sparse-terms->dense-terms
   [L]
   (if (keep-as-sparse? L)
     (tag L)
     ((get 'make-from-terms 'dense-terms) L)))
 
 ;; interface to the rest of the system
-(defn tag
+(defn- tag
   [t]
   (tag/attach-tag 'sparse-terms (ensure-valid-term-list t)))
 
