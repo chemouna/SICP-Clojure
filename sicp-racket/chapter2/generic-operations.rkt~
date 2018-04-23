@@ -1,0 +1,9 @@
+#lang racket
+
+(require "apply-generic-with-coercion.rkt")
+
+;; some generic operations
+ 
+(define (add x y)
+  (apply-generic 'add x y))
+             

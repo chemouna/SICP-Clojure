@@ -50,7 +50,10 @@
       (error "Polys not in same var -- MUL-POLY"
              (list p1 p2))))
 
+  (define (sub-poly p1 p2)
+    (add-poly p1 (negate p2)))
 
+  
   ;; interface to rest of the system
   
   (define (tag p)

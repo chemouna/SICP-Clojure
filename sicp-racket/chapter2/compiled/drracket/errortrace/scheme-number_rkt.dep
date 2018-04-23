@@ -1,0 +1,1 @@
+("6.10.1" ("bfd419b8a76da1caef047847719bbe172b5866ed" . "38674f0166fff38f25358b854bb55f40af2941d9") #"/Users/mounacheikhna/Documents/repos/mine/SICP-Study/sicp-racket/chapter2/table.rkt" (collects #"errortrace" #"errortrace-key.rkt") (collects #"racket" #"main.rkt") (collects #"racket" #"runtime-config.rkt") (collects #"racket" #"trace.rkt"))

@@ -1,10 +1,10 @@
 (ns sicp.chapter2.sparse-term
   (:use [sicp.chapter2.generic-operations])
-  (:require [clojure.tools.trace :as trace]))
-
-(defn- coeff
-  [term]
-  (second term))
+  (:require [clojure.tools.trace :as trace]
+            [sicp.chapter2.table :as table]
+            [sicp.chapter2.tag :as tag]
+            [sicp.chapter2.generic-term :as gt]
+            [sicp.chapter2.integer :as int]))
 
 (defn- adjoin-term
   [term term-list]
@@ -25,14 +25,6 @@
 (defn- empty-termlist?
   [term-list]
   (empty? term-list))
-
-(defn- make-term
-  [order coeff]
-  (list order coeff))
-
-(defn- order
-  [term]
-  (first term))
 
 (defn- add-terms
   [L1 L2]
@@ -103,6 +95,75 @@
     :else (adjoin-term (negate-term (first-term terms))
                        (negate-terms (rest-terms terms)))))
 
+(defn ensure-valid-term-list
+  [terms]
+  (if (empty-termlist? terms)
+    (list (gt/make-term 0 (int/make-integer 0)))
+    terms))
+
+(defn insert-term
+  [term terms]
+  (if (empty-termlist? terms)
+    (adjoin-term term (the-empty-termlist))
+    (let [head (first-term terms)
+          head-order (order head)
+          term-order (order term)]
+      (cond (> term-order head-order) (adjoin-term term terms)
+            (= term-order head-order)
+             (adjoin-term (make-term term-order (add (coeff term) (coeff head)))
+                          (rest-terms terms)))
+      :else (adjoin-term head (insert-term term (rest-terms terms))))))
+
+(defn build-terms
+  [terms result]
+  (if (empty? terms)
+    result
+    (build-terms (rest terms) (insert-term (first terms) result))))
+
+(defn make-from-terms
+  [terms]
+  (build-terms terms (the-empty-termlist)))
+
+(defn convert-to-term-list
+  [coeffs]
+  (if (empty? coeffs)
+    (the-empty-termlist)
+    (adjoin-term (make-term (- (count coeffs) 1) (first coeffs))
+                 (convert-to-term-list (rest coeffs)))))
+
+(defn make-from-coeffs
+  [coeffs]
+  (convert-to-term-list coeffs))
+
+;; Coercion
+(defn calculate-zero-terms
+  [first rest]
+  (if (empty-termlist? rest)
+    (order first)
+    (let [next (first-term rest)]
+      (+ (- (order first) (order next) 1)
+         (calculate-zero-terms next (rest-terms rest)))))) 
+
+(defn store-as-sparse?
+  [highest-order zero-terms]
+  (if (>= highest-order 10)
+    (> (/ zero-terms highest-order) 0.1)
+    (> zero-terms (/ highest-order 5))))
+
+(defn keep-as-sparse?
+  [L]
+  (if (empty-termlist? L)
+    false
+    (let [highest-order (order (first-term L))
+          zero-terms (calculate-zero-terms (first-term L) (rest-terms L))]
+      (store-as-sparse? highest-order zero-terms))))
+
+(defn sparse-terms->dense-terms
+  [L]
+  (if (keep-as-sparse? L)
+    (tag L)
+    ((get 'make-from-terms 'dense-terms) L)))
+
 ;; interface to the rest of the system
 (defn tag
   [t]
@@ -125,4 +186,7 @@
      #(tag (make-from-terms %1)))
 
 (table/putt 'make-from-coeffs 'sparse-terms
-     #(tag (make-from-coeffs coeffs)))
+            #(tag (make-from-coeffs %1)))
+
+(table/put-coercion 'sparse-terms 'dense-terms sparse-terms->dense-terms)
+
