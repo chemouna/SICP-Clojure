@@ -11,6 +11,8 @@
 
 ;; todo: add some test variants with make-polynomial-from-coeffs
 
+(comment "
+
 (deftest test-make-poly
   (is (equal? (make-polynomial-from-terms 'x '())
               (make-polynomial-from-terms 'x '())))
@@ -23,9 +25,6 @@
 
   (is (not (equal? (make-polynomial-from-terms 'x (list (make-term 2 3)))
                    (make-polynomial-from-terms 'y (list (make-term 2 3)))))))
-
-(deftest test-term-list
-  (is (= (term-list (make-polynomial-from-terms 'x (list (make-term 2 3)))) '((2 3)))))
 
 (deftest test-zero?
   (is (=zero? (make-polynomial-from-terms 'x '())))
@@ -90,3 +89,6 @@
         (make-polynomial-from-terms 'x (list (make-term 3 5) (make-term 7 6)))
         (make-polynomial-from-terms 'x (list (make-term 3 2) (make-term 7 4))))
        (make-polynomial-from-terms 'x (list (make-term 3 3) (make-term 7 2))))))
+
+
+")

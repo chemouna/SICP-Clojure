@@ -11,9 +11,4 @@
   (is (= (raise (real/make-real 2.12)) (c/make-complex-from-real-imag 2.12 0)))
   (is (= (raise (rat/make-rational-number 2 3)) (real/make-real 2/3)))
   (is (= (raise (rat/make-rational-number 2 1)) (real/make-real 2)))
-  (is (= (raise (c/make-complex-from-real-imag 2 3)) (c/make-complex-from-real-imag 2 3)))
   (is (= (raise (int/make-integer 2)))))
-
-(run-tests)
-
-;(test-vars [#'sicp.chapter2.raise-test/test-raise])
