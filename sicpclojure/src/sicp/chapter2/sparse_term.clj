@@ -1,9 +1,9 @@
 (ns sicp.chapter2.sparse-term
-  (:use [sicp.chapter2.generic-operations])
+  (:use [sicp.chapter2.generic-operations]
+        [sicp.chapter2.generic-term])
   (:require [clojure.tools.trace :as trace]
             [sicp.chapter2.table :as table]
             [sicp.chapter2.tag :as tag]
-            [sicp.chapter2.generic-term :as gt]
             [sicp.chapter2.integer :as int]))
 
 (defn- adjoin-term
@@ -76,7 +76,7 @@
   [term]
   (make-term (order term) (negate (coeff term))))
 
-(defn- eq-term?
+(defn- eq-sparse-term?
   [t1 t2]
   (and (= (order t1) (order t2)) (= (coeff t1) (coeff t2))))
 
@@ -85,7 +85,7 @@
   (cond
     (and (empty-termlist? l1) (empty-termlist? l2)) true
     (or (empty-termlist? l1) (empty-termlist? l2)) false
-    (not (eq-term? (first-term l1) (first-term l2))) false
+    (not (eq-sparse-term? (first-term l1) (first-term l2))) false
     :else (eq-terms? (rest-terms l1) (rest-terms l2))))
 
 (defn- negate-terms
@@ -98,7 +98,7 @@
 (defn- ensure-valid-term-list
   [terms]
   (if (empty-termlist? terms)
-    (list (gt/make-term 0 (int/make-integer 0)))
+    (list (make-term 0 (int/make-integer 0)))
     terms))
 
 (defn- insert-term
@@ -165,12 +165,12 @@
     ((get 'make-from-terms 'dense-terms) L)))
 
 ;; interface to the rest of the system
-(defn- tag
+(defn- sparse-tag
   [t]
   (tag/attach-tag 'sparse-terms (ensure-valid-term-list t)))
 
 (table/putt 'add '(sparse-terms sparse-terms)
-     #(tag (add-terms %1 %2)))
+     #(sparse-tag (add-terms %1 %2)))
 
 (table/putt 'mul '(sparse-terms sparse-terms)
      #(tag (mul-terms %1 %2)))
@@ -180,13 +180,13 @@
 (table/putt '=zero? '(sparse-terms) =zero-terms?)
 
 (table/putt 'negate '(sparse-terms)
-     #(tag (negate-terms %1)))
+     #(sparse-tag (negate-terms %1)))
 
 (table/putt 'make-from-terms 'sparse-terms
-     #(tag (make-from-terms %1)))
+     #(sparse-tag (make-from-terms %1)))
 
 (table/putt 'make-from-coeffs 'sparse-terms
-            #(tag (make-from-coeffs %1)))
+     #(sparse-tag (make-from-coeffs %1)))
 
 (table/put-coercion 'sparse-terms 'dense-terms sparse-terms->dense-terms)
 
