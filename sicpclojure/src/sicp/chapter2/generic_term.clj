@@ -38,7 +38,7 @@
 
 (table/putt 'coeff '(term) coeff-term)
 
-(table/putt 'equal? '(term term) eq-term?)
+(table/putt 'equ? '(term term) eq-term?)
 
 (table/putt 'make 'term
             #(tag (make-term-from-order-coeff %1 %2)))

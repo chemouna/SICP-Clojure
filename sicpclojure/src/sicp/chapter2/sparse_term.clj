@@ -122,7 +122,7 @@
 
 (defn- make-from-terms
   [terms]
-  (build-terms terms (the-empty-termlist)))
+  (build-terms terms the-empty-termlist))
 
 (defn- convert-to-term-list
   [coeffs]
@@ -158,22 +158,22 @@
           zero-terms (calculate-zero-terms (first-term L) (rest-terms L))]
       (store-as-sparse? highest-order zero-terms))))
 
-(defn- sparse-terms->dense-terms
-  [L]
-  (if (keep-as-sparse? L)
-    (tag L)
-    ((get 'make-from-terms 'dense-terms) L)))
-
-;; interface to the rest of the system
 (defn- sparse-tag
   [t]
   (tag/attach-tag 'sparse-terms (ensure-valid-term-list t)))
 
+(defn- sparse-terms->dense-terms
+  [L]
+  (if (keep-as-sparse? L)
+    (sparse-tag L)
+    ((get 'make-from-terms 'dense-terms) L)))
+
+;; interface to the rest of the system
 (table/putt 'add '(sparse-terms sparse-terms)
      #(sparse-tag (add-terms %1 %2)))
 
 (table/putt 'mul '(sparse-terms sparse-terms)
-     #(tag (mul-terms %1 %2)))
+     #(sparse-tag (mul-terms %1 %2)))
 
 (table/putt 'equal? '(sparse-terms sparse-terms) eq-terms?)
 

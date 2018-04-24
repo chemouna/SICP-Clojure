@@ -23,21 +23,21 @@
   [var term-list]
   (conj term-list var))
 
-(defn make-from-coeffs
+(defn- make-from-coeffs
   [variable coeffs]
   (make-poly variable
              ((get 'make-from-coeffs 'dense-terms) coeffs)))
 
-(defn make-from-terms
+(defn- make-from-terms
   [variable terms]
   (make-poly variable
-             ((get 'make-from-terms 'sparse-terms) terms)))
+             ((table/gett 'make-from-terms 'sparse-terms) terms)))
 
-(defn variable
+(defn- variable
   [p]
   (first p))
 
-(defn select-variable
+(defn- select-variable
   [p1 p2]
   (let [v1 (variable p1)]
     (if (= v1 'unbound)
@@ -48,11 +48,11 @@
   [p]
   (rest p))
 
-(defn =zero-poly?
+(defn- =zero-poly?
   [p]
   (=zero? (term-list p)))
 
-(defn add-poly
+(defn- add-poly
   [p1 p2]
   (if (same-variable? (variable p1) (variable p2))
     (make-poly (variable p1)
@@ -61,7 +61,7 @@
     (println "Polys not in same var -- ADD-POLY"
            (list p1 p2))))
 
-(defn mul-poly
+(defn- mul-poly
   [p1 p2]
   (if (same-variable? (variable p1) (variable p2))
     (make-poly (variable p1)
@@ -70,11 +70,11 @@
     (println "Polys not in same var -- MUL-POLY"
            (list p1 p2))))
 
-(defn negate-poly
+(defn- negate-poly
   [p]
   (make-poly (variable p) (negate (term-list p))))
 
-(defn sub-poly
+(defn- sub-poly
   [p1 p2]
   (add-poly p1 (negate-poly p2)))
 
@@ -86,7 +86,7 @@
   [var terms]
   (tag (make-poly var terms)))
 
-(defn eq-poly?
+(defn- eq-poly?
   [p1 p2]
   (cond
     (not (same-variable? (variable p1) (variable p2))) false
@@ -111,7 +111,7 @@
 
 (table/putt 'sub '(polynomial polynomial) sub-poly)
 
-(table/putt 'equal? '(polynomial polynomial) eq-poly?)
+(table/putt 'equ? '(polynomial polynomial) eq-poly?)
 
 (table/putt 'negate '(polynomial) negate-poly)
 
@@ -128,12 +128,12 @@
 
 (defn make-polynomial-from-coeffs
   [variable coeffs]
-  ((get 'make-from-coeffs 'polynomial) variable coeffs))
+  ((table/gett 'make-from-coeffs 'polynomial) variable coeffs))
 
 (defn make-polynomial-from-terms
   [variable terms]
-  ((get 'make-from-terms 'polynomial) variable terms))
+  ((table/gett 'make-from-terms 'polynomial) variable terms))
 
 (defn make-zero-order-polynomial-from-coeff
   [coeff]
-  ((get 'make-from-coeffs 'polynomial) 'unbound (list coeff)))
+  ((table/gett 'make-from-coeffs 'polynomial) 'unbound (list coeff)))

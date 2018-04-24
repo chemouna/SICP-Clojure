@@ -6,6 +6,10 @@
   [x y]
   (ap/apply-generic 'add x y))
 
+(defn sub
+  [x y]
+  (ap/apply-generic 'sub x y))
+
 (defn mul
   [x y]
   (ap/apply-generic 'mul x y))
