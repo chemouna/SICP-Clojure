@@ -11,8 +11,6 @@
 
 ;; todo: add some test variants with make-polynomial-from-coeffs
 
-(comment "
-
 (deftest test-make-poly
   (is (equal? (make-polynomial-from-terms 'x '())
               (make-polynomial-from-terms 'x '())))
@@ -28,32 +26,23 @@
 
 (deftest test-zero?
   (is (=zero? (make-polynomial-from-terms 'x '())))
-  (is (=zero? (make-polynomial-from-terms 'x (list (make-term 2 0)))))
+  (is (=zero? (make-polynomial-from-terms 'x (list (make-term 2 (int/make-integer 0))))))
   (is (not (=zero? (make-polynomial-from-terms 'x (list (make-term 2 3))))))
-  (is (not (=zero? (make-polynomial-from-terms 'x (list (list 4 (int/make-integer 3))
-                                                        (list 2 (int/make-integer 1))
-                                                        (list 0 (real/make-real 2.3)))))))
-  (is (=zero? (make-polynomial-from-terms 'x (list (list 3 (real/make-real 0))
-                                                   (list 2 (rat/make-rational-number 0 4))
-                                                   (list 1 (int/make-integer 0)))))))
-
-(deftest test-add-poly
-  (is (= (add (make-polynomial-from-terms 'x (list (make-term 2 3)))
-              (make-polynomial-from-terms 'y (list (make-term 5 7))))
-         nil))
-
-  ;; todo: once we have eq? for polynomials use it here
-  (is (not (nil? (add (make-polynomial-from-terms 'x (list (make-term 2 3)))
-                      (make-polynomial-from-terms 'x (list (make-term 2 7))))))))
+  (is (not (=zero? (make-polynomial-from-terms 'x (list (make-term 4 (int/make-integer 3))
+                                                        (make-term 2 (int/make-integer 1))
+                                                        (make-term 0 (real/make-real 2.3)))))))
+  (is (=zero? (make-polynomial-from-terms 'x (list (make-term 3 (real/make-real 0))
+                                                   (make-term 2 (rat/make-rational-number 0 4))
+                                                   (make-term 1 (int/make-integer 0)))))))
 
 (deftest test-eq-poly?
   (is (equal? (make-polynomial-from-terms 'x '()) (make-polynomial-from-terms 'x '())))
 
   (is (not (equal? (make-polynomial-from-terms 'x '()) (make-polynomial-from-terms 'y '()))))
 
-  (is (equal? (make-poly 'x (list (make-term 2 3))) (make-poly 'x (list (make-term 2 3)))))
+  (is (equal? (make-polynomial-from-terms 'x (list (make-term 2 3))) (make-polynomial-from-terms 'x (list (make-term 2 3)))))
 
-  (is (not (equal? (make-polynomial-from-terms 'x (list (make-term 2 3))) (make-poly 'x (list (make-term 5 3))))))
+  (is (not (equal? (make-polynomial-from-terms 'x (list (make-term 2 3))) (make-polynomial 'x (list (make-term 5 3))))))
 
   (is (equal? (make-polynomial-from-terms 'x (list (make-term 2 3) (make-term 5 7)))
                 (make-polynomial-from-terms 'x (list (make-term 2 3) (make-term 5 7)))))
@@ -68,27 +57,17 @@
 
   (is (equal? (negate
                  (make-polynomial-from-terms 'x (list (make-term (int/make-integer 3) (rat/make-rational-number 2 5)))))
-                (make-polynomial-from-terms 'x (list (make-term (int/make-integer 3) (rat/make-rational-number (- 2) 5))))))
+              (make-polynomial-from-terms 'x (list (make-term (int/make-integer 3) (rat/make-rational-number (- 2) 5)))))))
 
 
-  (is (equal? (negate
-                 (make-polynomial-from-terms 'x (list
-                                (make-term (real/make-real 2.13)
-                                             (c/make-complex-from-real-imag 3 2))
-                                (make-term (c/make-complex-from-real-imag 5 7)
-                                             (rat/make-rational-number 2 5)))))
-                (make-polynomial-from-terms 'x (list
-                               (make-term (real/make-real 2.13)
-                                            (c/make-complex-from-real-imag -3 2))
-                               (make-term (c/make-complex-from-real-imag 5 7)
-                                            (rat/make-rational-number -2 5)))))))
+(deftest test-add-poly
+  (is (= (add (make-polynomial-from-terms 'x (list (make-term 2 3)))
+              (make-polynomial-from-terms 'y (list (make-term 5 7))))
 
-(deftest test-sub-poly
-  (is (equal?
-       (sub
-        (make-polynomial-from-terms 'x (list (make-term 3 5) (make-term 7 6)))
-        (make-polynomial-from-terms 'x (list (make-term 3 2) (make-term 7 4))))
-       (make-polynomial-from-terms 'x (list (make-term 3 3) (make-term 7 2))))))
+         (make-polynomial-from-terms )))
+
+  (is (not (nil? (add (make-polynomial-from-terms 'x (list (make-term 2 3)))
+                      (make-polynomial-from-terms 'x (list (make-term 2 7))))))))
 
 
-")
+
