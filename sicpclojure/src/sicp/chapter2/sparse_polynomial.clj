@@ -55,7 +55,7 @@
   [p1 p2]
   (add-poly p1 (negate-poly p2)))
 
-(defn tag
+(defn sparse-poly-tag
   [p]
   (tag/attach-tag 'polynomial p))
 
@@ -73,14 +73,14 @@
             #(tag (add-poly %1 %2)))
 
 (table/putt 'mul '(polynomial polynomial)
-     #(tag (mul-poly %1 %2)))
+     #(sparse-poly-tag (mul-poly %1 %2)))
 
 (table/putt 'make 'polynomial make-polynomial)
 
 (table/putt '=zero? '(polynomial) =zero?)
 (table/putt 'sub '(polynomial polynomial) sub-poly)
 
-(table/putt 'equ? '(polynomial polynomial) eq-poly?)
+(table/putt 'equal? '(polynomial polynomial) eq-poly?)
 
 (table/putt 'negate '(polynomial) negate-poly)
 

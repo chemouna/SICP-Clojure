@@ -65,14 +65,14 @@
   [p1 p2]
   (if (same-variable? (variable p1) (variable p2))
     (make-poly (variable p1)
-               (t/mul-terms (term-list p1)
-                          (term-list p2)))
+               (mul (term-list p1)
+                    (term-list p2)))
     (println "Polys not in same var -- MUL-POLY"
            (list p1 p2))))
 
 (defn negate-poly
   [p]
-  (make-poly (variable p) (t/negate-terms (term-list p))))
+  (make-poly (variable p) (negate (term-list p))))
 
 (defn sub-poly
   [p1 p2]
@@ -92,12 +92,12 @@
     (not (same-variable? (variable p1) (variable p2))) false
     :else (equal? (term-list p1) (term-list p2))))
 
-(defn polynomial->complex
-  [p]
-  (let [constant (get-constant (term-list p))]
-    (if (is-lower? constant 'complex)
-      (raise-to 'complex constant)
-      constant)))
+;(defn polynomial->complex
+;  [p]
+;  (let [constant (get-constant (term-list p))]
+;    (if (is-lower? constant 'complex)
+;      (raise-to 'complex constant)
+;     constant)))
 
 (table/putt 'add '(polynomial polynomial)
             #(tag (add-poly %1 %2)))
@@ -124,7 +124,7 @@
 (table/putt 'make-from-coeffs 'polynomial
             #(tag (make-from-coeffs %1 %2)))
 
-(table/put-coercion 'polynomial 'complex polynomial->complex)
+;(table/put-coercion 'polynomial 'complex polynomial->complex)
 
 (defn make-polynomial-from-coeffs
   [variable coeffs]
@@ -137,4 +137,3 @@
 (defn make-zero-order-polynomial-from-coeff
   [coeff]
   ((get 'make-from-coeffs 'polynomial) 'unbound (list coeff)))
-
