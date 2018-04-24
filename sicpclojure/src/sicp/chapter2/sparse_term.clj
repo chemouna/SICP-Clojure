@@ -106,7 +106,7 @@
 (defn- insert-term
   [term terms]
   (if (empty-termlist? terms)
-    (adjoin-term term (the-empty-termlist))
+    (adjoin-term term the-empty-termlist)
     (let [head (first-term terms)
           head-order (order head)
           term-order (order term)]

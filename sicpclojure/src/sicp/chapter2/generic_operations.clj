@@ -23,7 +23,7 @@
 
 (defn equal?
   [x y]
-  (ap/apply-generic 'equ? x y))
+  (ap/apply-generic 'equal? x y))
 
 (defn negate
   [x]

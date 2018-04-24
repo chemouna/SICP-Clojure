@@ -23,7 +23,7 @@
 (table/putt 'div '(integer integer)
             #(rat/make-rational-number %1 %2))
 
-(table/putt 'equ? '(integer integer) =)
+(table/putt 'equal? '(integer integer) =)
 
 (table/putt '=zero? '(integer)
        #(= 0 %1))
