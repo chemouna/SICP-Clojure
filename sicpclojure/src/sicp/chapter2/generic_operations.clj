@@ -1,6 +1,9 @@
 
 (ns sicp.chapter2.generic-operations
-  (:require [sicp.chapter2.apply-generic-with-coercion :as ap]))
+  (:require [sicp.chapter2.apply-generic-with-coercion :as ap]
+            [clojure.tools.trace :as trace]))
+
+(trace/trace-ns 'sicp.chapter2.generic-operations)
 
 (defn add
   [x y]

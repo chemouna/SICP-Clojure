@@ -15,9 +15,9 @@
   [v1 v2]
   (and (variable? v1)
        (variable? v2)
-       (or (equal? v1 v2)
-           (equal? v1 'unbound)
-           (equal? v2 'unbound))))
+       (or (= v1 v2)
+           (= v1 'unbound)
+           (= v2 'unbound))))
 
 (defn make-poly
   [var term-list]
@@ -111,7 +111,7 @@
 
 (table/putt 'sub '(polynomial polynomial) sub-poly)
 
-(table/putt 'equ? '(polynomial polynomial) eq-poly?)
+(table/putt 'equal? '(polynomial polynomial) eq-poly?)
 
 (table/putt 'negate '(polynomial) negate-poly)
 
@@ -137,3 +137,4 @@
 (defn make-zero-order-polynomial-from-coeff
   [coeff]
   ((table/gett 'make-from-coeffs 'polynomial) 'unbound (list coeff)))
+

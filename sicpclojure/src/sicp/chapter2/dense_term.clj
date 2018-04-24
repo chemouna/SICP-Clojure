@@ -1,7 +1,13 @@
 (ns sicp.chapter2.dense-term
-  (:use [sicp.chapter2.generic-operations])
+  (:use [sicp.chapter2.generic-operations]
+        [sicp.chapter2.generic-term])
   (:require [sicp.chapter2.integer :as int]
-            [sicp.chapter2.generic-term :as gt]))
+            [sicp.chapter2.generic-term :as gt]
+            [sicp.chapter2.tag :as tag]
+            [sicp.chapter2.table :as table]
+            [clojure.tools.trace :as trace]))
+
+(trace/trace-ns 'sicp.chapter2.dense-term)
 
 (def zero (int/make-integer 0))
 
@@ -59,7 +65,7 @@
 (defn- insert-term
   [term terms]
   (if (empty-termlist? terms)
-      (adjoin-term (gt/order term) (coeff term) (the-empty-termlist))
+      (adjoin-term (order term) (coeff term) (the-empty-termlist))
       (let [head-order (term-list-order terms)
             term-order (order term)]
         (cond
@@ -147,16 +153,22 @@
     (+ (if (=zero? (first-term L)) 1 0)
            (count-zero-terms (rest-terms L)))))
 
-(defn- to-best-representation
-  [L]
-  (if (store-as-sparse? (term-list-order L) (count-zero-terms L))
-      (dense-terms->sparse-terms L)
-      (tag L)))
+(defn- store-as-sparse?
+  [highest-order zero-terms]
+  (if (>= highest-order 10)
+    (> (/ zero-terms highest-order) 0.1)
+    (> zero-terms (/ highest-order 5))))
 
 ;; interface to rest of the system
 (defn tag
   [t]
   (tag/attach-tag 'dense-terms (ensure-valid-term-list t)))
+
+(defn- to-best-representation
+  [L]
+  (if (store-as-sparse? (term-list-order L) (count-zero-terms L))
+    (dense-terms->sparse-terms L)
+    (tag L)))
 
 (table/putt 'add '(dense-terms dense-terms)
             #(to-best-representation (add-terms %1 %2)))
@@ -164,17 +176,17 @@
 (table/putt 'mul '(dense-terms dense-terms)
             #(to-best-representation (mul-terms %1 %2)))
 
-(table/put 'equal? '(dense-terms dense-terms) eq-terms?)
+(table/putt 'equal? '(dense-terms dense-terms) eq-terms?)
 
 (table/putt '=zero? '(dense-terms) =zero-terms?)
 
 (table/putt 'negate '(dense-terms)
-            #(to-best-representation (negate-terms t)))
+            #(to-best-representation (negate-terms %1)))
 
 (table/putt 'make-from-terms 'dense-terms
-            #(tag (make-from-terms terms)))
+            #(tag (make-from-terms %1)))
 
 (table/putt 'make-from-coeffs 'dense-terms
-            #(tag (make-from-coeffs coeffs)))
+            #(tag (make-from-coeffs %1)))
 
 (table/put-coercion 'dense-terms 'sparse-terms dense-terms->sparse-terms)
