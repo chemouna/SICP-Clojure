@@ -1,12 +1,9 @@
 
 (ns sicp.chapter2.polynomial
-  (:require [sicp.chapter2.term :as t]
-            [sicp.chapter2.tag :as tag]
+  (:use [sicp.chapter2.generic-operations])
+  (:require [sicp.chapter2.tag :as tag]
             [sicp.chapter2.table :as table]
-            [clojure.tools.trace :as trace]
-            [sicp.chapter2.dense-term :as dt]
-            [sicp.chapter2.term :as st] ;; sparse term ;; todo: maybe rename it 
-            ))
+            [clojure.tools.trace :as trace]))
 
 (trace/trace-ns 'sicp.chapter2.polynomial)
 
@@ -14,31 +11,52 @@
   [v]
   (symbol? v))
 
-(defn- same-variable?
+(defn same-variable?
   [v1 v2]
-  (and (variable? v1) (variable? v2) (= v1 v2)))
+  (and (variable? v1)
+       (variable? v2)
+       (or (equal? v1 v2)
+           (equal? v1 'unbound)
+           (equal? v2 'unbound))))
 
 (defn make-poly
   [var term-list]
   (conj term-list var))
 
+(defn make-from-coeffs
+  [variable coeffs]
+  (make-poly variable
+             ((get 'make-from-coeffs 'dense-terms) coeffs)))
+
+(defn make-from-terms
+  [variable terms]
+  (make-poly variable
+             ((get 'make-from-terms 'sparse-terms) terms)))
+
 (defn variable
   [p]
   (first p))
+
+(defn select-variable
+  [p1 p2]
+  (let [v1 (variable p1)]
+    (if (= v1 'unbound)
+      (variable p2)
+      v1)))
 
 (defn term-list
   [p]
   (rest p))
 
-(defn =zero?
+(defn =zero-poly?
   [p]
-  (t/=zero-terms? (term-list p)))
+  (=zero? (term-list p)))
 
 (defn add-poly
   [p1 p2]
   (if (same-variable? (variable p1) (variable p2))
     (make-poly (variable p1)
-               (t/add-terms (term-list p1)
+               (add (term-list p1)
                           (term-list p2)))
     (println "Polys not in same var -- ADD-POLY"
            (list p1 p2))))
@@ -72,7 +90,14 @@
   [p1 p2]
   (cond
     (not (same-variable? (variable p1) (variable p2))) false
-    :else (t/eq-terms? (term-list p1) (term-list p2))))
+    :else (equal? (term-list p1) (term-list p2))))
+
+(defn polynomial->complex
+  [p]
+  (let [constant (get-constant (term-list p))]
+    (if (is-lower? constant 'complex)
+      (raise-to 'complex constant)
+      constant)))
 
 (table/putt 'add '(polynomial polynomial)
             #(tag (add-poly %1 %2)))
@@ -82,13 +107,34 @@
 
 (table/putt 'make 'polynomial make-polynomial)
 
-(table/putt '=zero? '(polynomial) =zero?)
+(table/putt '=zero? '(polynomial) =zero-poly?)
+
 (table/putt 'sub '(polynomial polynomial) sub-poly)
 
-(table/putt 'equ? '(polynomial polynomial) eq-poly?)
+(table/putt 'equal? '(polynomial polynomial) eq-poly?)
 
 (table/putt 'negate '(polynomial) negate-poly)
 
-(defn make-polynomial
-  [var terms]
-  ((table/gett 'make 'polynomial) var terms))
+(table/putt 'make 'polynomial
+            #(tag (make-poly %1 %2)))
+
+(table/putt 'make-from-terms 'polynomial
+            #(tag (make-from-terms %1 %2)))
+
+(table/putt 'make-from-coeffs 'polynomial
+            #(tag (make-from-coeffs %1 %2)))
+
+(table/put-coercion 'polynomial 'complex polynomial->complex)
+
+(defn make-polynomial-from-coeffs
+  [variable coeffs]
+  ((get 'make-from-coeffs 'polynomial) variable coeffs))
+
+(defn make-polynomial-from-terms
+  [variable terms]
+  ((get 'make-from-terms 'polynomial) variable terms))
+
+(defn make-zero-order-polynomial-from-coeff
+  [coeff]
+  ((get 'make-from-coeffs 'polynomial) 'unbound (list coeff)))
+
