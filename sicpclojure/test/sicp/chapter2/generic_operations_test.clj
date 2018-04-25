@@ -31,3 +31,5 @@
 ;; todo: we will probably need to test with different types
 ;;        also i need to do the apply generic that works with multiple arg
 ;;        (the current version gives an error for it)
+
+;; todo: test also for polynomial
