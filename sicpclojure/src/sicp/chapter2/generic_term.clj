@@ -27,6 +27,10 @@
   [term]
   (agc/apply-generic 'coeff term))
 
+(defn adjoin-term
+  [term terms]
+  (agc/apply-generic 'adjoin-term term terms))
+
 (defn- eq-term?
   [t1 t2]
   (and (equal? (order t1) (order-term t2))
@@ -55,10 +59,12 @@
       (if (> o1 o2)
         (list the-empty-termlist L1)
         (let [new-c (div (coeff t1) (coeff t2))
-              new-o (- o1 o2)]
+              new-o (- o1 o2)
+              new-t (make-term new-o new-c)]
           (let [rest-of-result
-                (div-terms (rest L1) (rest L2))]
-            (conj (make-term new-c new-o) rest-of-result)))))))
+                (div-terms (sub L1 (mul (list new-t) L2)) L2)]
+            (list (adjoin-term new-t (first rest-of-result))
+                  (second rest-of-result))))))))
 
 (div-terms (list (make-term 4 8)) (list (make-term 2 4)))
 

@@ -177,4 +177,6 @@
 (table/putt 'make-from-coeffs 'dense-terms
             #(tag (make-from-coeffs %1)))
 
+(table/putt 'adjoin-term '(term dense-terms) adjoin-term)
+
 (table/put-coercion 'dense-terms 'sparse-terms dense-terms->sparse-terms)

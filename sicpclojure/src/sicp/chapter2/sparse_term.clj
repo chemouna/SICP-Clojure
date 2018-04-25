@@ -190,5 +190,7 @@
 (table/putt 'make-from-coeffs 'sparse-terms
      #(sparse-tag (make-from-coeffs %1)))
 
+(table/putt 'adjoin-term '(term sparse-terms) adjoin-term)
+
 (table/put-coercion 'sparse-terms 'dense-terms sparse-terms->dense-terms)
 
