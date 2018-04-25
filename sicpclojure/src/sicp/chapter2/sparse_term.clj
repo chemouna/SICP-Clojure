@@ -6,7 +6,7 @@
             [sicp.chapter2.tag :as tag]
             [sicp.chapter2.integer :as int]))
 
-(trace/trace-ns 'sicp.chapter2.sparse-term)
+;(trace/trace-ns 'sicp.chapter2.sparse-term)
 
 (defn- adjoin-term
   [term term-list]

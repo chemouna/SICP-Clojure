@@ -125,10 +125,7 @@
 
 (table/putt 'negate '(polynomial) negate-poly)
 
-(table/putt 'div '(polynomial polynomial)
-            #(let [res (div-poly %1 %2)]
-               (list (drop (tag (first res)))
-                     (drop (tag (second res))))))
+(table/putt 'div '(polynomial polynomial) div-poly)
 
 (table/putt 'make 'polynomial
             #(tag (make-poly %1 %2)))

@@ -160,7 +160,7 @@
 
 (deftest test-div
   (is (= (div sparse-numerator-1 sparse-denominator-1)
-         '((polynomial x sparse-terms (term 3 (integer 1)) (term 1 (integer 1)))
-           (polynomial x dense-terms (integer  1) (integer  -1))))))
+         '((polynomial (x dense-terms ((integer 0))))
+           (polynomial (x sparse-terms ((term 5 (integer 1))) (term (0 (integer -1)))))))))
 
 

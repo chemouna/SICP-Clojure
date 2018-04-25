@@ -7,7 +7,7 @@
             [sicp.chapter2.table :as table]
             [clojure.tools.trace :as trace]))
 
-(trace/trace-ns 'sicp.chapter2.dense-term)
+;(trace/trace-ns 'sicp.chapter2.dense-term)
 
 (def zero (int/make-integer 0))
 
