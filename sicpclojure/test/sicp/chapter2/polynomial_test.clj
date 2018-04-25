@@ -71,3 +71,9 @@
 
 
 
+(deftest test-sub-poly
+  (is (equal?
+       (sub
+        (make-polynomial-from-terms 'x (list (make-term 3 5) (make-term 7 6)))
+        (make-polynomial-from-terms 'x (list (make-term 3 2) (make-term 7 4))))
+       (make-polynomial-from-terms 'x (list (make-term 3 3) (make-term 7 2))))))

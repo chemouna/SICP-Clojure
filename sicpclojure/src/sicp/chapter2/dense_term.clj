@@ -29,18 +29,6 @@
      :else (println "Cannot adjoin term of lower order than term list -- ADJOIN-TERM"
                     (list term-order term-coeff term-list))))
 
-(defn- the-empty-termlist
-  []
-  '())
-
-(defn- first-term
-  [term-list]
-  (first term-list))
-
-(defn- rest-terms
-  [term-list]
-  (rest term-list))
-
 (defn- empty-termlist?
   [term-list]
   (empty? term-list))

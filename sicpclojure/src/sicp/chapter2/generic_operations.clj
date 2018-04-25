@@ -17,6 +17,10 @@
   [x y]
   (ap/apply-generic 'mul x y))
 
+(defn div
+  [x y]
+  (ap/apply-generic 'div x y))
+
 (defn =zero?
   [x]
   (ap/apply-generic '=zero? x))

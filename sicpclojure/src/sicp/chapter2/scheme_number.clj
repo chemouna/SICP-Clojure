@@ -1,7 +1,8 @@
 
 (ns sicp.chapter2.scheme-number
   (:require [sicp.chapter2.table :as table]
-            [sicp.chapter2.common :as cm]))
+            [sicp.chapter2.common :as cm]
+            [sicp.chapter2.rational :as rat]))
 
 (defn- equal?
   "Checks if two numbers are equal"
@@ -36,6 +37,9 @@
      #(cm/expt %1 %2))
 
 (table/putt 'negate '(scheme-number) negate)
+
+(table/putt 'div '(scheme-number scheme-number)
+            #(rat/make-rational-number %1 %2))
 
 (defn make-scheme-number
   "Creates a number"
