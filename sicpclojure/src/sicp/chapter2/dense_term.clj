@@ -11,6 +11,14 @@
 
 (def zero (int/make-integer 0))
 
+(defn- first-term
+  [term-list]
+  (first term-list))
+
+(defn- rest-terms
+  [term-list]
+  (rest term-list))
+
 (defn- term-list-order
   [term-list]
   (- (count term-list) 1))
@@ -32,6 +40,10 @@
 (defn- empty-termlist?
   [term-list]
   (empty? term-list))
+
+(defn- the-empty-termlist
+  []
+  '())
 
 (defn- ensure-valid-term-list
   [terms]
@@ -106,6 +118,24 @@
     (add-terms (mul-term-by-all-terms (term-list-order L1) (first-term L1) L2)
                (mul-terms (rest-terms L1) L2))))
 
+(defn- div-terms
+  [L1 L2]
+  (if (empty-termlist? L1)
+    (list the-empty-termlist the-empty-termlist)
+    (let [t1 (first-term L1)
+          t2 (first-term L2)
+          o1 (term-list-order t1)
+          o2 (term-list-order t2)]
+      (if (> o1 o2)
+        (list the-empty-termlist L1)
+        (let [new-c (div (coeff t1) (coeff t2))
+              new-o (- o1 o2)
+              new-t (make-term new-o new-c)]
+          (let [rest-of-result
+                (div-terms (sub L1 (mul (list new-t) L2)) L2)]
+            (list (adjoin-term new-t (first rest-of-result))
+                  (second rest-of-result))))))))
+
 (defn- =zero-terms?
   [L]
   (cond
@@ -121,6 +151,9 @@
         (adjoin-term (term-list-order L)
                      (negate term)
                      (negate-terms (rest-terms L))))))
+(defn- sub-terms
+  [L1 L2]
+  (add-terms L1 (negate-terms L2)))
 
 (defn- eq-terms?
   [L1 L2]
@@ -163,6 +196,14 @@
 
 (table/putt 'mul '(dense-terms dense-terms)
             #(to-best-representation (mul-terms %1 %2)))
+
+(table/putt 'sub '(dense-terms dense-terms)
+            #(to-best-representation (sub-terms %1 %2)))
+
+(table/putt 'div '(dense-terms dense-terms)
+            #(let [res (div-terms %1 %2)]
+               (list (to-best-representation (first res))
+                     (to-best-representation (second res)))))
 
 (table/putt 'equal? '(dense-terms dense-terms) eq-terms?)
 

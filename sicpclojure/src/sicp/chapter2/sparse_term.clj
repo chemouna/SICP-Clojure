@@ -67,6 +67,24 @@
       (add-terms (mul-term-by-all-terms (first-term L1) L2)
                  (mul-terms (rest-terms L1) L2))))
 
+(defn- div-terms
+  [L1 L2]
+  (if (empty-termlist? L1)
+    (list the-empty-termlist the-empty-termlist)
+    (let [t1 (first-term L1)
+          t2 (first-term L2)
+          o1 (order t1)
+          o2 (order t2)]
+      (if (> o1 o2)
+        (list the-empty-termlist L1)
+        (let [new-c (div (coeff t1) (coeff t2))
+              new-o (- o1 o2)
+              new-t (make-term new-o new-c)]
+          (let [rest-of-result
+                (div-terms (sub L1 (mul (list new-t) L2)) L2)]
+            (list (adjoin-term new-t (first rest-of-result))
+                  (second rest-of-result))))))))
+
 (defn- =zero-terms?
   [termlist]
   (cond
@@ -96,6 +114,10 @@
     (empty-termlist? terms) the-empty-termlist
     :else (adjoin-term (negate-term (first-term terms))
                        (negate-terms (rest-terms terms)))))
+
+(defn- sub-terms
+  [L1 L2]
+  (add-terms L1 (negate-terms L2)))
 
 (defn- ensure-valid-term-list
   [terms]
@@ -172,10 +194,18 @@
 
 ;; interface to the rest of the system
 (table/putt 'add '(sparse-terms sparse-terms)
-     #(sparse-tag (add-terms %1 %2)))
+            #(sparse-tag (add-terms %1 %2)))
 
 (table/putt 'mul '(sparse-terms sparse-terms)
      #(sparse-tag (mul-terms %1 %2)))
+
+(table/putt 'sub '(sparse-terms sparse-terms)
+            #(sparse-tag (sub-terms %1 %2)))
+
+(table/putt 'div '(dense-terms dense-terms)
+            #(let [res (div-terms %1 %2)]
+               (list (sparse-terms->dense-terms (first res))
+                     (sparse-terms->dense-terms (second res)))))
 
 (table/putt 'equal? '(sparse-terms sparse-terms) eq-terms?)
 
