@@ -1,4 +1,3 @@
-
 (ns sicp.chapter2.polynomial-test
   (:use [sicp.chapter2.polynomial]
         [sicp.chapter2.generic-operations]
@@ -77,3 +76,91 @@
         (make-polynomial-from-terms 'x (list (make-term 3 5) (make-term 7 6)))
         (make-polynomial-from-terms 'x (list (make-term 3 2) (make-term 7 4))))
        (make-polynomial-from-terms 'x (list (make-term 3 3) (make-term 7 2))))))
+
+
+;; div tests
+
+;; tests data
+(def zero (int/make-integer 0))
+
+(def sparse-numerator-1
+  (make-polynomial-from-terms 'x
+                              (list (make-term 5 (int/make-integer 1))
+                                    (make-term 0 (int/make-integer -1)))))
+
+(def sparse-denominator-1
+  (make-polynomial-from-terms 'x
+                              (list (make-term 2 (int/make-integer 1))
+                                    (make-term 0 (int/make-integer -1)))))
+
+(def sparse-numerator-2
+  (make-polynomial-from-terms 'x
+                              (list (make-term 2 (int/make-integer 2))
+                                    (make-term 0 (int/make-integer 2)))))
+
+(def sparse-denominator-2
+  (make-polynomial-from-terms 'x
+                              (list (make-term 2 (int/make-integer 1))
+                                    (make-term 0 (int/make-integer 1)))))
+
+(def sparse-numerator-3
+  (make-polynomial-from-terms 'x
+                              (list (make-term 4 (int/make-integer 3))
+                                    (make-term 3 (int/make-integer 7))
+                                    (make-term 0 (int/make-integer 6)))))
+
+(def sparse-denominator-3
+  (make-polynomial-from-terms 'x
+                              (list (make-term 4 (real/make-real 0.5))
+                                    (make-term 3 (int/make-integer 1))
+                                    (make-term 0 (int/make-integer 3)))))
+
+(def dense-numerator-1
+  (make-polynomial-from-coeffs 'x
+                               (list (int/make-integer 1)
+                                     zero
+                                     zero
+                                     zero
+                                     zero
+                                     (int/make-integer -1))))
+
+(def dense-denominator-1
+  (make-polynomial-from-coeffs 'x
+                               (list (int/make-integer 1)
+                                     zero
+                                     (int/make-integer -1))))
+
+(def dense-numerator-2
+  (make-polynomial-from-coeffs 'x
+                               (list (int/make-integer 2)
+                                     zero
+                                     (int/make-integer 2))))
+
+(def dense-denominator-2
+  (make-polynomial-from-coeffs 'x
+                               (list (int/make-integer 1)
+                                     zero
+                                     (int/make-integer 1))))
+
+(def dense-numerator-3
+  (make-polynomial-from-coeffs 'x
+                               (list (int/make-integer 3)
+                                     (int/make-integer 7)
+                                     zero
+                                     zero
+                                     (int/make-integer 6))))
+
+(def dense-denominator-3
+  (make-polynomial-from-coeffs 'x
+                               (list (real/make-real 0.5)
+                                     (int/make-integer 1)
+                                     zero
+                                     zero
+                                     (int/make-integer 3))))
+
+(deftest test-div
+  (is (= (div sparse-numerator-1 sparse-denominator-1)
+         '((polynomial x sparse-terms (term 3 (integer 1)) (term 1 (integer 1)))
+           (polynomial x dense-terms (integer  1) (integer  -1))))))
+
+

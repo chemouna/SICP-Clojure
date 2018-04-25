@@ -190,7 +190,7 @@
   [L]
   (if (keep-as-sparse? L)
     (sparse-tag L)
-    ((get 'make-from-terms 'dense-terms) L)))
+    ((table/gett 'make-from-terms 'dense-terms) L)))
 
 ;; interface to the rest of the system
 (table/putt 'add '(sparse-terms sparse-terms)
@@ -202,7 +202,7 @@
 (table/putt 'sub '(sparse-terms sparse-terms)
             #(sparse-tag (sub-terms %1 %2)))
 
-(table/putt 'div '(dense-terms dense-terms)
+(table/putt 'div '(sparse-terms sparse-terms)
             #(let [res (div-terms %1 %2)]
                (list (sparse-terms->dense-terms (first res))
                      (sparse-terms->dense-terms (second res)))))

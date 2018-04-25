@@ -27,7 +27,7 @@
 (defn- make-from-coeffs
   [variable coeffs]
   (make-poly variable
-             ((get 'make-from-coeffs 'dense-terms) coeffs)))
+             ((table/gett 'make-from-coeffs 'dense-terms) coeffs)))
 
 (defn- make-from-terms
   [variable terms]
