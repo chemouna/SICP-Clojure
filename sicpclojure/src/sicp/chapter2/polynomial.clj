@@ -3,7 +3,8 @@
   (:use [sicp.chapter2.generic-operations])
   (:require [sicp.chapter2.tag :as tag]
             [sicp.chapter2.table :as table]
-            [clojure.tools.trace :as trace]))
+            [clojure.tools.trace :as trace]
+            [sicp.chapter2.generic-term :as gt]))
 
 (trace/trace-ns 'sicp.chapter2.polynomial)
 
@@ -92,6 +93,15 @@
     (not (same-variable? (variable p1) (variable p2))) false
     :else (equal? (term-list p1) (term-list p2))))
 
+(defn- div-poly
+  [p1 p2]
+  (if (same-variable? (variable p1) (variable p2))
+    (let [res-terms (gt/div-terms (term-list p1) (term-list p2))]
+      (list
+       (make-polynomial (variable p1) (first res-terms))
+       (make-polynomial (variable p1) (second res-terms))))
+    (println "error: Can't do the division: divisor and divident do not have the same variable")))
+
 ;(defn polynomial->complex
 ;  [p]
 ;  (let [constant (get-constant (term-list p))]
@@ -114,6 +124,8 @@
 (table/putt 'equal? '(polynomial polynomial) eq-poly?)
 
 (table/putt 'negate '(polynomial) negate-poly)
+
+(table/putt 'div '(polynomial polynomial) div-poly)
 
 (table/putt 'make 'polynomial
             #(tag (make-poly %1 %2)))
