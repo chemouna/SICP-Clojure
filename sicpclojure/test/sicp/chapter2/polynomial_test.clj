@@ -77,7 +77,6 @@
         (make-polynomial-from-terms 'x (list (make-term 3 2) (make-term 7 4))))
        (make-polynomial-from-terms 'x (list (make-term 3 3) (make-term 7 2))))))
 
-
 ;; div tests
 
 ;; tests data
@@ -158,9 +157,7 @@
                                      zero
                                      (int/make-integer 3))))
 
-(deftest test-div
-  (is (= (div sparse-numerator-1 sparse-denominator-1)
-         '((polynomial (x dense-terms ((integer 0))))
-           (polynomial (x sparse-terms ((term 5 (integer 1))) (term (0 (integer -1)))))))))
+
+
 
 

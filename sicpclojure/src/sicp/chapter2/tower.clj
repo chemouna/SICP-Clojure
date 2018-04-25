@@ -1,6 +1,6 @@
 
 (ns sicp.chapter2.tower)
 
-(def tower-of-types '(integer rational real complex polynomial))
+(def tower-of-types '(integer rational real complex polynomial dense-terms sparse-terms))
 
 
