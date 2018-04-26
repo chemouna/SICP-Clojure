@@ -203,9 +203,7 @@
             #(sparse-tag (sub-terms %1 %2)))
 
 (table/putt 'div '(sparse-terms sparse-terms)
-            #(let [res (div-terms %1 %2)]
-               (list (sparse-terms->dense-terms (first res))
-                     (sparse-terms->dense-terms (second res)))))
+            #(sparse-tag (div-terms %1 %2)))
 
 (table/putt 'equal? '(sparse-terms sparse-terms) eq-terms?)
 

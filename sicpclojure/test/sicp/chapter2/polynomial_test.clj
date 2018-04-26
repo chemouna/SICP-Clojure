@@ -50,14 +50,25 @@
                 (make-polynomial-from-terms 'x (list (make-term 2 -3))))))
 
 (deftest test-negate-poly
-  (is (equal? (negate
-                 (make-polynomial-from-terms 'x (list (make-term 2 3) (make-term 5 7))))
-                (make-polynomial-from-terms 'x (list (make-term 2 -3) (make-term 5 -7)))))
+  (is (equal?
+       (negate
+        (make-polynomial-from-terms 'x
+                                    (list
+                                     (make-term 2 3)
+                                     (make-term 5 7))))
+       (make-polynomial-from-terms 'x
+                                   (list
+                                    (make-term 2 -3)
+                                    (make-term 5 -7)))))
 
-  (is (equal? (negate
-                 (make-polynomial-from-terms 'x (list (make-term (int/make-integer 3) (rat/make-rational-number 2 5)))))
-              (make-polynomial-from-terms 'x (list (make-term (int/make-integer 3) (rat/make-rational-number (- 2) 5)))))))
-
+  (is (equal?
+       (negate
+        (make-polynomial-from-terms 'x
+                                    (list
+                                     (make-term (int/make-integer 3) (rat/make-rational-number 2 5)))))
+       (make-polynomial-from-terms 'x
+                                   (list
+                                    (make-term (int/make-integer 3) (rat/make-rational-number (- 2) 5)))))))
 
 (deftest test-add-poly
   (is (not (nil? (add (make-polynomial-from-terms 'x (list (make-term 2 3)))
@@ -69,3 +80,22 @@
         (make-polynomial-from-terms 'x (list (make-term 3 5) (make-term 7 6)))
         (make-polynomial-from-terms 'x (list (make-term 3 2) (make-term 7 4))))
        (make-polynomial-from-terms 'x (list (make-term 3 3) (make-term 7 2))))))
+
+;(def sparse-numerator-1
+;  (make-polynomial-from-terms 'x
+;                              (list (make-term 5 (int/make-integer 1))
+;                                    (make-term 0 (int/make-integer -1)))))
+
+;(def sparse-denominator-1
+;  (make-polynomial-from-terms 'x
+;                              (list (make-term 2 (int/make-integer 1))
+;                                    (make-term 0 (int/make-integer -1)))))
+
+
+;(deftest test-div-poly
+;  (is (= (div sparse-numerator-1 sparse-denominator-1)
+;         '((polynomial (x dense-terms ((integer 0))))
+;           (polynomial (x sparse-terms ((term (5 (integer 1))) (term (0 (integer -1))))))))))
+
+
+

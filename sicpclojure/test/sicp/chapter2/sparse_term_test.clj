@@ -31,12 +31,4 @@
 (deftest test-adjoin-term
   (is (equal? (adjoin t1 '()) (list t1))))
 
-(comment "
-(def sparse-to-dense #'sicp.chapter2.sparse-term/sparse-terms->dense-terms)
-(deftest test-sparse-terms->dense-terms
-  (is (= (sparse-to-dense
-          ((table/gett 'make-from-terms 'sparse-terms)
-           (list t1 t2)))
-         ))
-")
-
+(def div-terms #'sicp.chapter2.sparse-term/div-terms)

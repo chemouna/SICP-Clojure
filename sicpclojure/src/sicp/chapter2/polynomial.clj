@@ -1,8 +1,7 @@
 
 (ns sicp.chapter2.polynomial
   (:use [sicp.chapter2.generic-operations]
-        [sicp.chapter2.generic-term]
-        [sicp.chapter2.drop :as d])
+        [sicp.chapter2.generic-term])
   (:require [sicp.chapter2.tag :as tag]
             [sicp.chapter2.table :as table]
             [clojure.tools.trace :as trace]))
@@ -110,6 +109,7 @@
 ;      (raise-to 'complex constant)
 ;     constant)))
 
+
 (table/putt 'add '(polynomial polynomial)
             #(tag (add-poly %1 %2)))
 
@@ -129,9 +129,7 @@
             #(tag (negate-poly %1)))
 
 (table/putt 'div '(polynomial polynomial)
-            #(let [res (div-poly %1 %2)]
-               (list (d/drop (tag (first res)))
-                     (d/drop (tag (second res))))))
+            #(div-poly %1 %2))
 
 (table/putt 'make 'polynomial
             #(tag (make-poly %1 %2)))
