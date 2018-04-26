@@ -18,16 +18,11 @@
 
 (defn- first-term
   [term-list]
-  (if (= (first term-list) 'sparse-terms)
-    (second (first (second term-list)))
-    (first term-list)))
+  (first term-list))
 
 (defn- rest-terms
   [term-list]
-  (if (= (first term-list) 'sparse-terms)
-    (rest (second term-list))
-    (rest term-list)))
-
+  (rest term-list))
 
 (defn- empty-termlist?
   [term-list]
@@ -228,4 +223,3 @@
 (table/putt 'adjoin-term '(term sparse-terms) adjoin-term)
 
 (table/put-coercion 'sparse-terms 'dense-terms sparse-terms->dense-terms)
-

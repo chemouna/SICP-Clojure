@@ -60,15 +60,8 @@
 
 
 (deftest test-add-poly
-  (is (= (add (make-polynomial-from-terms 'x (list (make-term 2 3)))
-              (make-polynomial-from-terms 'y (list (make-term 5 7))))
-
-         (make-polynomial-from-terms )))
-
   (is (not (nil? (add (make-polynomial-from-terms 'x (list (make-term 2 3)))
                       (make-polynomial-from-terms 'x (list (make-term 2 7))))))))
-
-
 
 (deftest test-sub-poly
   (is (equal?

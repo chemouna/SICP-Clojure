@@ -82,7 +82,7 @@
 
 (defn- negate-poly
   [p]
-  (make-polynomial (variable p) (negate (term-list p))))
+  (make-poly (variable p) (negate (term-list p))))
 
 (defn- sub-poly
   [p1 p2]
@@ -120,11 +120,13 @@
 
 (table/putt '=zero? '(polynomial) =zero-poly?)
 
-(table/putt 'sub '(polynomial polynomial) sub-poly)
+(table/putt 'sub '(polynomial polynomial)
+            #(tag (sub-poly %1 %2)))
 
 (table/putt 'equal? '(polynomial polynomial) eq-poly?)
 
-(table/putt 'negate '(polynomial) negate-poly)
+(table/putt 'negate '(polynomial)
+            #(tag (negate-poly %1)))
 
 (table/putt 'div '(polynomial polynomial)
             #(let [res (div-poly %1 %2)]

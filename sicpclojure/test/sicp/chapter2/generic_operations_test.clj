@@ -5,8 +5,7 @@
   (:require [sicp.chapter2.integer :as int]
             [sicp.chapter2.real :as real]
             [sicp.chapter2.rational :as rat]
-            [sicp.chapter2.complex :as c]
-            [clojure.test.check :as tc]))
+            [sicp.chapter2.complex :as c]))
 
 (deftest test-add
   (is (= (add (int/make-integer 2)
