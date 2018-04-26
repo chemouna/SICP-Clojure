@@ -6,5 +6,4 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/tools.trace "0.7.9"]
                  [clj-time "0.14.2"]
-                 [org.clojure/math.numeric-tower "0.0.4"]
-                 [org.clojure/test.check "0.10.0-alpha2"]])
+                 [org.clojure/math.numeric-tower "0.0.4"]])

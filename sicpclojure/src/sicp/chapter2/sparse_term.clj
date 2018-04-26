@@ -18,11 +18,16 @@
 
 (defn- first-term
   [term-list]
-  (first term-list))
+  (if (= (first term-list) 'sparse-terms)
+    (second (first (second term-list)))
+    (first term-list)))
 
 (defn- rest-terms
   [term-list]
-  (rest term-list))
+  (if (= (first term-list) 'sparse-terms)
+    (rest (second term-list))
+    (rest term-list)))
+
 
 (defn- empty-termlist?
   [term-list]
@@ -151,7 +156,7 @@
 (defn- convert-to-term-list
   [coeffs]
   (if (empty? coeffs)
-    (the-empty-termlist)
+    the-empty-termlist
     (adjoin-term (make-term (- (count coeffs) 1) (first coeffs))
                  (convert-to-term-list (rest coeffs)))))
 
