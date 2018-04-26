@@ -165,7 +165,7 @@
 
 (defn- dense-terms->sparse-terms
   [L]
-  ((get 'make-from-coeffs 'sparse-terms) L))
+  ((table/gett 'make-from-coeffs 'sparse-terms) L))
 
 (defn- count-zero-terms
   [L]
