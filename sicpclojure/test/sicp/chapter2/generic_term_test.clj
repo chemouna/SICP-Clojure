@@ -10,4 +10,7 @@
     (is (= (order t) 2))
     (is (= (coeff t) 3))))
 
-
+(deftest test-equal-term
+  (is ((table/gett 'equal? '(term term))
+       (make-term 2 3)
+       (make-term 2 3))))

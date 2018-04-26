@@ -29,8 +29,8 @@
 
 (defn- eq-term?
   [t1 t2]
-  (and (equal? (order t1) (order-term t2))
-       (equal? (coeff t1) (coeff-term t2))))
+  (and (equal? (order t1) (order t2))
+       (equal? (coeff t1) (coeff t2))))
 
 (defn- first-term
   [term-list]
