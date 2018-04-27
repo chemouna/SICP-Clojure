@@ -16,11 +16,11 @@
 ")
 
 (deftest test-project-rational
-  (is (= (project-rational (rat/make-rational-number 2 1)) '(integer 2)))
-  (is (= (project-rational (rat/make-rational-number 2 3)) '(integer 0))))
+  (is (= (project-rational (rat/make-rational 2 1)) '(integer 2)))
+  (is (= (project-rational (rat/make-rational 2 3)) '(integer 0))))
 
 (deftest test-rational->real
-  (is (= (rational->real (rat/make-rational-number 1 2)) (real/make-real 1/2))))
+  (is (= (rational->real (rat/make-rational 1 2)) (real/make-real 1/2))))
 
 (deftest test-project-real
   (let [r (project-real (real/make-real 1.25))]

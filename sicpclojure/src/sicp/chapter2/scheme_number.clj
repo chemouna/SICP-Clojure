@@ -39,7 +39,7 @@
 (table/putt 'negate '(scheme-number) negate)
 
 (table/putt 'div '(scheme-number scheme-number)
-            #(rat/make-rational-number %1 %2))
+            #(rat/make-rational %1 %2))
 
 (defn make-scheme-number
   "Creates a number"

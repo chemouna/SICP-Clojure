@@ -32,7 +32,7 @@
 (defn project-real
   [x]
   (let [r (rationalize (tag/contents x))]
-    (rat/make-rational-number (numerator r) (denominator r))))
+    (rat/make-rational (numerator r) (denominator r))))
 
 (table/putt 'project '(real) project-real)
 

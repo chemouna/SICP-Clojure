@@ -29,21 +29,14 @@
   (is (= (mul-terms '((2 3)) '((3 7))) '((5 21))))
   (is (= (mul-terms '() '()))))
 
-(deftest test-=zero-terms?
-  (is (=zero-terms? '()))
-  (is (not (=zero-terms? '((make-term (2 3))))))
-  (is (=zero-terms? (list (list 3 (real/make-real 0))
-                          (list 2 (rat/make-rational-number 0 4))
-                          (list 1 (int/make-integer 0))))))
-
 (deftest test-negate-term
   (is (eq-term? (negate-term
                  (make-term 2 3))
                 (make-term 2 -3)))
 
   (is (eq-term? (negate-term
-                 (make-term 2 (rat/make-rational-number 3 5)))
-                (make-term 2 (rat/make-rational-number -3 5)))))
+                 (make-term 2 (rat/make-rational 3 5)))
+                (make-term 2 (rat/make-rational -3 5)))))
 
 (deftest test-negate-terms
   (is (= (negate-terms '()) '()))
@@ -59,10 +52,10 @@
   (is (eq-terms? (negate-terms
                   (list
                    (make-term 2 (c/make-complex-from-real-imag 3 2))
-                   (make-term 4 (rat/make-rational-number 2 5))))
+                   (make-term 4 (int/make-integer 2))))
                  (list
                   (make-term 2 (c/make-complex-from-real-imag -3 2))
-                  (make-term 4 (rat/make-rational-number -2 5))))))
+                  (make-term 4 -2)))))
 
 (deftest test-eq-terms
   (is (eq-terms?

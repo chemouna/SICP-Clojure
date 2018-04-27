@@ -29,11 +29,7 @@
   (is (not (=zero? (make-polynomial-from-terms 'x (list (make-term 2 3))))))
   (is (not (=zero? (make-polynomial-from-terms 'x (list (make-term 4 (int/make-integer 3))
                                                         (make-term 2 (int/make-integer 1))
-                                                        (make-term 0 (real/make-real 2.3)))))))
-  (is (=zero? (make-polynomial-from-terms 'x (list (make-term 3 (real/make-real 0))
-                                                   (make-term 2 (rat/make-rational-number 0 4))
-                                                   (make-term 1 (int/make-integer 0)))))))
-
+                                                        (make-term 0 (real/make-real 2.3))))))))
 (deftest test-eq-poly?
   (is (equal? (make-polynomial-from-terms 'x '()) (make-polynomial-from-terms 'x '())))
 
@@ -59,16 +55,8 @@
        (make-polynomial-from-terms 'x
                                    (list
                                     (make-term 2 -3)
-                                    (make-term 5 -7)))))
+                                    (make-term 5 -7))))))
 
-  (is (equal?
-       (negate
-        (make-polynomial-from-terms 'x
-                                    (list
-                                     (make-term (int/make-integer 3) (rat/make-rational-number 2 5)))))
-       (make-polynomial-from-terms 'x
-                                   (list
-                                    (make-term (int/make-integer 3) (rat/make-rational-number (- 2) 5)))))))
 
 (deftest test-add-poly
   (is (not (nil? (add (make-polynomial-from-terms 'x (list (make-term 2 3)))
@@ -96,6 +84,5 @@
 ;  (is (= (div sparse-numerator-1 sparse-denominator-1)
 ;         '((polynomial (x dense-terms ((integer 0))))
 ;           (polynomial (x sparse-terms ((term (5 (integer 1))) (term (0 (integer -1))))))))))
-
 
 

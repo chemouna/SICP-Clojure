@@ -21,39 +21,42 @@
 
 (defn make-rat
   [n d]
-  (let [g (cm/gcd n d)]
-    (list (/ n g) (/ d g))))
+  (list n d))
+;  (let [g (cm/gcd n d)]
+;    (list (/ n g) (/ d g))))
 
 (defn add-rat
   [x y]
-  (make-rat (+ (* (numer x) (denom y))
-               (* (numer y) (denom x)))
-            (* (denom x) (denom y))))
+  (make-rat (g/add
+             (g/mul (numer x) (denom y))
+             (g/mul (numer y) (denom x)))
+            (g/mul (denom x) (denom y))))
 
 (defn- sub-rat
   [x y]
-  (make-rat (- (* (numer x) (denom y))
-               (* (numer y) (denom x)))
-            (* (denom x) (denom y))))
+  (make-rat (g/sub
+             (g/mul (numer x) (denom y))
+             (g/mul (numer y) (denom x)))
+            (g/mul (denom x) (denom y))))
 
 (defn- mul-rat
   [x y]
-  (make-rat (* (numer x) (numer y))
-            (* (denom x) (denom y))))
+  (make-rat (g/mul (numer x) (numer y))
+            (g/mul (denom x) (denom y))))
 
 (defn- div-rat
   [x y]
-  (make-rat (* (numer x) (denom y))
-            (* (denom x) (numer y))))
+  (make-rat (g/mul (numer x) (denom y))
+            (g/mul (denom x) (numer y))))
 
 (defn equal?
   [x y]
-  (and (= (numer x) (numer y))
-       (= (denom x) (denom y))))
+  (and (g/equal? (numer x) (numer y))
+       (g/equal? (denom x) (denom y))))
 
-(defn- =zero?
+(defn- =zero-rat?
   [x]
-  (and (= (numer x) 0) (not (= (denom x) 0))))
+  (g/=zero? (numer x) 0))
 
 (defn tag
   [x]
@@ -81,12 +84,10 @@
 
 (table/putt 'equal? '(rational rational) equal?)
 
-(table/putt '=zero? '(rational) =zero?)
+(table/putt '=zero? '(rational) =zero-rat?)
 
 (table/putt 'negate '(rational) negate)
 
-(defn make-rational-number
+(defn make-rational
   [n d]
   ((table/gett 'make 'rational) n d))
-
-

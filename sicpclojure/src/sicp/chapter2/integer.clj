@@ -10,7 +10,7 @@
 
 (defn integer->rational
   [n]
-  (rat/make-rational-number n 1))
+  (rat/make-rational n 1))
 
 (table/putt 'add '(integer integer)
        #(tag (+ %1 %2)))
@@ -21,7 +21,7 @@
             #(tag (* %1 %2)))
 
 (table/putt 'div '(integer integer)
-            #(rat/make-rational-number %1 %2))
+            #(rat/make-rational %1 %2))
 
 (table/putt 'equal? '(integer integer)
             #(= %1 %2))
@@ -44,4 +44,3 @@
 (defn make-integer
   [n]
   ((table/gett 'make 'integer) n))
-

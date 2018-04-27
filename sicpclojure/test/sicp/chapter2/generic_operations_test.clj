@@ -12,9 +12,9 @@
               (int/make-integer 3))
          (int/make-integer 5)))
 
-  (is (= (add (rat/make-rational-number 2 3)
-              (rat/make-rational-number 11 3))
-         (rat/make-rational-number 13 3))))
+  (is (= (add (rat/make-rational 2 3)
+              (rat/make-rational 11 3))
+         (rat/make-rational 39 9))))
 
 (deftest test-mul
   (is (= (mul (real/make-real 2/3)
