@@ -8,7 +8,7 @@
 
 (trace/trace-ns 'sicp.chapter2.polynomial)
 
-(defn- variable?
+(defn variable?
   [v]
   (symbol? v))
 
@@ -22,7 +22,8 @@
 
 (defn make-poly
   [var term-list]
-  (conj term-list var))
+  ;(conj term-list var))
+  (list var term-list))
 
 (defn- make-from-coeffs
   [variable coeffs]
@@ -108,7 +109,6 @@
 ;    (if (is-lower? constant 'complex)
 ;      (raise-to 'complex constant)
 ;     constant)))
-
 
 (table/putt 'add '(polynomial polynomial)
             #(tag (add-poly %1 %2)))

@@ -4,7 +4,8 @@
   (:use sicp.chapter2.tag)
   (:use sicp.chapter2.rational)
   (:require [sicp.chapter2.real :as real]
-            [sicp.chapter2.polynomial :as p]))
+            [sicp.chapter2.polynomial :as p]
+            [sicp.chapter2.generic-term :as t]))
 
 (deftest test-numer
   (is (= (numer (make-rational 2 3)) 2)))
@@ -23,8 +24,3 @@
   (is (equal?
        (negate (make-rational 2 3))
        (make-rational -2 3))))
-
-
-(def p1 (p/make-polynomial 'x '((2 1)(0 1))))
-(def p2 (p/make-polynomial 'x '((3 1)(0 1))))
-(def rf (make-rational p2 p1))

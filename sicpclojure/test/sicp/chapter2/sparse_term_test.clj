@@ -6,8 +6,8 @@
   (:require [sicp.chapter2.table :as table]))
 
 ;; test data
-(def t1 (make-term 2 5))
-(def t2 (make-term 7 3))
+(def t1 '(2 5))
+(def t2 '(7 3))
 
 (def adjoin (table/gett 'adjoin-term '(term sparse-terms)))
 (def equal? (table/gett 'equal? '(sparse-terms sparse-terms)))
@@ -18,7 +18,6 @@
           ((table/gett 'make-from-terms 'sparse-terms)
            (list t1 t2)))
          'sparse-terms)))
-
 
 (deftest test-sparse-terms-from-coeffs
   ;; test that the result comes back tagged correctly
@@ -31,4 +30,5 @@
 (deftest test-adjoin-term
   (is (equal? (adjoin t1 '()) (list t1))))
 
-(def div-terms #'sicp.chapter2.sparse-term/div-terms)
+((table/gett 'coeff '(term)) t1) ;; it works its the apply generic 
+

@@ -3,6 +3,8 @@
             [sicp.chapter2.table :as table]
             [clojure.tools.trace :as trace]))
 
+(trace/trace-ns 'sicp.chapter2.apply-generic-with-coercion)
+
 (defn not-nil?
   [x]
   (not (nil? x)))

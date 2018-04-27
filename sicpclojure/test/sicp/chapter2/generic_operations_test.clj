@@ -5,7 +5,9 @@
   (:require [sicp.chapter2.integer :as int]
             [sicp.chapter2.real :as real]
             [sicp.chapter2.rational :as rat]
-            [sicp.chapter2.complex :as c]))
+            [sicp.chapter2.complex :as c]
+            [sicp.chapter2.polynomial :as p]
+            [sicp.chapter2.generic-term :as t]))
 
 (deftest test-add
   (is (= (add (int/make-integer 2)
@@ -28,3 +30,8 @@
 (deftest test-negate
   (is (= (negate (real/make-real 2.12)) (real/make-real (- 2.12)))))
 
+;(def p1 (p/make-polynomial 'x '((t/make-term 2 1) (t/make-term 4 1))))
+;(def p2 (p/make-polynomial 'x '((t/make-term 3 1) (t/make-term 9 1))))
+;(def rf (rat/make-rational p2 p1))
+
+;(add rf rf)
