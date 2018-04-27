@@ -30,8 +30,8 @@
 (deftest test-negate
   (is (= (negate (real/make-real 2.12)) (real/make-real (- 2.12)))))
 
-;(def p1 (p/make-polynomial 'x '((t/make-term 2 1) (t/make-term 4 1))))
-;(def p2 (p/make-polynomial 'x '((t/make-term 3 1) (t/make-term 9 1))))
-;(def rf (rat/make-rational p2 p1))
+(def p1 (p/make-polynomial 'x '((2 1) (4 1))))
+(def p2 (p/make-polynomial 'x '((3 1) (9 1))))
+(def rf (rat/make-rational p2 p1))
 
 ;(add rf rf)

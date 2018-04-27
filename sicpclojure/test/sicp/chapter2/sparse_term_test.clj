@@ -26,9 +26,7 @@
            '(2 5)))
          'sparse-terms)))
 
-;; test adjoin-term (privately :))
 (deftest test-adjoin-term
   (is (equal? (adjoin t1 '()) (list t1))))
 
-((table/gett 'coeff '(term)) t1) ;; it works its the apply generic 
 

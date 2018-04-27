@@ -6,7 +6,7 @@
             [sicp.chapter2.apply-generic-with-coercion :as agc])) ;; not sure, maybe better to use _with_raise ?
 (trace/trace-ns 'sicp.chapter2.generic-term)
 
-(defn- coeff-term
+(defn coeff-term
   [term]
   (second term))
 
@@ -14,7 +14,7 @@
   [order coeff]
   (list order coeff))
 
-(defn- order-term
+(defn order-term
   [term]
   (first term))
 

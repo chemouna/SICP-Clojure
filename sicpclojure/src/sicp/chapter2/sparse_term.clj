@@ -10,12 +10,11 @@
 
 (defn- adjoin-term
   [term term-list]
-  (if (=zero? (coeff term))
+  (if (=zero? (coeff-term term))
     term-list
     (conj term-list term)))
 
 (def the-empty-termlist '())
-
 (defn- first-term
   [term-list]
   (first term-list))
